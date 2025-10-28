@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+¿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -142,6 +142,17 @@
       background-color: #cbd5e0;
       transform: translateY(-2px);
     }
+
+    .boton-volver {
+      background-color: #e2e8f0;
+      color: #4a5568;
+      margin-top: 1rem;
+    }
+    
+    .boton-volver:hover {
+      background-color: #cbd5e0;
+      transform: translateY(-2px);
+    }
     
     /* Estilos para los resultados */
     .resultado-busqueda {
@@ -222,6 +233,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      text-decoration: none;
     }
     
     .boton-editar {
@@ -414,11 +426,11 @@
         <li><a href="Explora.html">Explora</a></li>
         <li><a href="#">Compras</a></li>
         <li><a href="#">Perfil</a></li>
-        <li><a class="activo" href="ConsultarProducto.html">Consultar Producto</a></li>
+        <li><a href="PanelAdministrador.html">Gestión Productos</a></li>
       </ul>
       <div class="botones" id="botonesAuth">
-        <button class="btn-borde" onclick="location.href='login.html'">Iniciar sesión</button>
-        <button class="btn-principal" onclick="location.href='registro.html'">Registrarse</button>
+        <button class="btn-borde" onclick="location.href='Login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='Registro.html'">Registrarse</button>
       </div>
     </div>
   </header>
@@ -448,6 +460,9 @@
           </div>
           
           <button type="button" class="boton-formulario boton-principal" onclick="buscarProducto()">Buscar Producto</button>
+          <button type="button" class="boton-formulario boton-volver" onclick="location.href='PanelAdministrador.html'">
+            ← Volver a Gestión
+          </button>
         </form>
 
         <!-- Resultados de la búsqueda -->
@@ -478,9 +493,9 @@
       <div>
         <h4>Enlaces rápidos</h4>
         <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Servicios</a></li>
-          <li><a href="#">Acerca de</a></li>
+          <li><a href="Index.html">Inicio</a></li>
+          <li><a href="Explora.html">Servicios</a></li>
+          <li><a href="AcercaDeNosotros.html">Acerca de</a></li>
         </ul>
       </div>
       <div>
@@ -606,12 +621,12 @@
             <div class="valor">${productoEncontrado.descripcion}</div>
           </div>
           <div class="acciones-resultado">
-            <button class="boton-accion boton-editar" onclick="editarProducto('${productoEncontrado.id}')">
-              <span>✏️</span> Editar Producto
-            </button>
-            <button class="boton-accion boton-eliminar" onclick="eliminarProducto('${productoEncontrado.id}')">
+            <a href="ActualizarProducto.html?id=${productoEncontrado.id}" class="boton-accion boton-editar">
+              <span>✏️</span> Actualizar Producto
+            </a>
+            <a href="EliminarProducto.html?id=${productoEncontrado.id}" class="boton-accion boton-eliminar">
               <span>🗑️</span> Eliminar Producto
-            </button>
+            </a>
           </div>
         `;
         
@@ -621,18 +636,6 @@
         // Mostrar mensaje de no encontrado
         resultadoDiv.style.display = 'none';
         sinResultados.style.display = 'block';
-      }
-    }
-    
-    function editarProducto(id) {
-      alert(`Redirigiendo a editar producto ${id}`);
-      // En una aplicación real: location.href = `editar-producto.html?id=${id}`;
-    }
-    
-    function eliminarProducto(id) {
-      if (confirm(`¿Estás seguro de que deseas eliminar el producto ${id}?`)) {
-        alert(`Producto ${id} eliminado (simulación)`);
-        // En una aplicación real: llamada a API para eliminar
       }
     }
     

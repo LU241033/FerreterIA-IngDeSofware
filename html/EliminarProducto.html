@@ -132,6 +132,17 @@
     .boton-peligro:active {
       transform: translateY(0);
     }
+
+    .boton-volver {
+      background-color: #e2e8f0;
+      color: #4a5568;
+      margin-top: 1rem;
+    }
+    
+    .boton-volver:hover {
+      background-color: #cbd5e0;
+      transform: translateY(-2px);
+    }
     
     .alerta-eliminacion {
       background-color: #fff5f5;
@@ -301,11 +312,11 @@
         <li><a href="Explora.html">Explora</a></li>
         <li><a href="#">Compras</a></li>
         <li><a href="#">Perfil</a></li>
-        <li><a class="activo" href="EliminarProducto.html">Eliminar Producto</a></li>
+        <li><a href="PanelAdministrador.html">Gestión Productos</a></li>
       </ul>
       <div class="botones" id="botonesAuth">
-        <button class="btn-borde" onclick="location.href='login.html'">Iniciar sesión</button>
-        <button class="btn-principal" onclick="location.href='registro.html'">Registrarse</button>
+        <button class="btn-borde" onclick="location.href='Login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='Registro.html'">Registrarse</button>
       </div>
     </div>
   </header>
@@ -330,6 +341,9 @@
           </div>
           
           <button type="submit" class="boton-formulario boton-peligro">Eliminar Producto</button>
+          <button type="button" class="boton-formulario boton-volver" onclick="location.href='PanelAdministrador.html'">
+            ← Volver a Gestión
+          </button>
         </form>
       </div>
     </div>
@@ -344,9 +358,9 @@
       <div>
         <h4>Enlaces rápidos</h4>
         <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Servicios</a></li>
-          <li><a href="#">Acerca de</a></li>
+          <li><a href="Index.html">Inicio</a></li>
+          <li><a href="Explora.html">Servicios</a></li>
+          <li><a href="AcercaDeNosotros.html">Acerca de</a></li>
         </ul>
       </div>
       <div>
