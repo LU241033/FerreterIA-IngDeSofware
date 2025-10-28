@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/Login.css">
+  <title>Iniciar Sesión | FerreterIA</title>
+</head>
+<body class="login-page">
+
+  <div class="contenedor">
+    <h2>Iniciar Sesión</h2>
+    <p>Accede a tu cuenta de FerreterIA</p>
+    
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Correo electrónico" required>
+      <input type="password" id="password" placeholder="Contraseña" required>
+      
+      <button type="submit">Ingresar</button>
+    </form>
+    
+    <p style="margin-top: 15px;">
+      ¿No tienes cuenta? <a href="registro.html" style="color: #003366;">Regístrate aquí</a>
+    </p>
+    <p>
+      <a href="../index.html" style="color: #003366;">← Volver al inicio</a>
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      // Simulación de login exitoso
+      const usuarioActivo = {
+        usuario: email.split('@')[0],
+        email: email
+      };
+      
+      localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
+      alert('¡Inicio de sesión exitoso!');
+      window.location.href = '../index.html';
+    });
+  </script>
+
+</body>
+</html>
