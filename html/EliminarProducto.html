@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/acerca.css">
+  <link rel="shortcut icon" href="../Img/Logo.png" type="image/x-icon">
+  <title>Eliminar Producto | FerreterIA</title>
+  <style>
+    /* Estilos mejorados para el formulario */
+    body {
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .seccion-principal {
+      min-height: calc(100vh - 160px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      box-sizing: border-box;
+    }
+    
+    .contenido-principal {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .encabezado-formulario {
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+    
+    .encabezado-formulario h2 {
+      margin-bottom: 0.5rem;
+      color: #2d3748;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    .encabezado-formulario p {
+      color: #718096;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    
+    .formulario-contenedor {
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      padding: 2.5rem;
+      width: 100%;
+      text-align: left;
+      box-sizing: border-box;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .grupo-formulario {
+      margin-bottom: 1.75rem;
+      position: relative;
+    }
+    
+    .grupo-formulario label {
+      display: block;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+      color: #4a5568;
+      font-size: 0.95rem;
+    }
+    
+    .grupo-formulario input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      background-color: #f9fafb;
+    }
+    
+    .grupo-formulario input:focus {
+      outline: none;
+      border-color: #ff4d4d;
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.15);
+    }
+    
+    .grupo-formulario input::placeholder {
+      color: #a0aec0;
+    }
+    
+    .icono-input {
+      position: absolute;
+      right: 1rem;
+      top: 2.6rem;
+      color: #a0aec0;
+      font-size: 1.1rem;
+    }
+    
+    .boton-formulario {
+      width: 100%;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 0.5rem;
+      letter-spacing: 0.5px;
+    }
+    
+    .boton-peligro {
+      background-color: #ff4d4d;
+      color: white;
+    }
+    
+    .boton-peligro:hover {
+      background-color: #e04444;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 77, 77, 0.3);
+    }
+    
+    .boton-peligro:active {
+      transform: translateY(0);
+    }
+    
+    .alerta-eliminacion {
+      background-color: #fff5f5;
+      border: 1px solid #fed7d7;
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1.75rem;
+      text-align: center;
+    }
+    
+    .alerta-eliminacion p {
+      margin: 0;
+      color: #c53030;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    /* Estilos para la barra de navegación */
+    .barra-navegacion {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 1rem 0;
+    }
+    
+    .contenedor {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1.5rem;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2d3748;
+    }
+    
+    .enlaces {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    .enlaces a {
+      text-decoration: none;
+      color: #4a5568;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .enlaces a:hover, .enlaces a.activo {
+      color: #4a6cf7;
+    }
+    
+    .botones {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .btn-borde, .btn-principal {
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 1.5px solid #4a6cf7;
+    }
+    
+    .btn-borde {
+      background-color: transparent;
+      color: #4a6cf7;
+    }
+    
+    .btn-borde:hover {
+      background-color: #f0f4ff;
+    }
+    
+    .btn-principal {
+      background-color: #4a6cf7;
+      color: white;
+      border: none;
+    }
+    
+    .btn-principal:hover {
+      background-color: #3a5ce5;
+    }
+    
+    /* Estilos para el pie de página */
+    .pie-pagina {
+      background-color: #2d3748;
+      color: #e2e8f0;
+      padding: 2.5rem 0 1rem;
+    }
+    
+    .contenedor-pie {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      padding: 0 1.5rem;
+    }
+    
+    .contenedor-pie h4 {
+      color: #ffffff;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .contenedor-pie ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .contenedor-pie ul li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .contenedor-pie a {
+      color: #cbd5e0;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .contenedor-pie a:hover {
+      color: #ffffff;
+    }
+    
+    .copy {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #4a5568;
+      color: #a0aec0;
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .contenedor {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .enlaces {
+        gap: 1rem;
+      }
+      
+      .formulario-contenedor {
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="barra-navegacion">
+    <div class="contenedor">
+      <div class="logo">FerreterIA</div>
+      <ul class="enlaces">
+        <li><a href="Index.html">Inicio</a></li>
+        <li><a href="#">Explora</a></li>
+        <li><a href="#">Compras</a></li>
+        <li><a href="#">Perfil</a></li>
+        <li><a class="activo" href="#">Eliminar Producto</a></li>
+      </ul>
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='registro.html'">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="seccion-principal">
+    <div class="contenido-principal">
+      <div class="encabezado-formulario">
+        <h2>Eliminar Producto 🗑️</h2>
+        <p>Busca el producto que deseas eliminar del inventario.</p>
+      </div>
+
+      <div class="formulario-contenedor">
+        <div class="alerta-eliminacion">
+          <p>⚠️ Esta acción no se puede deshacer. El producto se eliminará permanentemente.</p>
+        </div>
+        
+        <form>
+          <div class="grupo-formulario">
+            <label for="buscar-producto">ID o nombre del producto:</label>
+            <input type="text" id="buscar-producto" placeholder="Ej. Martillo o 12345" required>
+            <span class="icono-input">🔍</span>
+          </div>
+          
+          <button type="submit" class="boton-formulario boton-peligro">Eliminar Producto</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pie-pagina">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Servicios</a></li>
+          <li><a href="#">Acerca de</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li>Gestión de productos</li>
+          <li>Reportes</li>
+          <li>Control de inventario</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+</html>
