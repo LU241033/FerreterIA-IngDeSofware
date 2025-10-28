@@ -16,7 +16,7 @@
 
       <ul class="enlaces">
         <li><a href="Index.html">Inicio</a></li>
-        <li><a href="#">Explora</a></li>
+        <li><a href="Explora.html">Explora</a></li>
         <li><a href="#">Compras</a></li>
         <li><a href="#">Perfil</a></li>
         <li><a href="AcercaDeNosotros.html">Acerca de nosotros</a></li>
@@ -108,15 +108,15 @@
         <h3>Experiencias de nuestros clientes 🔩</h3>
         <div class="tarjetas-experiencias">
           <div class="tarjeta">
-            <p>“Gracias a <strong>FerreterIA</strong> puedo controlar el inventario de mi tienda en segundos.”</p>
+            <p>"Gracias a <strong>FerreterIA</strong> puedo controlar el inventario de mi tienda en segundos."</p>
             <span>– Carlos M.</span>
           </div>
           <div class="tarjeta">
-            <p>“Una herramienta completa y fácil de usar. ¡Me ahorra horas cada semana!”</p>
+            <p>"Una herramienta completa y fácil de usar. ¡Me ahorra horas cada semana!"</p>
             <span>– Ana G.</span>
           </div>
           <div class="tarjeta">
-            <p>“Excelente atención al cliente y constantes mejoras en el sistema.”</p>
+            <p>"Excelente atención al cliente y constantes mejoras en el sistema."</p>
             <span>– Jorge P.</span>
           </div>
         </div>
@@ -135,7 +135,7 @@
         <h4>Enlaces rápidos</h4>
         <ul>
           <li><a href="Index.html">Inicio</a></li>
-          <li><a href="#">Servicios</a></li>
+          <li><a href="Explora.html">Servicios</a></li>
           <li><a href="AcercaDeNosotros.html">Acerca de</a></li>
         </ul>
       </div>
@@ -167,6 +167,21 @@
           <button class="btn-borde" onclick="cerrarSesion()">Cerrar sesión</button>
         `;
       }
+
+      // Manejo del formulario de registro
+      document.getElementById("formRegistro").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const password = document.getElementById("password").value;
+        const confirmar = document.getElementById("confirmar").value;
+        
+        if (password !== confirmar) {
+          alert("Las contraseñas no coinciden");
+          return;
+        }
+        
+        alert("Cuenta creada exitosamente. Redirigiendo al login...");
+        location.href = "Login.html";
+      });
     });
 
     function cerrarSesion() {
@@ -174,6 +189,47 @@
       location.reload();
     }
   </script>
+
+  <style>
+    .registro-experiencias {
+      flex: 1;
+      max-width: 400px;
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .registro-experiencias h3 {
+      color: #0a347c;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .tarjetas-experiencias {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .tarjeta {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 10px;
+      border-left: 4px solid #007bff;
+    }
+
+    .tarjeta p {
+      margin: 0 0 0.5rem 0;
+      color: #333;
+      font-style: italic;
+    }
+
+    .tarjeta span {
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
 
 </body>
 </html>

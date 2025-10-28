@@ -219,3 +219,64 @@ body {
   cursor: pointer;
   font-weight: bold;
 }
+/* ===== Estilo del área de experiencias en el registro ===== */
+.registro-experiencias {
+  flex: 1;
+  padding: 2rem;
+  background: #f8f8f8;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  margin-left: 2rem;
+  color: #000;
+}
+
+.registro-experiencias h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+  color: #111;
+  text-align: center;
+}
+
+.tarjetas-experiencias {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.tarjeta {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tarjeta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.tarjeta p {
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+
+.tarjeta span {
+  font-size: 0.9rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* Pie de página */
+.footer {
+  background-color: #002b5b;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.footer-contenido p {
+  margin: 0;
+  font-size: 0.9rem;
+}

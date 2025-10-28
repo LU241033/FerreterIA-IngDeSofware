@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Iniciar Sesión | FerreterIA</title>
-  <link rel="stylesheet" href="../css/acerca.css"> <!-- Usa el mismo estilo -->
+  <link rel="stylesheet" href="../css/acerca.css">
   <link rel="shortcut icon" href="../Img/Logo.png" type="image/x-icon">
 </head>
 <body>
@@ -23,8 +23,8 @@
       </ul>
 
       <div class="botones" id="botonesAuth">
-        <button class="btn-borde" onclick="location.href='login.html'">Iniciar sesión</button>
-        <button class="btn-principal" onclick="location.href='registro.html'">Registrarse</button>
+        <button class="btn-borde" onclick="location.href='Login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='Registro.html'">Registrarse</button>
       </div>
     </div>
   </header>
@@ -47,7 +47,7 @@
 
       <p class="texto-secundario">
         ¿No tienes cuenta?
-        <a href="registro.html">Regístrate aquí</a>
+        <a href="Registro.html">Regístrate aquí</a>
       </p>
     </div>
 
@@ -71,9 +71,9 @@
       <div>
         <h4>Enlaces rápidos</h4>
         <ul>
-          <li><a href="/html/index.html">Inicio</a></li>
-          <li><a href="#">Explora</a></li>
-          <li><a href="/html/acerca.html">Acerca de</a></li>
+          <li><a href="Index.html">Inicio</a></li>
+          <li><a href="Explora.html">Explora</a></li>
+          <li><a href="AcercaDeNosotros.html">Acerca de</a></li>
         </ul>
       </div>
       <div>
@@ -110,12 +110,12 @@
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
-        // Simulación de inicio de sesión (puedes reemplazar por tu backend real)
+        // Simulación de inicio de sesión
         if (email && password) {
           const usuario = { usuario: email.split("@")[0], email };
           localStorage.setItem("usuarioActivo", JSON.stringify(usuario));
           alert("Inicio de sesión exitoso");
-          location.href = "/html/index.html";
+          location.href = "PanelAdministrador.html";
         } else {
           alert("Por favor completa todos los campos.");
         }
