@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/Login.css">
+  <title>Registrarse | FerreterIA</title>
+</head>
+<body class="registro-page">
+
+  <div class="contenedor">
+    <h2>Crear Cuenta</h2>
+    <p>Únete a FerreterIA y optimiza tu negocio</p>
+    
+    <form id="registroForm">
+      <input type="text" id="nombre" placeholder="Nombre completo" required>
+      <input type="email" id="email" placeholder="Correo electrónico" required>
+      <input type="tel" id="telefono" placeholder="Teléfono">
+      <select id="tipoNegocio" required>
+        <option value="">Tipo de negocio</option>
+        <option value="ferreteria">Ferretería</option>
+        <option value="constructor">Constructor</option>
+        <option value="distribuidor">Distribuidor</option>
+      </select>
+      <input type="password" id="password" placeholder="Contraseña" required>
+      <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
+      
+      <button type="submit">Registrarse</button>
+    </form>
+    
+    <p style="margin-top: 15px;">
+      ¿Ya tienes cuenta? <a href="login.html" style="color: #003366;">Inicia sesión aquí</a>
+    </p>
+    <p>
+      <a href="../index.html" style="color: #003366;">← Volver al inicio</a>
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('registroForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      
+      if (password !== confirmPassword) {
+        alert('Las contraseñas no coinciden');
+        return;
+      }
+      
+      // Simulación de registro exitoso
+      const usuarioActivo = {
+        usuario: document.getElementById('nombre').value,
+        email: document.getElementById('email').value,
+        tipoNegocio: document.getElementById('tipoNegocio').value
+      };
+      
+      localStorage.setItem('usuarioActivo', JSON.stringify(usuarioActivo));
+      alert('¡Registro exitoso!');
+      window.location.href = '../index.html';
+    });
+  </script>
+
+</body>
+</html>
