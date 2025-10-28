@@ -4,242 +4,124 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FerreterIA</title>
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    .hero-section {
-      background: #003366;
-      color: white;
-      padding: 120px 0 80px;
-      text-align: center;
-    }
-    
-    .hero-content {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    
-    .hero-content h1 {
-      font-size: 3em;
-      margin-bottom: 30px;
-    }
-    
-    .hero-content p {
-      font-size: 1.2em;
-      line-height: 1.8;
-      margin-bottom: 40px;
-      color: #dbe6ff;
-    }
-    
-    .btn-hero {
-      background: white;
-      color: #003366;
-      border: none;
-      padding: 15px 40px;
-      border-radius: 8px;
-      font-size: 1.1em;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    
-    .features {
-      padding: 80px 20px;
-      text-align: center;
-    }
-    
-    .features h2 {
-      color: #003366;
-      margin-bottom: 20px;
-      font-size: 2em;
-    }
-    
-    .features > p {
-      color: #666;
-      margin-bottom: 50px;
-      font-size: 1.1em;
-    }
-    
-    .feature-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .feature-card {
-      background: white;
-      padding: 40px 30px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    
-    .feature-card h3 {
-      color: #003366;
-      margin-bottom: 15px;
-      font-size: 1.3em;
-    }
-    
-    .cta-section {
-      background: #003366;
-      color: white;
-      padding: 80px 20px;
-      text-align: center;
-    }
-    
-    .cta-content {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
-    .cta-content h2 {
-      margin-bottom: 20px;
-      font-size: 2em;
-    }
-    
-    .btn-cta {
-      background: transparent;
-      border: 2px solid white;
-      color: white;
-      padding: 12px 30px;
-      border-radius: 6px;
-      font-size: 1em;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1.5fr;
-      gap: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .footer-links ul {
-      list-style: none;
-    }
-    
-    .footer-links li {
-      margin-bottom: 8px;
-    }
-    
-    .footer-bottom {
-      text-align: center;
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 1px solid #333;
-    }
-    
-    .footer-links a {
-      color: #ccc;
-      text-decoration: none;
-    }
-    
-    .footer-links a:hover {
-      color: white;
-    }
-  </style>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="shortcut icon" href="../Img/Logo.png" type="image/x-icon">
 </head>
+
 <body>
 
-  <!-- Barra de Navegación -->
+  
+  <!-- ENCABEZADO / NAVBAR -->
   <header class="barra-navegacion">
     <div class="contenedor">
-      <div class="logo">FerreterIA</div>
-      <ul class="enlaces">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#">Explora</a></li>
-        <li><a href="#">Compras</a></li>
-        <li><a href="#">Perfil</a></li>
-        <li><a href="html/acercaDeNosotros.html">Acerca de nosotros</a></li>
-      </ul>
-      <div class="botones">
-        <button class="btn-borde" onclick="location.href='html/login.html'">Log In</button>
-        <button class="btn-principal" onclick="location.href='html/registro.html'">Sign Up</button>
+      <h1 class="logo">FerreterIA</h1>
+      <nav class="menu">
+        <ul class="enlaces">
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Explorar</a></li>
+          <li><a href="#">Compras</a></li>
+          <li><a href="#">Perfil</a></li>
+          <li><a href="AcercaDeNosotros.html">Acerca de nosotros</a></li>
+        </ul>
+      </nav>
+
+      <!-- 🔹 Aquí se actualizarán los botones según la sesión -->
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='html/login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='html/registro.html'">Registrarse</button>
       </div>
     </div>
   </header>
 
-  <!-- Sección Hero -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <h1>FerreterIA</h1>
-      <p>Nuestro sistema te permite gestionar stock, registrar productos, y tener reportes sobre tus ventas y optimizar tus productos en tiempo real. ¡Simplifica la administración de tu negocio y aumenta tu productividad!</p>
-      <button class="btn-hero" onclick="location.href='html/registro.html'">Comienza ya</button>
+  <!-- SECCIÓN PRINCIPAL -->
+  <section class="seccion-principal">
+    <div class="contenido-principal">
+      <div class="texto">
+        <h2>FerreterIA</h2>
+        <p>
+          Nuestro sistema te permite gestionar stock, registrar productos y obtener
+          reportes de tus ventas para optimizar tus resultados en tiempo real. 
+          ¡Simplifica la administración de tu negocio!
+        </p>
+        <button class="btn-claro">Comienza ahora</button>
+      </div>
+      <div class="imagen">
+        <img src="Img/desconocidoHeader.jpg" alt="Ferretería">
+      </div>
     </div>
   </section>
 
-  <!-- Sección de Funciones -->
-  <section class="features">
+  <!-- SECCIÓN DE FUNCIONES -->
+  <section class="funciones">
     <h2>Funciones que Facilitan la Gestión de tu Ferretería</h2>
-    <p>Nuestras herramientas están diseñadas para simplificar la administración de tus productos y ayudarte a optimizar cada proceso de tu negocio.</p>
-    
-    <div class="feature-cards">
-      <div class="feature-card">
-        <h3>Gestión Rápida de Productos</h3>
-        <p>Registra, consulta, actualiza o elimina productos en segundos. Mantén tu inventario siempre al día con un solo clic.</p>
+    <div class="tarjetas">
+      <div class="tarjeta">
+        <h3>Gestión rápida de productos</h3>
+        <p>Registra, consulta, actualiza o elimina productos en segundos. Mantén tu inventario al día con un solo clic.</p>
       </div>
-      <div class="feature-card">
-        <h3>Control de Stock Automático</h3>
+      <div class="tarjeta">
+        <h3>Control de inventario automático</h3>
         <p>Supervisa las existencias fácilmente y recibe alertas cuando los productos estén por agotarse.</p>
       </div>
-      <div class="feature-card">
-        <h3>Reportes y Estadísticas</h3>
+      <div class="tarjeta">
+        <h3>Reportes y estadísticas</h3>
         <p>Obtén reportes claros sobre ventas, productos más vendidos y niveles de stock para tomar mejores decisiones.</p>
       </div>
     </div>
   </section>
 
-  <!-- Llamado a la acción -->
-  <section class="cta-section">
-    <div class="cta-content">
-      <h2>Únete a cientos de ferreterías que ya han transformado su gestión con nuestro sistema.</h2>
-      <p>Optimiza tus procesos, controla tu inventario y lleva tu negocio al siguiente nivel con nuestra plataforma integral.</p>
-      <button class="btn-cta" onclick="location.href='html/registro.html'">Crea tu cuenta</button>
-    </div>
-  </section>
+  <!-- LLAMADO A LA ACCIÓN -->
+ 
 
-  <!-- Pie de página -->
+  <!-- PIE DE PÁGINA -->
   <footer class="pie-pagina">
-    <div class="footer-grid">
+    <div class="contenedor-pie">
       <div>
         <h4>FerreterIA</h4>
-        <p>Tu socio de confianza para soluciones seguras y eficientes. Accede a tus finanzas en cualquier momento y lugar.</p>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
       </div>
-      <div class="footer-links">
+      <div>
         <h4>Enlaces rápidos</h4>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="#">Explora</a></li>
-          <li><a href="#">Perfil</a></li>
-          <li><a href="#">Compras</a></li>
-          <li><a href="html/acercaDeNosotros.html">Acerca de nosotros</a></li>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Servicios</a></li>
+          <li><a href="#">Acerca de</a></li>
         </ul>
       </div>
-      <div class="footer-links">
-        <h4>Nuestros Servicios</h4>
+      <div>
+        <h4>Servicios</h4>
         <ul>
-          <li>Agregar productos</li>
-          <li>Eliminar productos</li>
-          <li>Consultar productos</li>
-          <li>Actualizar producto</li>
-          <li>Gestionar stock</li>
+          <li>Gestión de productos</li>
+          <li>Reportes</li>
+          <li>Control de inventario</li>
         </ul>
       </div>
       <div>
         <h4>Contáctanos</h4>
-        <p>123 Banking Street, Financial District, New York, NY 10001<br>
-        1-800-BANCO-24<br>
-        support@banco.com<br>
-        Mon-Fri: 9AM-5PM EST</p>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 FerreterIA. All rights reserved.</p>
-      <p>Privacy Policy | Terms of Service | Cookie Policy | Accessibility</p>
-    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
   </footer>
 
+  <!-- 🔹 SCRIPT DE CONTROL DE SESIÓN -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+      const botonesDiv = document.getElementById("botonesAuth");
+
+      if (usuarioActivo) {
+        botonesDiv.innerHTML = `
+          <span style="color:white; margin-right:10px;">Hola, ${usuarioActivo.usuario}</span>
+          <button class="btn-borde" onclick="cerrarSesion()">Cerrar sesión</button>
+        `;
+      }
+    });
+
+    function cerrarSesion() {
+      localStorage.removeItem("usuarioActivo");
+      location.reload();
+    }
+  </script>
 </body>
 </html>

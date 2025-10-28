@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión | FerreterIA</title>
+  <link rel="stylesheet" href="../css/acerca.css"> <!-- Usa el mismo estilo -->
+  <link rel="shortcut icon" href="../Img/Logo.png" type="image/x-icon">
+</head>
+<body>
+
+  <!-- ===== BARRA DE NAVEGACIÓN ===== -->
+  <header class="barra-navegacion">
+    <div class="contenedor">
+      <div class="logo">FerreterIA</div>
+
+      <ul class="enlaces">
+        <li><a href="Index.html">Inicio</a></li>
+        <li><a href="#">Explora</a></li>
+        <li><a href="#">Compras</a></li>
+        <li><a href="#">Perfil</a></li>
+        <li><a href="AcercaDeNosotros.html">Acerca de nosotros</a></li>
+      </ul>
+
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='registro.html'">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SECCIÓN DE LOGIN ===== -->
+  <main class="contenedor-login">
+    <div class="tarjeta-login">
+      <h2>Inicia sesión</h2>
+      <p>Accede a tu cuenta para administrar tus productos y ventas.</p>
+
+      <form id="formLogin">
+        <label for="email">Email*</label>
+        <input type="email" id="email" placeholder="Ingresa tu correo electrónico" required>
+
+        <label for="password">Contraseña*</label>
+        <input type="password" id="password" placeholder="Escribe tu contraseña" required>
+
+        <button type="submit" class="btn-principal">Ingresar</button>
+      </form>
+
+      <p class="texto-secundario">
+        ¿No tienes cuenta?
+        <a href="registro.html">Regístrate aquí</a>
+      </p>
+    </div>
+
+    <div class="tarjeta-info">
+      <h3>¿Por qué usar FerreterIA?</h3>
+      <ul>
+        <li>✔️ Accede a tus datos desde cualquier dispositivo</li>
+        <li>⚙️ Gestiona productos y ventas fácilmente</li>
+        <li>📊 Visualiza reportes y mejora tu negocio</li>
+      </ul>
+    </div>
+  </main>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie-pagina">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="/html/index.html">Inicio</a></li>
+          <li><a href="#">Explora</a></li>
+          <li><a href="/html/acerca.html">Acerca de</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Nuestros Servicios</h4>
+        <ul>
+          <li>Gestión de productos</li>
+          <li>Reportes</li>
+          <li>Control de inventario</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- ===== SCRIPT DE CONTROL DE SESIÓN ===== -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+      const botonesDiv = document.getElementById("botonesAuth");
+
+      if (usuarioActivo) {
+        botonesDiv.innerHTML = `
+          <span style="color:white; margin-right:10px;">Hola, ${usuarioActivo.usuario}</span>
+          <button class="btn-borde" onclick="cerrarSesion()">Cerrar sesión</button>
+        `;
+      }
+
+      document.getElementById("formLogin").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        // Simulación de inicio de sesión (puedes reemplazar por tu backend real)
+        if (email && password) {
+          const usuario = { usuario: email.split("@")[0], email };
+          localStorage.setItem("usuarioActivo", JSON.stringify(usuario));
+          alert("Inicio de sesión exitoso");
+          location.href = "/html/index.html";
+        } else {
+          alert("Por favor completa todos los campos.");
+        }
+      });
+    });
+
+    function cerrarSesion() {
+      localStorage.removeItem("usuarioActivo");
+      location.reload();
+    }
+  </script>
+
+  <!-- ===== ESTILOS ADICIONALES ===== -->
+  <style>
+    body {
+      background-color: #e9f1ff;
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .contenedor-login {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 80px 20px;
+      flex-wrap: wrap;
+    }
+
+    .tarjeta-login, .tarjeta-info {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 400px;
+    }
+
+    .tarjeta-login h2 {
+      color: #0a347c;
+      margin-bottom: 10px;
+    }
+
+    .tarjeta-login p {
+      color: #333;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+    }
+
+    .btn-principal {
+      background-color: #0a347c;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-principal:hover {
+      background-color: #072b65;
+    }
+
+    .texto-secundario {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+
+    .texto-secundario a {
+      color: #0a347c;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .texto-secundario a:hover {
+      text-decoration: underline;
+    }
+
+    .tarjeta-info h3 {
+      color: #0a347c;
+      margin-bottom: 15px;
+    }
+
+    .tarjeta-info ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .tarjeta-info li {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+  </style>
+
+</body>
+</html>

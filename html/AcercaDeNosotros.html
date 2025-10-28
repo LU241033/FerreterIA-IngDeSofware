@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/acerca.css">
+  <link rel="shortcut icon" href="../Img/Logo.png" type="image/x-icon">
+  <title>Acerca de Nosotros | FerreterIA</title>
+</head>
+<body>
+
+  <!-- ===== BARRA DE NAVEGACIÓN ===== -->
+  <header class="barra-navegacion">
+    <div class="contenedor">
+      <div class="logo">FerreterIA</div>
+
+      <ul class="enlaces">
+        <li><a href="Index.html">Inicio</a></li>
+        <li><a href="#">Explora</a></li>
+        <li><a href="#">Compras</a></li>
+        <li><a href="#">Perfil</a></li>
+        <li><a class="activo" href="#">Acerca de nosotros</a></li>
+      </ul>
+
+      <!-- ✅ Agregamos el ID correcto -->
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='registro.html'">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SECCIÓN PRINCIPAL ===== -->
+  <section class="seccion-principal">
+    <div class="contenido-principal">
+      <div class="texto">
+        <h2>Conoce a FerreterIA</h2>
+        <p>Innovamos para facilitar la gestión de tu ferretería con tecnología inteligente y accesible. 
+        Creamos soluciones que te ayudan a ahorrar tiempo, reducir errores y potenciar tu negocio.</p>
+        <button class="btn-claro">Comienza hoy</button>
+      </div>
+      <div class="imagen">
+        <img src="../Img/.jpg" alt="Ferretería moderna">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NUESTRA HISTORIA ===== -->
+  <section class="historia">
+    <h2>Nuestra Historia</h2>
+    <p>FerreterIA nació con la misión de ayudar a pequeños y medianos negocios a optimizar su control de inventarios y aumentar la productividad.</p>
+    <p>Desde nuestros inicios en 2023, hemos trabajado con ferreterías de toda Latinoamérica para ofrecer soluciones simples, eficientes y seguras.</p>
+  </section>
+
+  <!-- ===== MISIÓN Y VISIÓN ===== -->
+  <section class="mision-vision">
+    <div class="tarjeta">
+      <h3>🛠️ Misión</h3>
+      <p>Brindar herramientas digitales que automaticen la gestión de productos y ventas en ferreterías, reduciendo el tiempo y esfuerzo administrativo.</p>
+    </div>
+    <div class="tarjeta">
+      <h3>🚀 Visión</h3>
+      <p>Ser la plataforma líder de gestión ferretera en Latinoamérica, impulsando la transformación digital de los pequeños negocios.</p>
+    </div>
+  </section>
+
+  <!-- ===== EQUIPO ===== -->
+  <section class="equipo">
+    <h2>Conoce a nuestro equipo</h2>
+    <div class="miembros">
+      <div class="miembro">
+        <img src="../Img/Sebastian.jpg" alt="">
+        <h4>Sebastian Villaneda</h4>
+        <p>Desarrollador</p>
+      </div>
+      <div class="miembro">
+        <img src="../Img/Natalia.jpg" alt="">
+        <h4>Natalia Velez</h4>
+        <p>Desarrolladora Backend</p>
+      </div>
+      <div class="miembro">
+        <img src="../Img/Luis.jpg" alt="">
+        <h4>Luis Gallego</h4>
+        <p>QA</p>
+      </div>
+      <div class="miembro">
+        <img src="../Img/Luisa.jpg" alt="">
+        <h4>Luisa Henao</h4>
+        <p>Diseñadora UI/UX</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie-pagina">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Servicios</a></li>
+          <li><a href="#">Acerca de</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li>Gestión de productos</li>
+          <li>Reportes</li>
+          <li>Control de inventario</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- 🔹 SCRIPT DE CONTROL DE SESIÓN -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+      const botonesDiv = document.getElementById("botonesAuth");
+
+      if (usuarioActivo) {
+        botonesDiv.innerHTML = `
+          <span style="color:white; margin-right:10px;">Hola, ${usuarioActivo.usuario}</span>
+          <button class="btn-borde" onclick="cerrarSesion()">Cerrar sesión</button>
+        `;
+      }
+    });
+
+    function cerrarSesion() {
+      localStorage.removeItem("usuarioActivo");
+      location.reload();
+    }
+  </script>
+
+</body>
+</html>
