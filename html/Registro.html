@@ -155,41 +155,6 @@
     <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- 🔹 SCRIPT DE CONTROL DE SESIÓN -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
-      const botonesDiv = document.getElementById("botonesAuth");
-
-      if (usuarioActivo) {
-        botonesDiv.innerHTML = `
-          <span style="color:white; margin-right:10px;">Hola, ${usuarioActivo.usuario}</span>
-          <button class="btn-borde" onclick="cerrarSesion()">Cerrar sesión</button>
-        `;
-      }
-
-      // Manejo del formulario de registro
-      document.getElementById("formRegistro").addEventListener("submit", (e) => {
-        e.preventDefault();
-        const password = document.getElementById("password").value;
-        const confirmar = document.getElementById("confirmar").value;
-        
-        if (password !== confirmar) {
-          alert("Las contraseñas no coinciden");
-          return;
-        }
-        
-        alert("Cuenta creada exitosamente. Redirigiendo al login...");
-        location.href = "Login.html";
-      });
-    });
-
-    function cerrarSesion() {
-      localStorage.removeItem("usuarioActivo");
-      location.reload();
-    }
-  </script>
-
   <style>
     .registro-experiencias {
       flex: 1;
@@ -230,6 +195,6 @@
       font-size: 0.9rem;
     }
   </style>
-
+<script src="../js/registro.js"></script>
 </body>
 </html>
