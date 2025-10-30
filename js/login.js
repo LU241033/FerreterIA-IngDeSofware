@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mensaje.style.color = "green";
     mensaje.textContent = "✅ Inicio de sesión exitoso. Redirigiendo...";
     setTimeout(() => {
-      location.href = "PanelAdministrador.html";
+      location.href = "AcercaDeNosotros.html";
     }, 1500);
   });
 });
