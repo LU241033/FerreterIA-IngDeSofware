@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const mensaje = document.getElementById("mensaje-error");
 
   // ===== Mostrar saludo si hay sesión activa =====
-  if (usuarioActivo) {
+  if (usuarioActivo && botonesDiv) {
     botonesDiv.innerHTML = `
       <span style="color:white; margin-right:10px;">Hola, ${usuarioActivo.usuario}</span>
       <button class="btn-borde" onclick="cerrarSesion()">Cerrar sesión</button>
@@ -37,7 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ===== Validar usuario registrado =====
-    const usuariosRegistrados = JSON.parse(localStorage.getItem("usuariosRegistrados")) || [];
+    // 🔹 CORRECCIÓN: Leer desde "usuarios" (igual que en registro.js)
+    const usuariosRegistrados = JSON.parse(localStorage.getItem("usuarios")) || [];
 
     const usuarioEncontrado = usuariosRegistrados.find(
       (u) => u.email === email && u.password === password
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ===== Guardar sesión activa =====
     const usuario = {
-      usuario: email.split("@")[0],
+      usuario: usuarioEncontrado.nombres,
       email: email
     };
     localStorage.setItem("usuarioActivo", JSON.stringify(usuario));
