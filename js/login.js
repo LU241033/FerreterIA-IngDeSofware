@@ -44,9 +44,10 @@ document.addEventListener("DOMContentLoaded", () => {
       (u) => u.email === email && u.password === password
     );
 
-    if (!usuarioEncontrado) {
-      mensaje.textContent = "❌ Usuario no registrado o contraseña incorrecta.";
-      return;
+    if (usuarioEncontrado.rol === "admin") {
+        location.href = "PanelAdministrador.html";
+    } else {
+        location.href = "AcercaDeNosotros.html";
     }
 
     // ===== Guardar sesión activa =====
