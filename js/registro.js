@@ -8,21 +8,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const nombres = document.getElementById("nombres").value.trim();
     const apellidos = document.getElementById("apellidos").value.trim();
     const email = document.getElementById("email").value.trim();
-    const tipoCuenta = document.getElementById("tipoCuenta").value;
     const password = document.getElementById("password").value;
     const confirmar = document.getElementById("confirmar").value;
     const terminos = document.getElementById("terminos").checked;
 
-    // Validar campos vacíos
-    if (!nombres || !apellidos || !email || !tipoCuenta || !password || !confirmar) {
+    // ✅ Validar campos vacíos (ya sin tipoCuenta)
+    if (!nombres || !apellidos || !email || !password || !confirmar) {
       alert("Por favor, completa todos los campos.");
       return;
     }
 
     // Validar que el correo contenga '@' y termine en '.com'
     if (!email.includes("@") || !email.endsWith(".com")) {
-        alert("El correo debe contener '@' y terminar en '.com'.");
-        return;
+      alert("El correo debe contener '@' y terminar en '.com'.");
+      return;
     }
 
     // Validar contraseñas
@@ -51,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
       nombres,
       apellidos,
       email,
-      tipoCuenta,
       password
     };
 
