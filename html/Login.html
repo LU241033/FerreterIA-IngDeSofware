@@ -44,7 +44,7 @@
 
         <button type="submit" class="btn-principal">Ingresar</button>
       </form>
-
+      <p id="mensaje-error" style="text-align:center; font-weight:500; margin-top:10px;"></p>
       <p class="texto-secundario">
         ¿No tienes cuenta?
         <a href="Registro.html">Regístrate aquí</a>
@@ -92,41 +92,7 @@
     <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- ===== SCRIPT DE CONTROL DE SESIÓN ===== -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
-      const botonesDiv = document.getElementById("botonesAuth");
-
-      if (usuarioActivo) {
-        botonesDiv.innerHTML = `
-          <span style="color:white; margin-right:10px;">Hola, ${usuarioActivo.usuario}</span>
-          <button class="btn-borde" onclick="cerrarSesion()">Cerrar sesión</button>
-        `;
-      }
-
-      document.getElementById("formLogin").addEventListener("submit", (e) => {
-        e.preventDefault();
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        // Simulación de inicio de sesión
-        if (email && password) {
-          const usuario = { usuario: email.split("@")[0], email };
-          localStorage.setItem("usuarioActivo", JSON.stringify(usuario));
-          alert("Inicio de sesión exitoso");
-          location.href = "PanelAdministrador.html";
-        } else {
-          alert("Por favor completa todos los campos.");
-        }
-      });
-    });
-
-    function cerrarSesion() {
-      localStorage.removeItem("usuarioActivo");
-      location.reload();
-    }
-  </script>
+  <script src="../js/login.js"></script>
 
   <!-- ===== ESTILOS ADICIONALES ===== -->
   <style>
@@ -166,10 +132,12 @@
     }
 
     form {
+      
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
+    
 
     label {
       font-weight: 600;
