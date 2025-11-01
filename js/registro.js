@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // Obtener valores del formulario
+    // Obtener los valores del formulario de registro del usuario
     const nombres = document.getElementById("nombres").value.trim();
     const apellidos = document.getElementById("apellidos").value.trim();
     const email = document.getElementById("email").value.trim();
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const confirmar = document.getElementById("confirmar").value;
     const terminos = document.getElementById("terminos").checked;
 
-    // ✅ Validar campos vacíos (ya sin tipoCuenta)
+    // validacion de campos vacíos 
     if (!nombres || !apellidos || !email || !password || !confirmar) {
       alert("Por favor, completa todos los campos.");
       return;
@@ -24,13 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Validar contraseñas
+    // Validar que la contraseña sea la misma
     if (password !== confirmar) {
       alert("Las contraseñas no coinciden.");
       return;
     }
 
-    // Validar aceptación de términos
+    // Validar que se acepto los términos
     if (!terminos) {
       alert("Debes aceptar los términos y condiciones.");
       return;
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       password
     };
 
-    // Guardar el nuevo usuario
+    // Guardar el nuevo usuario en el localStrorage del navegador
     usuarios.push(nuevoUsuario);
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
