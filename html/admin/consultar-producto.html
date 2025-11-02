@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultar Producto | FerreterIA</title>
+
+  <!-- Enlaces CSS (corregidos) -->
+  <link rel="stylesheet" href="/css/consultar-producto.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="shortcut icon" href="../../img/Logo.png" type="image/x-icon">
+</head>
+
+<body>
+  <!-- ====== HEADER ====== -->
+  <header class="barra-navegacion">
+    <div class="contenedor">
+      <div class="logo">FerreterIA</div>
+      <ul class="enlaces">
+        <li><a href="/html/index.html">Inicio</a></li>
+        <li><a href="/html/usuario/explora.html">Explora</a></li>
+        <li><a href="#">Compras</a></li>
+        <li><a href="#">Perfil</a></li>
+        <li><a href="/html/admin/panel-admin.html">Gestión Productos</a></li>
+      </ul>
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='/html/login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='/html/usuario/registro.html'">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== CONTENIDO PRINCIPAL ====== -->
+  <section class="seccion-principal">
+    <div class="contenido-principal">
+      <div class="encabezado-formulario">
+        <h2>Consultar Producto 🔍</h2>
+        <p>Busca y visualiza la información detallada de cualquier producto en el inventario.</p>
+      </div>
+
+      <div class="formulario-contenedor">
+        <form id="formulario-consulta">
+          <div class="grupo-formulario">
+            <label for="tipo-busqueda">Buscar por:</label>
+            <select id="tipo-busqueda">
+              <option value="id">ID del Producto</option>
+              <option value="nombre">Nombre del Producto</option>
+              <option value="categoria">Categoría</option>
+            </select>
+          </div>
+          
+          <div class="grupo-formulario">
+            <label for="valor-busqueda">Término de búsqueda:</label>
+            <input type="text" id="valor-busqueda" placeholder="Ej. Martillo, 001, Herramientas..." required>
+            <span class="icono-input">🔎</span>
+          </div>
+          
+          <button type="button" class="boton-formulario boton-principal" onclick="buscarProducto()">Buscar Producto</button>
+          <button type="button" class="boton-formulario boton-volver" onclick="location.href='/html/admin/-admin.html'">
+            ← Volver a Gestión
+          </button>
+        </form>
+
+        <!-- Resultados de la búsqueda -->
+        <div class="resultado-busqueda" id="resultado-busqueda">
+          <h3 style="color: #2d3748; margin-bottom: 1rem;">Información del Producto</h3>
+          <div class="tarjeta-producto" id="tarjeta-producto">
+            <!-- Aquí se mostrarán los resultados -->
+          </div>
+        </div>
+
+        <!-- Estado sin resultados -->
+        <div class="sin-resultados" id="sin-resultados" style="display: none;">
+          <div class="icono">🔍</div>
+          <h3>No se encontraron productos</h3>
+          <p>Intenta con otro término de búsqueda o verifica la información.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="pie-pagina">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="/html/index.html">Inicio</a></li>
+          <li><a href="/html/usuario/explora.html">Explora</a></li>
+          <li><a href="/html/comunes/acerca-de-nosotros.html">Acerca de</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li>Gestión de productos</li>
+          <li>Reportes</li>
+          <li>Control de inventario</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- ====== SCRIPT ====== -->
+  <script>
+    function buscarProducto() {
+      const tipoBusqueda = document.getElementById('tipo-busqueda').value;
+      const valorBusqueda = document.getElementById('valor-busqueda').value.trim();
+      const resultadoDiv = document.getElementById('resultado-busqueda');
+      const tarjetaProducto = document.getElementById('tarjeta-producto');
+      const sinResultados = document.getElementById('sin-resultados');
+      
+      if (!valorBusqueda) {
+        alert('Por favor, ingresa un término de búsqueda');
+        return;
+      }
+      
+      // Simulación de búsqueda - En una aplicación real, esto sería una llamada a una API
+      const productosEjemplo = [
+        {
+          id: '001',
+          nombre: 'Martillo de Acero Profesional',
+          categoria: 'Herramientas Manuales',
+          precio: '$25,000',
+          stock: 15,
+          descripcion: 'Martillo de acero forjado con mango de fibra de vidrio. Ideal para trabajos profesionales.',
+          proveedor: 'Herramientas MAX',
+          estado: 'alto'
+        },
+        {
+          id: '002',
+          nombre: 'Destornillador Phillips',
+          categoria: 'Herramientas Manuales',
+          precio: '$12,000',
+          stock: 3,
+          descripcion: 'Destornillador profesional punta Phillips tamaño #2.',
+          proveedor: 'TecniTool',
+          estado: 'bajo'
+        },
+        {
+          id: '003',
+          nombre: 'Taladro Inalámbrico 18V',
+          categoria: 'Herramientas Eléctricas',
+          precio: '$180,000',
+          stock: 8,
+          descripcion: 'Taladro percutor inalámbrico con batería de litio incluida.',
+          proveedor: 'PowerTools Co.',
+          estado: 'medio'
+        }
+      ];
+      
+      let productoEncontrado = null;
+      
+      if (tipoBusqueda === 'id') {
+        productoEncontrado = productosEjemplo.find(p => p.id === valorBusqueda);
+      } else if (tipoBusqueda === 'nombre') {
+        productoEncontrado = productosEjemplo.find(p => 
+          p.nombre.toLowerCase().includes(valorBusqueda.toLowerCase())
+        );
+      } else if (tipoBusqueda === 'categoria') {
+        productoEncontrado = productosEjemplo.find(p => 
+          p.categoria.toLowerCase().includes(valorBusqueda.toLowerCase())
+        );
+      }
+      
+      if (productoEncontrado) {
+        const estadoStock = productoEncontrado.estado === 'bajo' ? 'stock-bajo' : 
+                           productoEncontrado.estado === 'medio' ? 'stock-medio' : 'stock-alto';
+        const textoEstado = productoEncontrado.estado === 'bajo' ? 'Stock Bajo' : 
+                           productoEncontrado.estado === 'medio' ? 'Stock Medio' : 'Stock Alto';
+        
+        tarjetaProducto.innerHTML = `
+          <div class="info-producto">
+            <div>
+              <div class="campo-info"><div class="etiqueta">ID</div><div class="valor">#${productoEncontrado.id}</div></div>
+              <div class="campo-info"><div class="etiqueta">Nombre</div><div class="valor">${productoEncontrado.nombre}</div></div>
+              <div class="campo-info"><div class="etiqueta">Categoría</div><div class="valor">${productoEncontrado.categoria}</div></div>
+            </div>
+            <div>
+              <div class="campo-info"><div class="etiqueta">Precio</div><div class="valor">${productoEncontrado.precio}</div></div>
+              <div class="campo-info"><div class="etiqueta">Stock</div><div class="valor">${productoEncontrado.stock}</div><div class="estado-stock ${estadoStock}">${textoEstado}</div></div>
+              <div class="campo-info"><div class="etiqueta">Proveedor</div><div class="valor">${productoEncontrado.proveedor}</div></div>
+            </div>
+          </div>
+          <div class="campo-info"><div class="etiqueta">Descripción</div><div class="valor">${productoEncontrado.descripcion}</div></div>
+          <div class="acciones-resultado">
+            <a href="actualizar-producto.html?id=${productoEncontrado.id}" class="boton-accion boton-editar">✏️ Actualizar</a>
+            <a href="eliminar-producto.html?id=${productoEncontrado.id}" class="boton-accion boton-eliminar">🗑️ Eliminar</a>
+          </div>
+        `;
+        
+        resultadoDiv.style.display = 'block';
+        sinResultados.style.display = 'none';
+      } else {
+        resultadoDiv.style.display = 'none';
+        sinResultados.style.display = 'block';
+      }
+    }
+
+    // Permitir búsqueda con Enter
+    docum

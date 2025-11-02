@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="../Img/Logo.png" type="image/x-icon">
+  <title>Gestión de Productos | FerreterIA</title>
+
+  <!-- Rutas de estilos corregidas -->
+  <link rel="stylesheet" href="../css/acerca.css">
+  <link rel="stylesheet" href="../css/panel-admin.css">
+</head>
+<body>
+
+  <header class="barra-navegacion">
+    <div class="contenedor">
+      <div class="logo">FerreterIA</div>
+      <ul class="enlaces">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="explora.html">Explora</a></li>
+        <li><a href="#">Perfil</a></li>
+        <li><a href="panel-admin.html">Manos a la obra</a></li>
+      </ul>
+      <div class="botones" id="botonesAuth">
+        <a href="login.html" class="btn-borde">Cerrar sesión</a>
+        <div class="usuario">Administrador 👨‍💼</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="seccion-principal">
+    <div class="contenido-principal">
+      <div class="encabezado-admin">
+        <h2>Gestión de Productos 🛠️</h2>
+        <p>Administra el inventario de productos de FerreterIA</p>
+      </div>
+
+      <div class="panel-admin">
+        <!-- Estadísticas -->
+        <div class="estadisticas">
+          <div class="tarjeta-estadistica"><h3>Total Productos</h3><div class="valor">47</div></div>
+          <div class="tarjeta-estadistica"><h3>Stock Bajo</h3><div class="valor">8</div></div>
+          <div class="tarjeta-estadistica"><h3>Categorías</h3><div class="valor">12</div></div>
+          <div class="tarjeta-estadistica"><h3>Valor Inventario</h3><div class="valor">$4.2M</div></div>
+        </div>
+
+        <!-- Acciones -->
+        <div class="acciones-superiores">
+          <a href="registrar-producto.html" class="boton-accion boton-principal">
+            <span>➕</span> Registrar Producto
+          </a>
+          
+          <div class="busqueda-filtros">
+            <div class="grupo-busqueda">
+              <span class="icono-busqueda">🔍</span>
+              <input type="text" placeholder="Buscar producto..." aria-label="Buscar producto">
+            </div>
+            <select class="boton-accion boton-secundario" aria-label="Filtrar por categoría">
+              <option>Todas las categorías</option>
+              <option>Herramientas manuales</option>
+              <option>Electricidad</option>
+              <option>Fontanería</option>
+              <option>Materiales</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Tabla de productos -->
+        <table class="tabla-productos">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Producto</th>
+              <th>Categoría</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#001</td>
+              <td>Martillo de Acero</td>
+              <td>Herramientas manuales</td>
+              <td>$25,000</td>
+              <td>15</td>
+              <td><span class="estado-stock stock-alto">Alto</span></td>
+              <td class="acciones-tabla">
+                <a href="actualizar-producto.html?id=001" class="boton-accion-tabla boton-actualizar">Actualizar</a>
+                <a href="eliminar-producto.html?id=001" class="boton-accion-tabla boton-eliminar">Eliminar</a>
+              </td>
+            </tr>
+            <tr>
+              <td>#002</td>
+              <td>Destornillador Phillips</td>
+              <td>Herramientas manuales</td>
+              <td>$12,000</td>
+              <td>3</td>
+              <td><span class="estado-stock stock-bajo">Bajo</span></td>
+              <td class="acciones-tabla">
+                <a href="actualizar-producto.html?id=002" class="boton-accion-tabla boton-actualizar">Actualizar</a>
+                <a href="eliminar-producto.html?id=002" class="boton-accion-tabla boton-eliminar">Eliminar</a>
+              </td>
+            </tr>
+            <tr>
+              <td>#003</td>
+              <td>Taladro Inalámbrico</td>
+              <td>Herramientas eléctricas</td>
+              <td>$180,000</td>
+              <td>8</td>
+              <td><span class="estado-stock stock-medio">Medio</span></td>
+              <td class="acciones-tabla">
+                <a href="actualizar-producto.html?id=003" class="boton-accion-tabla boton-actualizar">Actualizar</a>
+                <a href="eliminar-producto.html?id=003" class="boton-accion-tabla boton-eliminar">Eliminar</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Paginación -->
+        <div class="paginacion">
+          <button class="boton-paginacion">‹</button>
+          <button class="boton-paginacion activo">1</button>
+          <button class="boton-paginacion">2</button>
+          <button class="boton-paginacion">3</button>
+          <button class="boton-paginacion">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pie-pagina">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="#">Servicios</a></li>
+          <li><a href="#">Acerca de</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li>Gestión de productos</li>
+          <li>Reportes</li>
+          <li>Control de inventario</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    const inputBusqueda = document.querySelector('.grupo-busqueda input');
+    const selectCategoria = document.querySelector('.busqueda-filtros select');
+    const filas = document.querySelectorAll('.tabla-productos tbody tr');
+
+    function filtrarTabla() {
+      const texto = inputBusqueda.value.toLowerCase();
+      const categoria = selectCategoria.value.toLowerCase();
+
+      filas.forEach(fila => {
+        const textoFila = fila.textContent.toLowerCase();
+        const categoriaFila = fila.cells[2].textContent.toLowerCase();
+
+        const coincideBusqueda = textoFila.includes(texto);
+        const coincideCategoria = categoria === 'todas las categorías' || categoriaFila.includes(categoria);
+
+        fila.style.display = (coincideBusqueda && coincideCategoria) ? '' : 'none';
+      });
+    }
+
+    inputBusqueda.addEventListener('input', filtrarTabla);
+    selectCategoria.addEventListener('change', filtrarTabla);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eliminar Producto | FerreterIA</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../../Img/Logo.png" type="image/x-icon">
+
+  <!-- CSS principal y específico -->
+  <link rel="stylesheet" href="../../css/acerca.css">
+  <link rel="stylesheet" href="../../css/eliminar-producto.css">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="barra-navegacion">
+    <div class="contenedor">
+      <div class="logo">FerreterIA</div>
+      <ul class="enlaces">
+        <li><a href="../../index.html">Inicio</a></li>
+        <li><a href="../usuario/explora.html">Explora</a></li>
+        <li><a href="#">Compras</a></li>
+        <li><a href="#">Perfil</a></li>
+        <li><a href="panel-admin.html">Gestión Productos</a></li>
+      </ul>
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='../../login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='../../registro.html'">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECCIÓN PRINCIPAL -->
+  <section class="seccion-principal">
+    <div class="contenido-principal">
+      <div class="encabezado-formulario">
+        <h2>Eliminar Producto 🗑️</h2>
+        <p>Busca el producto que deseas eliminar del inventario.</p>
+      </div>
+
+      <div class="formulario-contenedor">
+        <div class="alerta-eliminacion">
+          <p>⚠️ Esta acción no se puede deshacer. El producto se eliminará permanentemente.</p>
+        </div>
+        
+        <form>
+          <div class="grupo-formulario">
+            <label for="buscar-producto">ID o nombre del producto:</label>
+            <input type="text" id="buscar-producto" placeholder="Ej. Martillo o 12345" required>
+            <span class="icono-input">🔍</span>
+          </div>
+          
+          <button type="submit" class="boton-formulario boton-peligro">Eliminar Producto</button>
+          <button type="button" class="boton-formulario boton-volver" onclick="location.href='panel-admin.html'">
+            ← Volver a Gestión
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="pie-pagina">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="../../index.html">Inicio</a></li>
+          <li><a href="../usuario/explora.html">Servicios</a></li>
+          <li><a href="../comunes/acerca-de-nosotros.html">Acerca de</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li>Gestión de productos</li>
+          <li>Reportes</li>
+          <li>Control de inventario</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+</html>

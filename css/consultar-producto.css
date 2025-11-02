@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/acerca.css">
-  <link rel="shortcut icon" href="../Img/Logo.png" type="image/x-icon">
-  <title>Registrar Producto | FerreterIA</title>
-  <style>
-    /* Estilos mejorados para el formulario */
-    body {
+body {
       background-color: #f8fafc;
       margin: 0;
       padding: 0;
@@ -26,7 +16,7 @@
     
     .contenido-principal {
       width: 100%;
-      max-width: 600px;
+      max-width: 800px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -75,7 +65,7 @@
       font-size: 0.95rem;
     }
     
-    .grupo-formulario input {
+    .grupo-formulario input, .grupo-formulario select {
       width: 100%;
       padding: 0.85rem 1rem;
       border: 1.5px solid #e2e8f0;
@@ -86,7 +76,7 @@
       background-color: #f9fafb;
     }
     
-    .grupo-formulario input:focus {
+    .grupo-formulario input:focus, .grupo-formulario select:focus {
       outline: none;
       border-color: #4a6cf7;
       background-color: #ffffff;
@@ -132,6 +122,16 @@
     .boton-principal:active {
       transform: translateY(0);
     }
+    
+    .boton-secundario {
+      background-color: #e2e8f0;
+      color: #4a5568;
+    }
+    
+    .boton-secundario:hover {
+      background-color: #cbd5e0;
+      transform: translateY(-2px);
+    }
 
     .boton-volver {
       background-color: #e2e8f0;
@@ -142,6 +142,121 @@
     .boton-volver:hover {
       background-color: #cbd5e0;
       transform: translateY(-2px);
+    }
+    
+    /* Estilos para los resultados */
+    .resultado-busqueda {
+      margin-top: 2rem;
+      display: none;
+    }
+    
+    .tarjeta-producto {
+      background-color: #f8fafc;
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid #e2e8f0;
+      margin-top: 1.5rem;
+    }
+    
+    .info-producto {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .campo-info {
+      margin-bottom: 1rem;
+    }
+    
+    .campo-info .etiqueta {
+      font-weight: 600;
+      color: #4a5568;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .campo-info .valor {
+      color: #2d3748;
+      font-size: 1rem;
+    }
+    
+    .estado-stock {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+    
+    .stock-bajo {
+      background-color: #fed7d7;
+      color: #c53030;
+    }
+    
+    .stock-medio {
+      background-color: #fefcbf;
+      color: #744210;
+    }
+    
+    .stock-alto {
+      background-color: #c6f6d5;
+      color: #22543d;
+    }
+    
+    .acciones-resultado {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .boton-accion {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+    
+    .boton-editar {
+      background-color: #4a6cf7;
+      color: white;
+    }
+    
+    .boton-editar:hover {
+      background-color: #3a5ce5;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(74, 108, 247, 0.3);
+    }
+    
+    .boton-eliminar {
+      background-color: #ff4d4d;
+      color: white;
+    }
+    
+    .boton-eliminar:hover {
+      background-color: #e04444;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 77, 77, 0.3);
+    }
+    
+    .sin-resultados {
+      text-align: center;
+      padding: 2rem;
+      color: #718096;
+    }
+    
+    .sin-resultados .icono {
+      font-size: 3rem;
+      margin-bottom: 1rem;
     }
     
     /* Estilos para la barra de navegación */
@@ -280,99 +395,12 @@
       .formulario-contenedor {
         padding: 2rem 1.5rem;
       }
+      
+      .info-producto {
+        grid-template-columns: 1fr;
+      }
+      
+      .acciones-resultado {
+        flex-direction: column;
+      }
     }
-  </style>
-</head>
-<body>
-
-  <header class="barra-navegacion">
-    <div class="contenedor">
-      <div class="logo">FerreterIA</div>
-      <ul class="enlaces">
-        <li><a href="Index.html">Inicio</a></li>
-        <li><a href="Explora.html">Explora</a></li>
-        <li><a href="#">Compras</a></li>
-        <li><a href="#">Perfil</a></li>
-        <li><a href="PanelAdministrador.html">Gestión Productos</a></li>
-      </ul>
-      <div class="botones" id="botonesAuth">
-        <button class="btn-borde" onclick="location.href='Login.html'">Iniciar sesión</button>
-        <button class="btn-principal" onclick="location.href='Registro.html'">Registrarse</button>
-      </div>
-    </div>
-  </header>
-
-  <section class="seccion-principal">
-    <div class="contenido-principal">
-      <div class="encabezado-formulario">
-        <h2>Registrar Producto 🧰</h2>
-        <p>Agrega un nuevo producto al inventario de forma rápida y sencilla.</p>
-      </div>
-
-      <div class="formulario-contenedor">
-        <form>
-          <div class="grupo-formulario">
-            <label for="nombre">Nombre del producto:</label>
-            <input type="text" id="nombre" placeholder="Ej. Martillo de acero" required>
-            <span class="icono-input">📝</span>
-          </div>
-          
-          <div class="grupo-formulario">
-            <label for="categoria">Categoría:</label>
-            <input type="text" id="categoria" placeholder="Ej. Herramientas" required>
-            <span class="icono-input">📂</span>
-          </div>
-          
-          <div class="grupo-formulario">
-            <label for="precio">Precio:</label>
-            <input type="number" id="precio" placeholder="Ej. 25000" required>
-            <span class="icono-input">💰</span>
-          </div>
-          
-          <div class="grupo-formulario">
-            <label for="stock">Cantidad en stock:</label>
-            <input type="number" id="stock" placeholder="Ej. 10" required>
-            <span class="icono-input">📦</span>
-          </div>
-          
-          <button type="submit" class="boton-formulario boton-principal">Registrar Producto</button>
-          <button type="button" class="boton-formulario boton-volver" onclick="location.href='PanelAdministrador.html'">
-            ← Volver a Gestión
-          </button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <footer class="pie-pagina">
-    <div class="contenedor-pie">
-      <div>
-        <h4>FerreterIA</h4>
-        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
-      </div>
-      <div>
-        <h4>Enlaces rápidos</h4>
-        <ul>
-          <li><a href="Index.html">Inicio</a></li>
-          <li><a href="Explora.html">Servicios</a></li>
-          <li><a href="AcercaDeNosotros.html">Acerca de</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Servicios</h4>
-        <ul>
-          <li>Gestión de productos</li>
-          <li>Reportes</li>
-          <li>Control de inventario</li>
-        </ul>
-      </div>
-      <div>
-        <h4>Contáctanos</h4>
-        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
-      </div>
-    </div>
-    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
-  </footer>
-
-</body>
-</html>

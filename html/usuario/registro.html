@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/acerca.css">
+  <link rel="stylesheet" href="../css/registro.css">
+  <link rel="shortcut icon" href="../Img/Logo.png" type="image/x-icon">
+  <title>Registro | FerreterIA</title>
+</head>
+<body>
+
+  <!-- ===== BARRA DE NAVEGACIÓN ===== -->
+  <header class="barra-navegacion">
+    <div class="contenedor">
+      <div class="logo">FerreterIA</div>
+
+      <ul class="enlaces">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="explora.html">Explora</a></li>
+        <li><a href="#">Compras</a></li>
+        <li><a href="#">Perfil</a></li>
+        <li><a href="acerca-de-nosotros.html">Acerca de nosotros</a></li>
+      </ul>
+
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='registro.html'">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SECCIÓN DE REGISTRO ===== -->
+  <main class="seccion-principal registro">
+    <div class="contenido-principal registro-flex">
+
+      <!-- Formulario -->
+      <div class="registro-formulario">
+        <h2>Crear Cuenta</h2>
+        <p>Únete a nuestra comunidad ferretera y gestiona tus productos con facilidad.</p>
+
+        <form id="formRegistro" action="#" method="post">
+          <div class="campo">
+            <label for="nombres">Nombres</label>
+            <input type="text" id="nombres" name="nombres" required>
+          </div>
+
+          <div class="campo">
+            <label for="apellidos">Apellidos</label>
+            <input type="text" id="apellidos" name="apellidos">
+          </div>
+
+          <div class="campo">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <div class="campo">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+
+          <div class="campo">
+            <label for="confirmar">Confirmar contraseña</label>
+            <input type="password" id="confirmar" name="confirmar" required>
+          </div>
+
+          <div class="terminos">
+            <input type="checkbox" id="terminos" required>
+            <label for="terminos">
+              Acepto los <a href="#">términos y condiciones</a>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-principal">Crear cuenta</button>
+
+          <p class="texto-login">
+            ¿Ya tienes una cuenta? 
+            <a href="login.html">Inicia sesión aquí</a>
+          </p>
+        </form>
+      </div>
+
+      <!-- Experiencias -->
+      <aside class="registro-experiencias">
+        <h3>Experiencias de nuestros clientes 🔩</h3>
+        <div class="tarjetas-experiencias">
+          <div class="tarjeta">
+            <p>"Gracias a <strong>FerreterIA</strong> puedo controlar el inventario de mi tienda en segundos."</p>
+            <span>– Carlos M.</span>
+          </div>
+          <div class="tarjeta">
+            <p>"Una herramienta completa y fácil de usar. ¡Me ahorra horas cada semana!"</p>
+            <span>– Ana G.</span>
+          </div>
+          <div class="tarjeta">
+            <p>"Excelente atención al cliente y constantes mejoras en el sistema."</p>
+            <span>– Jorge P.</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie-pagina">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="explora.html">Servicios</a></li>
+          <li><a href="acerca-de-nosotros.html">Acerca de</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li>Gestión de productos</li>
+          <li>Reportes</li>
+          <li>Control de inventario</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="../js/registro.js"></script>
+</body>
+</html>

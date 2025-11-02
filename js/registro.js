@@ -1,10 +1,11 @@
+// ======================= REGISTRO.JS =======================
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("formRegistro");
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // Obtener valores del formulario
+    // ===== Obtener valores del formulario =====
     const nombres = document.getElementById("nombres").value.trim();
     const apellidos = document.getElementById("apellidos").value.trim();
     const email = document.getElementById("email").value.trim();
@@ -12,52 +13,59 @@ document.addEventListener("DOMContentLoaded", () => {
     const confirmar = document.getElementById("confirmar").value;
     const terminos = document.getElementById("terminos").checked;
 
-    // ✅ Validar campos vacíos (ya sin tipoCuenta)
+    // ===== Validar campos vacíos =====
     if (!nombres || !apellidos || !email || !password || !confirmar) {
-      alert("Por favor, completa todos los campos.");
+      alert("⚠️ Por favor, completa todos los campos.");
       return;
     }
 
-    // Validar que el correo contenga '@' y termine en '.com'
-    if (!email.includes("@") || !email.endsWith(".com")) {
-      alert("El correo debe contener '@' y terminar en '.com'.");
+    // ===== Validar correo =====
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Permite más dominios (.com, .net, .co, etc.)
+    if (!emailRegex.test(email)) {
+      alert("⚠️ Ingresa un correo electrónico válido.");
       return;
     }
 
-    // Validar contraseñas
+    // ===== Validar contraseñas =====
     if (password !== confirmar) {
-      alert("Las contraseñas no coinciden.");
+      alert("⚠️ Las contraseñas no coinciden.");
       return;
     }
 
-    // Validar aceptación de términos
+    if (password.length < 6) {
+      alert("⚠️ La contraseña debe tener al menos 6 caracteres.");
+      return;
+    }
+
+    // ===== Validar aceptación de términos =====
     if (!terminos) {
-      alert("Debes aceptar los términos y condiciones.");
+      alert("⚠️ Debes aceptar los términos y condiciones.");
       return;
     }
 
-    // Verificar si ya existe el usuario
+    // ===== Verificar si ya existe el usuario =====
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     const existe = usuarios.find(u => u.email === email);
 
     if (existe) {
-      alert("Ya existe una cuenta registrada con este correo.");
+      alert("⚠️ Ya existe una cuenta registrada con este correo.");
       return;
     }
 
-    // Crear objeto usuario
+    // ===== Crear nuevo usuario =====
     const nuevoUsuario = {
       nombres,
       apellidos,
       email,
-      password
+      password,
+      rol: usuarios.length === 0 ? "admin" : "usuario" // 🔹 El primer usuario será admin
     };
 
-    // Guardar el nuevo usuario
+    // ===== Guardar usuario =====
     usuarios.push(nuevoUsuario);
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-    alert("Cuenta creada exitosamente. Redirigiendo al inicio de sesión...");
-    location.href = "Login.html";
+    alert("✅ Cuenta creada exitosamente. Redirigiendo al inicio de sesión...");
+    location.href = "login.html";
   });
 });

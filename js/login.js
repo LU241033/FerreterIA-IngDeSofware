@@ -37,32 +37,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ===== Validar usuario registrado =====
-    // 🔹 CORRECCIÓN: Leer desde "usuarios" (igual que en registro.js)
     const usuariosRegistrados = JSON.parse(localStorage.getItem("usuarios")) || [];
 
     const usuarioEncontrado = usuariosRegistrados.find(
       (u) => u.email === email && u.password === password
     );
 
-    if (usuarioEncontrado.rol === "admin") {
-        location.href = "PanelAdministrador.html";
-    } else {
-        location.href = "AcercaDeNosotros.html";
+    if (!usuarioEncontrado) {
+      mensaje.textContent = "❌ Correo o contraseña incorrectos.";
+      return;
     }
 
     // ===== Guardar sesión activa =====
     const usuario = {
       usuario: usuarioEncontrado.nombres,
-      email: email
+      email: email,
+      rol: usuarioEncontrado.rol || "usuario"
     };
     localStorage.setItem("usuarioActivo", JSON.stringify(usuario));
 
-    // Mostrar mensaje de éxito y redirigir
+    // ===== Redirigir según el rol =====
     mensaje.style.color = "green";
     mensaje.textContent = "✅ Inicio de sesión exitoso. Redirigiendo...";
+
     setTimeout(() => {
-      location.href = "AcercaDeNosotros.html";
-    }, 1500);
+      if (usuario.rol === "admin") {
+        location.href = "../admin/panel-admin.html";
+      } else {
+        location.href = "../comunes/acerca-de-nosotros.html";
+      }
+    }, 1200);
   });
 });
 
