@@ -131,6 +131,15 @@ body {
       cursor: pointer;
       transition: 0.3s;
     }
+    .btn-principal-ingresar{
+    background-color:#003366;
+      color:#fdfdfd;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
     .btn-principal:hover {
       background-color: #072b65;
