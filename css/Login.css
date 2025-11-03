@@ -1,39 +1,135 @@
-body.login-page,
-body.registro-page {
-  background-color: #003366;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-.contenedor {
-  background: white;
-  max-width: 350px;
-  margin: 100px auto;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  text-align: center;
-}
 
-input, select {
-  width: 90%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
+    body {
+      background-color: #e9f1ff;
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-button {
-  width: 95%;
-  padding: 10px;
-  background: #003366;
+    .contenedor-login {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 80px 20px;
+      flex-wrap: wrap;
+    }
+
+    .tarjeta-login, .tarjeta-info {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 400px;
+    }
+
+    .tarjeta-login h2 {
+      color: #0a347c;
+      margin-bottom: 10px;
+    }
+
+    .tarjeta-login p {
+      color: #333;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    form {
+      
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+
+    label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+    }
+
+    .btn-principal {
+      background-color: #0a347c;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-principal:hover {
+      background-color: #072b65;
+    }
+
+    .texto-secundario {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+
+    .texto-secundario a {
+      color: #0a347c;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .texto-secundario a:hover {
+      text-decoration: underline;
+    }
+
+    .tarjeta-info h3 {
+      color: #0a347c;
+      margin-bottom: 15px;
+    }
+
+    .tarjeta-info ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .tarjeta-info li {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+ /* ===== PIE DE PÁGINA ===== */
+.pie-pagina {
+  background: #111;
   color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  padding: 40px 20px;
 }
 
-button:hover {
-  background: #0055aa;
+.contenedor-pie {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.pie-pagina h4 {
+  margin-bottom: 10px;
+  color: #e8f0ff;
+}
+
+.pie-pagina a {
+  color: white;
+  text-decoration: none;
+}
+
+.pie-pagina a:hover {
+  text-decoration: underline;
+}
+.copy {
+  text-align: center;
+  font-size: 0.9em;
+  color: #aaa;
 }
