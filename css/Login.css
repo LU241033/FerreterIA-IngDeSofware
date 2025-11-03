@@ -37,36 +37,3 @@ button {
 button:hover {
   background: #0055aa;
 }
-/* ===== PIE DE PÁGINA ===== */
-.pie-pagina {
-  background: #111;
-  color: white;
-  padding: 40px 20px;
-}
-
-.contenedor-pie {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.pie-pagina h4 {
-  margin-bottom: 10px;
-  color: #e8f0ff;
-}
-
-.pie-pagina a {
-  color: white;
-  text-decoration: none;
-}
-
-.pie-pagina a:hover {
-  text-decoration: underline;
-}
-.copy {
-  text-align: center;
-  font-size: 0.9em;
-  color: #aaa;
-}
