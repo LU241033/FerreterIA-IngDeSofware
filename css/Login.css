@@ -1,10 +1,76 @@
+/* ===== REINICIO GENERAL ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    body {
-      background-color: #e9f1ff;
-      font-family: "Poppins", sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ===== BARRA DE NAVEGACIÓN ===== */
+.barra-navegacion {
+  background-color: #003366;
+  color: white;
+  padding: 15px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.contenedor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.enlaces {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.enlaces a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.enlaces a:hover,
+.enlaces .activo {
+  text-decoration: underline;
+}
+
+.botones button {
+  margin-left: 10px;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-borde {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.btn-principal {
+  background: white;
+  color: #003366;
+  border: none;
+}
 
     .contenedor-login {
       display: flex;
