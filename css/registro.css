@@ -68,68 +68,24 @@ body {
   background: white;
   color: #003366;
   border: none;
-}
-
-/* ===== SECCIÓN PRINCIPAL ===== */
+}/* ===== SECCIÓN PRINCIPAL ===== */
 .seccion-principal {
   background-color: #003366;
   color: white;
   padding: 100px 0;
-  margin-top: 80px;
+  margin-top: 70px;
 }
 
 .contenido-principal {
   width: 90%;
   max-width: 1200px;
   margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
 }
-
-/* ===== TARJETAS DE SERVICIOS ===== */
-.grid-servicios {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  margin-top: 40px;
-}
-
-.tarjeta-servicio {
-  background: white;
-  color: #003366;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  text-align: center;
-  transition: transform 0.3s ease;
-}
-
-.tarjeta-servicio:hover {
-  transform: translateY(-5px);
-}
-
-.icono-servicio {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.boton-servicio {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.boton-principal {
-  background: #003366;
-  color: white;
-}
-
-.boton-principal:hover {
-  background: #002b5c;
-}
-
-
 /* ===== ESTRUCTURA PRINCIPAL ===== */
 .seccion-principal.registro {
   display: flex;
@@ -150,7 +106,7 @@ body {
 /* ===== FORMULARIO ===== */
 .registro-formulario {
   flex: 1;
-  background-color: #fff;
+  background-color:#e8f0ff;
   padding: 1.5rem 2rem;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
@@ -201,7 +157,7 @@ body {
 
 .btn-principal {
   width: 100%;
-  background-color: #007bff;
+  background-color:#003366;
   color: #fff;
   font-size: 0.95rem;
   padding: 0.8rem;
@@ -218,7 +174,7 @@ body {
 }
 
 .texto-login a {
-  color: #007bff;
+  color: #003366;
   text-decoration: none;
   font-weight: 500;
 }
@@ -227,7 +183,7 @@ body {
 .registro-experiencias {
   flex: 1;
   max-width: 400px;
-  background: white;
+  background: #e8f0ff;
   padding: 2rem;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
@@ -246,7 +202,7 @@ body {
 }
 
 .tarjeta {
-  background: #f8f9fa;
+  background: #ffffff;
   padding: 1.5rem;
   border-radius: 10px;
   border-left: 4px solid #007bff;
