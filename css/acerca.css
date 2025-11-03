@@ -71,6 +71,19 @@ body {
   color: #003366;
   border: none;
 }
+/* ===== IMAGEN PRINCIPAL ===== */
+.imagen {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.imagen img {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 10px;
+  object-fit: cover;
+}
 
 /* ===== SECCIÓN PRINCIPAL ===== */
 .seccion-principal {
