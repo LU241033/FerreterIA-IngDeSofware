@@ -1,151 +1,139 @@
+/* ===== REINICIO GENERAL ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-      background-color: #f8fafc;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    .seccion-principal {
-      min-height: calc(100vh - 160px);
-      padding: 3rem 1rem;
-      box-sizing: border-box;
-    }
-    
-    .contenido-principal {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .encabezado-explora {
-      margin-bottom: 3rem;
-      width: 100%;
-      text-align: center;
-    }
-    
-    .encabezado-explora h2 {
-      margin-bottom: 1rem;
-      color: #2d3748;
-      font-size: 2.5rem;
-      font-weight: 700;
-    }
-    
-    .encabezado-explora p {
-      color: #718096;
-      font-size: 1.2rem;
-      line-height: 1.6;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
-    .panel-servicios {
-      background-color: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-      padding: 3rem;
-      width: 100%;
-      box-sizing: border-box;
-      border: 1px solid #e2e8f0;
-    }
-    
-    .grid-servicios {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
-    
-    .tarjeta-servicio {
-      background-color: #ffffff;
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      border: 1px solid #e2e8f0;
-      transition: all 0.3s ease;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .tarjeta-servicio:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-    
-    .icono-servicio {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-    
-    .tarjeta-servicio h3 {
-      margin: 0 0 1rem 0;
-      color: #2d3748;
-      font-size: 1.4rem;
-      font-weight: 600;
-      text-align: center;
-    }
-    
-    .tarjeta-servicio p {
-      color: #718096;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-      flex-grow: 1;
-    }
-    
-    .beneficios-servicio {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 1.5rem;
-    }
-    
-    .beneficios-servicio li {
-      padding: 0.5rem 0;
-      color: #4a5568;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .beneficios-servicio li:before {
-      content: "✓";
-      color: #48bb78;
-      font-weight: bold;
-    }
-    
-    .boton-servicio {
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      text-align: center;
-      display: block;
-      margin-top: auto;
-    }
-    
-    .boton-principal {
-      background-color: #4a6cf7;
-      color: white;
-    }
-    
-    .boton-principal:hover {
-      background-color: #3a5ce5;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(74, 108, 247, 0.3);
-    }
-    
-    .seccion-ventajas {
-      background: linear-gradient(135deg, #4a6cf7 0%, #3a5ce5 100%);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+/* ===== BARRA DE NAVEGACIÓN ===== */
+.barra-navegacion {
+  background-color: #003366;
+  color: white;
+  padding: 15px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.contenedor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.enlaces {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.enlaces a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.enlaces a:hover {
+  text-decoration: underline;
+}
+
+.botones button {
+  margin-left: 10px;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-borde {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.btn-principal {
+  background: white;
+  color: #003366;
+  border: none;
+}
+
+/* ===== SECCIÓN PRINCIPAL ===== */
+.seccion-principal {
+  background-color: #003366;
+  color: white;
+  padding: 100px 0;
+  margin-top: 80px;
+}
+
+.contenido-principal {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ===== TARJETAS DE SERVICIOS ===== */
+.grid-servicios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.tarjeta-servicio {
+  background: white;
+  color: #003366;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.tarjeta-servicio:hover {
+  transform: translateY(-5px);
+}
+
+.icono-servicio {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.boton-servicio {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.boton-principal {
+  background: #003366;
+  color: white;
+}
+
+.boton-principal:hover {
+  background: #002b5c;
+}
+/* VENTAJAS*/
+.seccion-ventajas {
+      background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
       border-radius: 16px;
       padding: 3rem;
-      color: white;
+      color: #003366;
       margin-top: 3rem;
     }
     
@@ -184,84 +172,7 @@ body {
       opacity: 0.9;
       line-height: 1.5;
     }
-    
-    /* Estilos para la barra de navegación */
-    .barra-navegacion {
-      background-color: #ffffff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      padding: 1rem 0;
-    }
-    
-    .contenedor {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 1.5rem;
-    }
-    
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #2d3748;
-    }
-    
-    .enlaces {
-      display: flex;
-      list-style: none;
-      gap: 2rem;
-    }
-    
-    .enlaces a {
-      text-decoration: none;
-      color: #4a5568;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-    
-    .enlaces a:hover, .enlaces a.activo {
-      color: #4a6cf7;
-    }
-    
-    .botones {
-      display: flex;
-      gap: 1rem;
-    }
-    
-    .btn-borde, .btn-principal {
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      border: 1.5px solid #4a6cf7;
-      text-decoration: none;
-      display: inline-block;
-      text-align: center;
-    }
-    
-    .btn-borde {
-      background-color: transparent;
-      color: #4a6cf7;
-    }
-    
-    .btn-borde:hover {
-      background-color: #f0f4ff;
-    }
-    
-    .btn-principal {
-      background-color: #4a6cf7;
-      color: white;
-      border: none;
-    }
-    
-    .btn-principal:hover {
-      background-color: #3a5ce5;
-    }
-    
-    /* Estilos para el pie de página */
-   /* ===== PIE DE PÁGINA ===== */
+/* ===== PIE DE PÁGINA ===== */
 .pie-pagina {
   background: #111;
   color: white;
@@ -289,44 +200,18 @@ body {
 .pie-pagina a:hover {
   text-decoration: underline;
 }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      .contenedor {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .enlaces {
-        gap: 1rem;
-      }
-      
-      .panel-servicios {
-        padding: 1.5rem;
-      }
-      
-      .grid-servicios {
-        grid-template-columns: 1fr;
-      }
-      
-      .seccion-ventajas {
-        padding: 2rem 1.5rem;
-      }
-      
-      .grid-ventajas {
-        grid-template-columns: 1fr;
-      }
-      
-      .encabezado-explora h2 {
-        font-size: 2rem;
-      }
-      
-      .encabezado-explora p {
-        font-size: 1.1rem;
-      }
-    }
-    .copy {
+
+.copy {
   text-align: center;
   font-size: 0.9em;
   color: #aaa;
+}
+.btn-borde-claro{ 
+    background: rgb(121, 142, 210);
+  color: white;
+  border: 2px solid white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
 }

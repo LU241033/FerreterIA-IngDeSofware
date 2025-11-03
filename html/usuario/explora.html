@@ -7,27 +7,29 @@
 
   <!-- Estilos -->
   <link rel="stylesheet" href="/css/explora.css">
-  <link rel="stylesheet" href="../css/acerca.css"><!-- se mantiene si compartes estilos -->
+ 
   <link rel="shortcut icon" href="../Img/Logo.png" type="image/x-icon">
 </head>
 <body>
 
   <!-- ===== BARRA DE NAVEGACIÓN ===== -->
-  <header class="barra-navegacion">
+   <header class="barra-navegacion">
     <div class="contenedor">
-      <div class="logo">FerreterIA</div>
+      <h1 class="logo">FerreterIA</h1>
+      <nav class="menu">
+        <ul class="enlaces">
+          <li><a href="../../Index.html">Inicio</a></li>
+          <li><a href="/html/usuario/explora.html">Explorar</a></li>
+          <li><a href="/html/">Compras</a></li>
+          <li><a href="#">Perfil</a></li>
+          <li><a href="/html/comunes/acerca-de-nosotros.html">Acerca de nosotros</a></li>
+        </ul>
+      </nav>
 
-      <ul class="enlaces">
-        <li><a href="../../Index.html">Inicio</a></li>
-        <li><a class="activo" href="explora.html">Explorar</a></li>
-        <li><a href="compras.html">Compras</a></li>
-        <li><a href="perfil.html">Perfil</a></li>
-      </ul>
-
-      <!-- 🔹 Autenticación dinámica -->
+      <!-- 🔹 Botones dinámicos según sesión -->
       <div class="botones" id="botonesAuth">
-        <a href="login.html" class="btn-borde">Iniciar sesión</a>
-        <a href="registro.html" class="btn-principal">Registrarse</a>
+        <button class="btn-borde" onclick="location.href=''">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href="">Registrarse</button>
       </div>
     </div>
   </header>
@@ -140,7 +142,7 @@
             <div class="ventaja">
               <span class="icono">🚀</span>
               <h4>Eficiencia Comprobada</h4>
-              <p>Reduce el tiempo de gestión en un 70% con nuestras herramientas automatizadas.</p>
+              <p>Reduce el tiempo de gestión en un 70% con nuestras herramientas </p>
             </div>
             <div class="ventaja">
               <span class="icono">🛡️</span>
