@@ -7,8 +7,8 @@
   <title>Gestión de Productos | FerreterIA</title>
 
   <!-- Rutas de estilos corregidas -->
-  <link rel="stylesheet" href="../css/acerca.css">
-  <link rel="stylesheet" href="../css/panel-admin.css">
+  <link rel="stylesheet" href="../../css/acerca.css">
+  <link rel="stylesheet" href="../../css/panel-admin.css">
 </head>
 <body>
 
@@ -16,13 +16,13 @@
     <div class="contenedor">
       <div class="logo">FerreterIA</div>
       <ul class="enlaces">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="explora.html">Explora</a></li>
+        <li><a href="../../Index.html">Inicio</a></li>
+        <li><a href="../usuario/explora.html">Explora</a></li>
         <li><a href="#">Perfil</a></li>
         <li><a href="panel-admin.html">Manos a la obra</a></li>
       </ul>
       <div class="botones" id="botonesAuth">
-        <a href="login.html" class="btn-borde">Cerrar sesión</a>
+        <a href="../../Index.html" class="btn-borde" onclick="event.preventDefault(); cerrarSesion();">Cerrar sesión</a>
         <div class="usuario">Administrador 👨‍💼</div>
       </div>
     </div>
@@ -160,28 +160,106 @@
     <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
   </footer>
 
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/productos.js"></script>
   <script>
-    const inputBusqueda = document.querySelector('.grupo-busqueda input');
-    const selectCategoria = document.querySelector('.busqueda-filtros select');
-    const filas = document.querySelectorAll('.tabla-productos tbody tr');
+    // Verificar autenticación de admin
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!protegerRutaAdmin()) return;
+      actualizarBotonesAuth();
+      cargarProductos();
+      inicializarFiltros();
+    });
 
-    function filtrarTabla() {
-      const texto = inputBusqueda.value.toLowerCase();
-      const categoria = selectCategoria.value.toLowerCase();
+    function cargarProductos() {
+      const productos = gestorProductos.obtenerTodos();
+      const tbody = document.querySelector('.tabla-productos tbody');
+      
+      // Actualizar estadísticas
+      const stats = gestorProductos.obtenerEstadisticas();
+      document.querySelector('.estadisticas .tarjeta-estadistica:first-child .valor').textContent = stats.total;
+      document.querySelector('.estadisticas .tarjeta-estadistica:nth-child(2) .valor').textContent = stats.stockBajo;
+      document.querySelector('.estadisticas .tarjeta-estadistica:nth-child(3) .valor').textContent = stats.categorias;
+      document.querySelector('.estadisticas .tarjeta-estadistica:last-child .valor').textContent = `$${(stats.valorInventario / 1000000).toFixed(1)}M`;
 
-      filas.forEach(fila => {
-        const textoFila = fila.textContent.toLowerCase();
-        const categoriaFila = fila.cells[2].textContent.toLowerCase();
+      // Limpiar tabla
+      tbody.innerHTML = '';
 
-        const coincideBusqueda = textoFila.includes(texto);
-        const coincideCategoria = categoria === 'todas las categorías' || categoriaFila.includes(categoria);
+      if (productos.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align: center; padding: 40px; color: #666;">
+              No hay productos registrados. <a href="registrar-producto.html">Registra el primero aquí</a>
+            </td>
+          </tr>
+        `;
+        return;
+      }
 
-        fila.style.display = (coincideBusqueda && coincideCategoria) ? '' : 'none';
+      // Renderizar productos
+      productos.forEach(producto => {
+        const estadoStock = gestorProductos.obtenerEstadoStock(producto.stock);
+        const precioFormateado = gestorProductos.formatearPrecio(producto.precio);
+        
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td>#${producto.id}</td>
+          <td>${sanitizarTexto(producto.nombre)}</td>
+          <td>${sanitizarTexto(producto.categoria)}</td>
+          <td>${precioFormateado}</td>
+          <td>${producto.stock}</td>
+          <td><span class="estado-stock ${estadoStock.clase}">${estadoStock.texto}</span></td>
+          <td class="acciones-tabla">
+            <a href="actualizar-poducto.html?id=${producto.id}" class="boton-accion-tabla boton-actualizar">Actualizar</a>
+            <a href="eliminar-producto.html?id=${producto.id}" class="boton-accion-tabla boton-eliminar">Eliminar</a>
+          </td>
+        `;
+        tbody.appendChild(fila);
+      });
+
+      // Actualizar select de categorías
+      const categorias = [...new Set(productos.map(p => p.categoria))];
+      const selectCategoria = document.querySelector('.busqueda-filtros select');
+      const opcionesActuales = selectCategoria.querySelectorAll('option');
+      opcionesActuales.forEach((opt, index) => {
+        if (index > 0) opt.remove(); // Mantener solo "Todas las categorías"
+      });
+      
+      categorias.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat;
+        selectCategoria.appendChild(option);
       });
     }
 
-    inputBusqueda.addEventListener('input', filtrarTabla);
-    selectCategoria.addEventListener('change', filtrarTabla);
+    function inicializarFiltros() {
+      const inputBusqueda = document.querySelector('.grupo-busqueda input');
+      const selectCategoria = document.querySelector('.busqueda-filtros select');
+      const tbody = document.querySelector('.tabla-productos tbody');
+
+      function filtrarTabla() {
+        const texto = inputBusqueda.value.toLowerCase();
+        const categoria = selectCategoria.value.toLowerCase();
+        const filas = tbody.querySelectorAll('tr');
+
+        filas.forEach(fila => {
+          if (fila.querySelector('td[colspan]')) return; // Saltar fila de "sin productos"
+          
+          const textoFila = fila.textContent.toLowerCase();
+          const categoriaFila = fila.cells[2].textContent.toLowerCase();
+
+          const coincideBusqueda = !texto || textoFila.includes(texto);
+          const coincideCategoria = categoria === 'todas las categorías' || categoriaFila.includes(categoria);
+
+          fila.style.display = (coincideBusqueda && coincideCategoria) ? '' : 'none';
+        });
+      }
+
+      inputBusqueda.addEventListener('input', filtrarTabla);
+      selectCategoria.addEventListener('change', filtrarTabla);
+    }
   </script>
 
 </body>

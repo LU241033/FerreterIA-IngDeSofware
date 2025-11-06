@@ -16,13 +16,13 @@
 
       <ul class="enlaces">
         <li><a href="../Index.html">Inicio</a></li>
-        <li><a href="/html/usuario/explora.html">Explorar</a></li>
-        <li><a href="/html/comunes/acerca-de-nosotros.html">Acerca de nosotros</a></li>
+        <li><a href="usuario/explora.html">Explorar</a></li>
+        <li><a href="comunes/acerca-de-nosotros.html">Acerca de nosotros</a></li>
       </ul>
 
       <div class="botones" id="botonesAuth">
         
-        <button class="btn-principal" onclick="location.href='./usuario/registro.html'">Registrarse</button>
+        <button class="btn-principal" onclick="location.href='usuario/registro.html'">Registrarse</button>
       </div>
     </div>
   </header>
@@ -90,7 +90,11 @@
     <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
   </footer>
 
-  <script src="/js/login.js"></script>
+  <!-- Scripts (orden importante) -->
+  <script src="../js/security.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/admin-loader.js"></script>
+  <script src="../js/login.js"></script>
 
 
 </body>

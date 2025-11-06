@@ -20,8 +20,7 @@
     <div class="contenedor">
       <div class="logo">FerreterIA</div>
       <ul class="enlaces">
-        <!-- ⚠️ Rutas relativas corregidas según la ubicación en /html/admin/ -->
-        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="../../Index.html">Inicio</a></li>
         <li><a href="../usuario/explora.html">Explora</a></li>
         <li><a href="#">Compras</a></li>
         <li><a href="#">Perfil</a></li>
@@ -29,8 +28,8 @@
       </ul>
 
       <div class="botones" id="botonesAuth">
-        <button class="btn-borde" onclick="location.href='../login.html'">Iniciar sesión</button>
-        <button class="btn-principal" onclick="location.href='../registro.html'">Registrarse</button>
+        <button class="btn-borde" onclick="location.href='../Login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='../usuario/registro.html'">Registrarse</button>
       </div>
     </div>
   </header>
@@ -44,7 +43,9 @@
       </div>
 
       <div class="formulario-contenedor">
-        <form>
+        <form id="formRegistrarProducto">
+          <div id="mensaje-formulario" style="display:none; margin-bottom: 15px; padding: 12px; border-radius: 8px;"></div>
+          
           <div class="grupo-formulario">
             <label for="nombre">Nombre del producto:</label>
             <input type="text" id="nombre" placeholder="Ej. Martillo de acero" required />
@@ -59,13 +60,13 @@
 
           <div class="grupo-formulario">
             <label for="precio">Precio:</label>
-            <input type="number" id="precio" placeholder="Ej. 25000" required />
+            <input type="number" id="precio" step="0.01" min="0" placeholder="Ej. 25000" required />
             <span class="icono-input">💰</span>
           </div>
 
           <div class="grupo-formulario">
             <label for="stock">Cantidad en stock:</label>
-            <input type="number" id="stock" placeholder="Ej. 10" required />
+            <input type="number" id="stock" min="0" placeholder="Ej. 10" required />
             <span class="icono-input">📦</span>
           </div>
 
@@ -112,5 +113,66 @@
 
     <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
   </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/productos.js"></script>
+  <script>
+    // Verificar autenticación de admin
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!protegerRutaAdmin()) return;
+      actualizarBotonesAuth();
+
+      const form = document.getElementById("formRegistrarProducto");
+      const mensajeDiv = document.getElementById("mensaje-formulario");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const datos = {
+          nombre: document.getElementById("nombre").value.trim(),
+          categoria: document.getElementById("categoria").value.trim(),
+          precio: document.getElementById("precio").value,
+          stock: document.getElementById("stock").value
+        };
+
+        // Validar
+        const validacion = validarProducto(datos);
+        if (!validacion.valido) {
+          mostrarMensajeEnFormulario(validacion.errores.join(", "), "error");
+          return;
+        }
+
+        try {
+          const nuevoProducto = gestorProductos.crear(datos);
+          mostrarMensajeEnFormulario(`✅ Producto "${nuevoProducto.nombre}" registrado exitosamente (ID: #${nuevoProducto.id})`, "success");
+          
+          // Limpiar formulario
+          form.reset();
+          
+          // Redirigir después de 2 segundos
+          setTimeout(() => {
+            window.location.href = "panel-admin.html";
+          }, 2000);
+        } catch (error) {
+          mostrarMensajeEnFormulario(`❌ Error: ${error.message}`, "error");
+        }
+      });
+
+      function mostrarMensajeEnFormulario(mensaje, tipo) {
+        mensajeDiv.textContent = mensaje;
+        mensajeDiv.style.display = "block";
+        mensajeDiv.style.backgroundColor = tipo === "success" ? "#10b981" : "#ef4444";
+        mensajeDiv.style.color = "white";
+        mensajeDiv.style.padding = "12px";
+        mensajeDiv.style.borderRadius = "8px";
+        mensajeDiv.style.marginBottom = "15px";
+        
+        setTimeout(() => {
+          mensajeDiv.style.display = "none";
+        }, 5000);
+      }
+    });
+  </script>
 </body>
 </html>

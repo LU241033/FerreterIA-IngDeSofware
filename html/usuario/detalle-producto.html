@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle de Producto | FerreterIA</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/explora.css">
+  <link rel="shortcut icon" href="../../img/FAVICON.ico" type="image/x-icon">
+  <style>
+    .detalle-producto {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .detalle-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    
+    .detalle-info h1 {
+      color: #2d3748;
+      margin-bottom: 15px;
+      font-size: 2em;
+    }
+    
+    .detalle-info .categoria {
+      color: #718096;
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+    
+    .detalle-info .precio {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #2b6cb0;
+      margin: 20px 0;
+    }
+    
+    .detalle-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .stat-item {
+      padding: 15px;
+      background: #f7fafc;
+      border-radius: 8px;
+    }
+    
+    .stat-item .label {
+      color: #718096;
+      font-size: 0.9em;
+      margin-bottom: 5px;
+    }
+    
+    .stat-item .value {
+      color: #2d3748;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .boton-volver {
+      background: #718096;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    
+    .boton-volver:hover {
+      background: #4a5568;
+    }
+    
+    .producto-no-encontrado {
+      text-align: center;
+      padding: 60px 20px;
+      color: #718096;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== BARRA DE NAVEGACIÓN ===== -->
+  <header class="barra-navegacion">
+    <div class="contenedor">
+      <h1 class="logo">FerreterIA</h1>
+      <nav class="menu">
+        <ul class="enlaces">
+          <li><a href="../../Index.html">Inicio</a></li>
+          <li><a href="dashboard-usuario.html">Catálogo</a></li>
+          <li><a href="../comunes/acerca-de-nosotros.html">Acerca de</a></li>
+        </ul>
+      </nav>
+
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='../Login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='registro.html'">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SECCIÓN PRINCIPAL ===== -->
+  <section class="seccion-principal" style="margin-top: 80px;">
+    <div class="contenido-principal">
+      <div id="detalle-contenido">
+        <!-- El contenido del producto se cargará aquí -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie-pagina">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="../../Index.html">Inicio</a></li>
+          <li><a href="../comunes/acerca-de-nosotros.html">Acerca de</a></li>
+          <li><a href="dashboard-usuario.html">Catálogo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li>Catálogo de productos</li>
+          <li>Búsqueda avanzada</li>
+          <li>Información detallada</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/productos.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Verificar si hay usuario autenticado
+      const usuario = verificarAutenticacion();
+      if (usuario) {
+        actualizarBotonesAuth();
+      }
+      
+      cargarDetalleProducto();
+    });
+
+    function cargarDetalleProducto() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const idProducto = urlParams.get('id');
+      const contenidoDiv = document.getElementById('detalle-contenido');
+
+      if (!idProducto) {
+        contenidoDiv.innerHTML = `
+          <div class="producto-no-encontrado">
+            <h2>❌ ID de producto no especificado</h2>
+            <p>Por favor, selecciona un producto desde el catálogo.</p>
+            <a href="dashboard-usuario.html" class="boton-volver">Volver al Catálogo</a>
+          </div>
+        `;
+        return;
+      }
+
+      const producto = gestorProductos.obtenerPorId(idProducto);
+
+      if (!producto) {
+        contenidoDiv.innerHTML = `
+          <div class="producto-no-encontrado">
+            <h2>🔍 Producto no encontrado</h2>
+            <p>El producto que buscas no existe o ha sido eliminado.</p>
+            <a href="dashboard-usuario.html" class="boton-volver">Volver al Catálogo</a>
+          </div>
+        `;
+        return;
+      }
+
+      const estadoStock = gestorProductos.obtenerEstadoStock(producto.stock);
+      const precioFormateado = gestorProductos.formatearPrecio(producto.precio);
+      const fechaCreacion = new Date(producto.fechaCreacion).toLocaleDateString('es-CO', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      const fechaActualizacion = new Date(producto.fechaActualizacion).toLocaleDateString('es-CO', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      contenidoDiv.innerHTML = `
+        <div class="detalle-producto">
+          <div class="detalle-header">
+            <div class="detalle-info">
+              <h1>${sanitizarTexto(producto.nombre)}</h1>
+              <div class="categoria">📂 ${sanitizarTexto(producto.categoria)}</div>
+              <div class="precio">${precioFormateado}</div>
+            </div>
+            <div class="detalle-stats">
+              <div class="stat-item">
+                <div class="label">ID del Producto</div>
+                <div class="value">#${producto.id}</div>
+              </div>
+              <div class="stat-item">
+                <div class="label">Stock Disponible</div>
+                <div class="value">${producto.stock} unidades</div>
+              </div>
+              <div class="stat-item">
+                <div class="label">Estado</div>
+                <div class="value">
+                  <span class="estado-stock ${estadoStock.clase}">${estadoStock.texto}</span>
+                </div>
+              </div>
+              <div class="stat-item">
+                <div class="label">Valor Total</div>
+                <div class="value">${gestorProductos.formatearPrecio(producto.precio * producto.stock)}</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 30px;">
+            <h3 style="color: #2d3748; margin-bottom: 15px;">Información Adicional</h3>
+            <div class="detalle-stats">
+              <div class="stat-item">
+                <div class="label">Fecha de Registro</div>
+                <div class="value">${fechaCreacion}</div>
+              </div>
+              <div class="stat-item">
+                <div class="label">Última Actualización</div>
+                <div class="value">${fechaActualizacion}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="botones-accion">
+            <a href="dashboard-usuario.html" class="boton-volver">← Volver al Catálogo</a>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
+

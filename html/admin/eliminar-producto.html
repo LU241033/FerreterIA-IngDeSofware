@@ -41,18 +41,27 @@
       </div>
 
       <div class="formulario-contenedor">
+        <div id="mensaje-formulario" style="display:none; margin-bottom: 15px; padding: 12px; border-radius: 8px;"></div>
         <div class="alerta-eliminacion">
           <p>⚠️ Esta acción no se puede deshacer. El producto se eliminará permanentemente.</p>
         </div>
         
-        <form>
+        <div id="producto-info" style="display:none; margin-bottom: 20px; padding: 20px; background: #fef2f2; border: 2px solid #fecaca; border-radius: 8px;">
+          <h3 style="color: #dc2626; margin-bottom: 15px;">Producto a Eliminar:</h3>
+          <div id="producto-details" style="color: #7f1d1d;"></div>
+        </div>
+        
+        <form id="formEliminarProducto">
           <div class="grupo-formulario">
-            <label for="buscar-producto">ID o nombre del producto:</label>
-            <input type="text" id="buscar-producto" placeholder="Ej. Martillo o 12345" required>
+            <label for="buscar-producto">ID del producto:</label>
+            <input type="text" id="buscar-producto" placeholder="Ej. 001" required>
             <span class="icono-input">🔍</span>
+            <button type="button" class="boton-buscar" onclick="buscarProductoParaEliminar()" style="margin-top: 10px; padding: 8px 16px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer;">
+              Buscar Producto
+            </button>
           </div>
           
-          <button type="submit" class="boton-formulario boton-peligro">Eliminar Producto</button>
+          <button type="submit" class="boton-formulario boton-peligro" id="btnEliminar" disabled>Eliminar Producto</button>
           <button type="button" class="boton-formulario boton-volver" onclick="location.href='panel-admin.html'">
             ← Volver a Gestión
           </button>
@@ -96,5 +105,116 @@
     <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
   </footer>
 
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/productos.js"></script>
+  <script>
+    let productoSeleccionado = null;
+
+    // Verificar autenticación de admin
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!protegerRutaAdmin()) return;
+      actualizarBotonesAuth();
+
+      // Obtener ID de la URL si existe
+      const urlParams = new URLSearchParams(window.location.search);
+      const idProducto = urlParams.get('id');
+      
+      if (idProducto) {
+        document.getElementById('buscar-producto').value = idProducto;
+        buscarProductoParaEliminar();
+      }
+
+      // Manejar envío del formulario
+      const form = document.getElementById("formEliminarProducto");
+      const mensajeDiv = document.getElementById("mensaje-formulario");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        if (!productoSeleccionado) {
+          mostrarMensajeEnFormulario('Primero debes buscar un producto', 'error');
+          return;
+        }
+
+        // Confirmación adicional
+        const confirmacion = confirm(
+          `¿Estás seguro de eliminar el producto "${productoSeleccionado.nombre}" (ID: #${productoSeleccionado.id})?\n\nEsta acción no se puede deshacer.`
+        );
+
+        if (!confirmacion) {
+          return;
+        }
+
+        try {
+          gestorProductos.eliminar(productoSeleccionado.id);
+          mostrarMensajeEnFormulario(`✅ Producto "${productoSeleccionado.nombre}" eliminado exitosamente`, "success");
+          
+          // Limpiar formulario
+          form.reset();
+          productoSeleccionado = null;
+          document.getElementById('producto-info').style.display = 'none';
+          document.getElementById('btnEliminar').disabled = true;
+          
+          // Redirigir después de 2 segundos
+          setTimeout(() => {
+            window.location.href = "panel-admin.html";
+          }, 2000);
+        } catch (error) {
+          mostrarMensajeEnFormulario(`❌ Error: ${error.message}`, "error");
+        }
+      });
+    });
+
+    function buscarProductoParaEliminar() {
+      const idBuscar = document.getElementById('buscar-producto').value.trim();
+      
+      if (!idBuscar) {
+        mostrarMensaje('Por favor, ingresa un ID de producto', 'warning');
+        return;
+      }
+
+      const producto = gestorProductos.obtenerPorId(idBuscar);
+      
+      if (!producto) {
+        mostrarMensajeEnFormulario('Producto no encontrado', 'error');
+        document.getElementById('producto-info').style.display = 'none';
+        document.getElementById('btnEliminar').disabled = true;
+        productoSeleccionado = null;
+        return;
+      }
+
+      productoSeleccionado = producto;
+      const estadoStock = gestorProductos.obtenerEstadoStock(producto.stock);
+      const precioFormateado = gestorProductos.formatearPrecio(producto.precio);
+
+      document.getElementById('producto-details').innerHTML = `
+        <p><strong>ID:</strong> #${producto.id}</p>
+        <p><strong>Nombre:</strong> ${sanitizarTexto(producto.nombre)}</p>
+        <p><strong>Categoría:</strong> ${sanitizarTexto(producto.categoria)}</p>
+        <p><strong>Precio:</strong> ${precioFormateado}</p>
+        <p><strong>Stock:</strong> ${producto.stock} unidades</p>
+        <p><strong>Estado:</strong> <span class="estado-stock ${estadoStock.clase}">${estadoStock.texto}</span></p>
+      `;
+
+      document.getElementById('producto-info').style.display = 'block';
+      document.getElementById('btnEliminar').disabled = false;
+    }
+
+    function mostrarMensajeEnFormulario(mensaje, tipo) {
+      const mensajeDiv = document.getElementById("mensaje-formulario");
+      mensajeDiv.textContent = mensaje;
+      mensajeDiv.style.display = "block";
+      mensajeDiv.style.backgroundColor = tipo === "success" ? "#10b981" : "#ef4444";
+      mensajeDiv.style.color = "white";
+      mensajeDiv.style.padding = "12px";
+      mensajeDiv.style.borderRadius = "8px";
+      mensajeDiv.style.marginBottom = "15px";
+      
+      setTimeout(() => {
+        mensajeDiv.style.display = "none";
+      }, 5000);
+    }
+  </script>
 </body>
 </html>
