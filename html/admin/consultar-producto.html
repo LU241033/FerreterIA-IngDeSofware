@@ -17,15 +17,15 @@
     <div class="contenedor">
       <div class="logo">FerreterIA</div>
       <ul class="enlaces">
-        <li><a href="/html/index.html">Inicio</a></li>
-        <li><a href="/html/usuario/explora.html">Explora</a></li>
+        <li><a href="../../Index.html">Inicio</a></li>
+        <li><a href="../usuario/explora.html">Explora</a></li>
         <li><a href="#">Compras</a></li>
         <li><a href="#">Perfil</a></li>
-        <li><a href="/html/admin/panel-admin.html">Gestión Productos</a></li>
+        <li><a href="panel-admin.html">Gestión Productos</a></li>
       </ul>
       <div class="botones" id="botonesAuth">
-        <button class="btn-borde" onclick="location.href='/html/login.html'">Iniciar sesión</button>
-        <button class="btn-principal" onclick="location.href='/html/usuario/registro.html'">Registrarse</button>
+        <button class="btn-borde" onclick="location.href='../Login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='../usuario/registro.html'">Registrarse</button>
       </div>
     </div>
   </header>
@@ -56,7 +56,7 @@
           </div>
           
           <button type="button" class="boton-formulario boton-principal" onclick="buscarProducto()">Buscar Producto</button>
-          <button type="button" class="boton-formulario boton-volver" onclick="location.href='/html/admin/-admin.html'">
+          <button type="button" class="boton-formulario boton-volver" onclick="location.href='panel-admin.html'">
             ← Volver a Gestión
           </button>
         </form>
@@ -113,8 +113,24 @@
     <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- ====== SCRIPT ====== -->
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/productos.js"></script>
   <script>
+    // Verificar autenticación de admin
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!protegerRutaAdmin()) return;
+      actualizarBotonesAuth();
+
+      // Permitir búsqueda con Enter
+      document.getElementById('valor-busqueda').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          buscarProducto();
+        }
+      });
+    });
+
     function buscarProducto() {
       const tipoBusqueda = document.getElementById('tipo-busqueda').value;
       const valorBusqueda = document.getElementById('valor-busqueda').value.trim();
@@ -123,91 +139,58 @@
       const sinResultados = document.getElementById('sin-resultados');
       
       if (!valorBusqueda) {
-        alert('Por favor, ingresa un término de búsqueda');
+        mostrarMensaje('Por favor, ingresa un término de búsqueda', 'warning');
         return;
       }
       
-      // Simulación de búsqueda - En una aplicación real, esto sería una llamada a una API
-      const productosEjemplo = [
-        {
-          id: '001',
-          nombre: 'Martillo de Acero Profesional',
-          categoria: 'Herramientas Manuales',
-          precio: '$25,000',
-          stock: 15,
-          descripcion: 'Martillo de acero forjado con mango de fibra de vidrio. Ideal para trabajos profesionales.',
-          proveedor: 'Herramientas MAX',
-          estado: 'alto'
-        },
-        {
-          id: '002',
-          nombre: 'Destornillador Phillips',
-          categoria: 'Herramientas Manuales',
-          precio: '$12,000',
-          stock: 3,
-          descripcion: 'Destornillador profesional punta Phillips tamaño #2.',
-          proveedor: 'TecniTool',
-          estado: 'bajo'
-        },
-        {
-          id: '003',
-          nombre: 'Taladro Inalámbrico 18V',
-          categoria: 'Herramientas Eléctricas',
-          precio: '$180,000',
-          stock: 8,
-          descripcion: 'Taladro percutor inalámbrico con batería de litio incluida.',
-          proveedor: 'PowerTools Co.',
-          estado: 'medio'
-        }
-      ];
+      // Buscar productos usando el gestor
+      const productosEncontrados = gestorProductos.buscar(tipoBusqueda, valorBusqueda);
       
-      let productoEncontrado = null;
-      
-      if (tipoBusqueda === 'id') {
-        productoEncontrado = productosEjemplo.find(p => p.id === valorBusqueda);
-      } else if (tipoBusqueda === 'nombre') {
-        productoEncontrado = productosEjemplo.find(p => 
-          p.nombre.toLowerCase().includes(valorBusqueda.toLowerCase())
-        );
-      } else if (tipoBusqueda === 'categoria') {
-        productoEncontrado = productosEjemplo.find(p => 
-          p.categoria.toLowerCase().includes(valorBusqueda.toLowerCase())
-        );
-      }
-      
-      if (productoEncontrado) {
-        const estadoStock = productoEncontrado.estado === 'bajo' ? 'stock-bajo' : 
-                           productoEncontrado.estado === 'medio' ? 'stock-medio' : 'stock-alto';
-        const textoEstado = productoEncontrado.estado === 'bajo' ? 'Stock Bajo' : 
-                           productoEncontrado.estado === 'medio' ? 'Stock Medio' : 'Stock Alto';
-        
-        tarjetaProducto.innerHTML = `
-          <div class="info-producto">
-            <div>
-              <div class="campo-info"><div class="etiqueta">ID</div><div class="valor">#${productoEncontrado.id}</div></div>
-              <div class="campo-info"><div class="etiqueta">Nombre</div><div class="valor">${productoEncontrado.nombre}</div></div>
-              <div class="campo-info"><div class="etiqueta">Categoría</div><div class="valor">${productoEncontrado.categoria}</div></div>
-            </div>
-            <div>
-              <div class="campo-info"><div class="etiqueta">Precio</div><div class="valor">${productoEncontrado.precio}</div></div>
-              <div class="campo-info"><div class="etiqueta">Stock</div><div class="valor">${productoEncontrado.stock}</div><div class="estado-stock ${estadoStock}">${textoEstado}</div></div>
-              <div class="campo-info"><div class="etiqueta">Proveedor</div><div class="valor">${productoEncontrado.proveedor}</div></div>
-            </div>
-          </div>
-          <div class="campo-info"><div class="etiqueta">Descripción</div><div class="valor">${productoEncontrado.descripcion}</div></div>
-          <div class="acciones-resultado">
-            <a href="actualizar-producto.html?id=${productoEncontrado.id}" class="boton-accion boton-editar">✏️ Actualizar</a>
-            <a href="eliminar-producto.html?id=${productoEncontrado.id}" class="boton-accion boton-eliminar">🗑️ Eliminar</a>
-          </div>
-        `;
-        
-        resultadoDiv.style.display = 'block';
-        sinResultados.style.display = 'none';
-      } else {
+      if (productosEncontrados.length === 0) {
         resultadoDiv.style.display = 'none';
         sinResultados.style.display = 'block';
+        return;
       }
-    }
 
-    // Permitir búsqueda con Enter
-    docum
+      // Mostrar todos los productos encontrados (o solo el primero si es búsqueda por ID)
+      let productosAMostrar = productosEncontrados;
+      if (tipoBusqueda === 'id' && productosEncontrados.length > 0) {
+        productosAMostrar = [productosEncontrados[0]]; // Solo mostrar el primero si es búsqueda por ID
+      }
+
+      let htmlResultados = '';
+      
+      productosAMostrar.forEach(producto => {
+        const estadoStock = gestorProductos.obtenerEstadoStock(producto.stock);
+        const precioFormateado = gestorProductos.formatearPrecio(producto.precio);
+        
+        htmlResultados += `
+          <div class="info-producto" style="margin-bottom: 20px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+              <div>
+                <div class="campo-info"><div class="etiqueta">ID</div><div class="valor">#${producto.id}</div></div>
+                <div class="campo-info"><div class="etiqueta">Nombre</div><div class="valor">${sanitizarTexto(producto.nombre)}</div></div>
+                <div class="campo-info"><div class="etiqueta">Categoría</div><div class="valor">${sanitizarTexto(producto.categoria)}</div></div>
+              </div>
+              <div>
+                <div class="campo-info"><div class="etiqueta">Precio</div><div class="valor">${precioFormateado}</div></div>
+                <div class="campo-info"><div class="etiqueta">Stock</div><div class="valor">${producto.stock}</div><div class="estado-stock ${estadoStock.clase}">${estadoStock.texto}</div></div>
+                <div class="campo-info"><div class="etiqueta">Fecha Creación</div><div class="valor">${new Date(producto.fechaCreacion).toLocaleDateString('es-CO')}</div></div>
+              </div>
+            </div>
+            <div class="acciones-resultado" style="margin-top: 15px; display: flex; gap: 10px;">
+              <a href="actualizar-poducto.html?id=${producto.id}" class="boton-accion boton-editar">✏️ Actualizar</a>
+              <a href="eliminar-producto.html?id=${producto.id}" class="boton-accion boton-eliminar">🗑️ Eliminar</a>
+            </div>
+          </div>
+        `;
+      });
+
+      if (productosEncontrados.length > 1 && tipoBusqueda !== 'id') {
+        htmlResultados = `<p style="margin-bottom: 15px; color: #666;">Se encontraron ${productosEncontrados.length} productos:</p>` + htmlResultados;
+      }
+
+      tarjetaProducto.innerHTML = htmlResultados;
+      resultadoDiv.style.display = 'block';
+      sinResultados.style.display = 'none';
+    }

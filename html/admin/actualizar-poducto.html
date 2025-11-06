@@ -19,16 +19,16 @@
     <div class="contenedor">
       <div class="logo">FerreterIA</div>
       <ul class="enlaces">
-        <li><a href="/html/index.html">Inicio</a></li>
-        <li><a href="/html/usuario/explora.html">Explora</a></li>
+        <li><a href="../../Index.html">Inicio</a></li>
+        <li><a href="../usuario/explora.html">Explora</a></li>
         <li><a href="#">Compras</a></li>
         <li><a href="#">Perfil</a></li>
-        <li><a href="/html/admin/panel-admin.html">Gestión Productos</a></li>
+        <li><a href="panel-admin.html">Gestión Productos</a></li>
       </ul>
 
       <div class="botones" id="botonesAuth">
-        <button class="btn-borde" onclick="location.href='/html/login.html'">Iniciar sesión</button>
-        <button class="btn-principal" onclick="location.href='/html/usuario/registro.html'">Registrarse</button>
+        <button class="btn-borde" onclick="location.href='../Login.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='../usuario/registro.html'">Registrarse</button>
       </div>
     </div>
   </header>
@@ -42,39 +42,41 @@
       </div>
 
       <div class="formulario-contenedor">
-        <form>
+        <div id="mensaje-formulario" style="display:none; margin-bottom: 15px; padding: 12px; border-radius: 8px;"></div>
+        <form id="formActualizarProducto">
           <div class="grupo-formulario">
             <label for="id-producto">ID del producto:</label>
-            <input type="text" id="id-producto" placeholder="Ej. 12345" required>
+            <input type="text" id="id-producto" placeholder="Ej. 001" required readonly>
             <span class="icono-input">🔍</span>
+            <small style="color: #666; display: block; margin-top: 5px;">El ID no se puede modificar</small>
           </div>
           
           <div class="grupo-formulario">
-            <label for="nuevo-nombre">Nuevo nombre del producto:</label>
-            <input type="text" id="nuevo-nombre" placeholder="Ej. Martillo reforzado">
+            <label for="nuevo-nombre">Nombre del producto:</label>
+            <input type="text" id="nuevo-nombre" placeholder="Ej. Martillo reforzado" required>
             <span class="icono-input">📝</span>
           </div>
           
           <div class="grupo-formulario">
-            <label for="nueva-categoria">Nueva categoría:</label>
-            <input type="text" id="nueva-categoria" placeholder="Ej. Herramientas manuales">
+            <label for="nueva-categoria">Categoría:</label>
+            <input type="text" id="nueva-categoria" placeholder="Ej. Herramientas manuales" required>
             <span class="icono-input">📂</span>
           </div>
           
           <div class="grupo-formulario">
-            <label for="nuevo-precio">Nuevo precio:</label>
-            <input type="number" id="nuevo-precio" placeholder="Ej. 30000">
+            <label for="nuevo-precio">Precio:</label>
+            <input type="number" id="nuevo-precio" step="0.01" min="0" placeholder="Ej. 30000" required>
             <span class="icono-input">💰</span>
           </div>
           
           <div class="grupo-formulario">
-            <label for="nuevo-stock">Nueva cantidad en stock:</label>
-            <input type="number" id="nuevo-stock" placeholder="Ej. 15">
+            <label for="nuevo-stock">Cantidad en stock:</label>
+            <input type="number" id="nuevo-stock" min="0" placeholder="Ej. 15" required>
             <span class="icono-input">📦</span>
           </div>
           
           <button type="submit" class="boton-formulario boton-principal">Actualizar Producto</button>
-          <button type="button" class="boton-formulario boton-volver" onclick="location.href='/html/admin/panel-admin.html'">
+          <button type="button" class="boton-formulario boton-volver" onclick="location.href='panel-admin.html'">
             ← Volver a Gestión
           </button>
         </form>
@@ -116,5 +118,99 @@
     <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
   </footer>
 
+  <!-- Scripts -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/productos.js"></script>
+  <script>
+    // Verificar autenticación de admin
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!protegerRutaAdmin()) return;
+      actualizarBotonesAuth();
+
+      // Obtener ID de la URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const idProducto = urlParams.get('id');
+
+      if (!idProducto) {
+        mostrarMensaje('No se especificó un ID de producto', 'error');
+        setTimeout(() => {
+          window.location.href = 'panel-admin.html';
+        }, 2000);
+        return;
+      }
+
+      // Cargar producto
+      const producto = gestorProductos.obtenerPorId(idProducto);
+      
+      if (!producto) {
+        mostrarMensaje('Producto no encontrado', 'error');
+        setTimeout(() => {
+          window.location.href = 'panel-admin.html';
+        }, 2000);
+        return;
+      }
+
+      // Llenar formulario con datos del producto
+      document.getElementById('id-producto').value = producto.id;
+      document.getElementById('nuevo-nombre').value = producto.nombre;
+      document.getElementById('nueva-categoria').value = producto.categoria;
+      document.getElementById('nuevo-precio').value = producto.precio;
+      document.getElementById('nuevo-stock').value = producto.stock;
+
+      // Manejar envío del formulario
+      const form = document.getElementById("formActualizarProducto");
+      const mensajeDiv = document.getElementById("mensaje-formulario");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const datosActualizados = {
+          nombre: document.getElementById("nuevo-nombre").value.trim(),
+          categoria: document.getElementById("nueva-categoria").value.trim(),
+          precio: document.getElementById("nuevo-precio").value,
+          stock: document.getElementById("nuevo-stock").value
+        };
+
+        // Validar
+        const validacion = validarProducto({
+          nombre: datosActualizados.nombre,
+          categoria: datosActualizados.categoria,
+          precio: datosActualizados.precio,
+          stock: datosActualizados.stock
+        });
+
+        if (!validacion.valido) {
+          mostrarMensajeEnFormulario(validacion.errores.join(", "), "error");
+          return;
+        }
+
+        try {
+          const productoActualizado = gestorProductos.actualizar(idProducto, datosActualizados);
+          mostrarMensajeEnFormulario(`✅ Producto "${productoActualizado.nombre}" actualizado exitosamente`, "success");
+          
+          // Redirigir después de 2 segundos
+          setTimeout(() => {
+            window.location.href = "panel-admin.html";
+          }, 2000);
+        } catch (error) {
+          mostrarMensajeEnFormulario(`❌ Error: ${error.message}`, "error");
+        }
+      });
+
+      function mostrarMensajeEnFormulario(mensaje, tipo) {
+        mensajeDiv.textContent = mensaje;
+        mensajeDiv.style.display = "block";
+        mensajeDiv.style.backgroundColor = tipo === "success" ? "#10b981" : "#ef4444";
+        mensajeDiv.style.color = "white";
+        mensajeDiv.style.padding = "12px";
+        mensajeDiv.style.borderRadius = "8px";
+        mensajeDiv.style.marginBottom = "15px";
+        
+        setTimeout(() => {
+          mensajeDiv.style.display = "none";
+        }, 5000);
+      }
+    });
+  </script>
 </body>
 </html>

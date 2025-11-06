@@ -35,12 +35,16 @@
     <div class="contenido-principal">
       <div class="texto">
         <h2>FerreterIA</h2>
-        <p>
-          Nuestro sistema te permite gestionar stock, registrar productos y obtener
-          reportes de tus ventas para optimizar tus resultados en tiempo real. 
-          ¡Simplifica la administración de tu negocio!
-        </p>
-       <button class="btn-claro" onclick="location.href='html/usuario/registro.html'">Comienza ahora</button>
+        <!-- Contenido dinámico según rol -->
+        <div id="contenido-bienvenida">
+          <!-- Se mostrará contenido diferente según el rol -->
+          <p>
+            Nuestro sistema te permite gestionar stock, registrar productos y obtener
+            reportes de tus ventas para optimizar tus resultados en tiempo real. 
+            ¡Simplifica la administración de tu negocio!
+          </p>
+          <button class="btn-claro" onclick="location.href='html/usuario/registro.html'">Comienza ahora</button>
+        </div>
       </div>
       <div class="imagen">
         <img src="/img/desconocido.jpg" alt="Imagen principal de la ferretería">
@@ -50,8 +54,9 @@
 
   <!-- SECCIÓN DE FUNCIONES -->
   <section class="funciones">
-    <h2>Funciones que Facilitan la Gestión de tu Ferretería</h2>
-    <div class="tarjetas">
+    <h2 id="titulo-funciones">Funciones que Facilitan la Gestión de tu Ferretería</h2>
+    <div class="tarjetas" id="tarjetas-funciones">
+      <!-- Contenido dinámico según rol -->
       <div class="tarjeta">
         <h3>Gestión rápida de productos</h3>
         <p>Registra, consulta, actualiza o elimina productos en segundos. Mantén tu inventario al día con un solo clic.</p>
@@ -99,23 +104,138 @@
   </footer>
 
   <!-- 🔹 SCRIPT DE CONTROL DE SESIÓN -->
+  <script src="js/utils.js"></script>
+  <script src="js/productos.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
+      const usuarioActivo = verificarAutenticacion();
       const botonesDiv = document.getElementById("botonesAuth");
+      const enlacesNav = document.querySelector('.enlaces');
+      const contenidoBienvenida = document.getElementById('contenido-bienvenida');
+      const tituloFunciones = document.getElementById('titulo-funciones');
+      const tarjetasFunciones = document.getElementById('tarjetas-funciones');
 
       if (usuarioActivo) {
+        // Actualizar botones de autenticación
+        const badgeAdmin = usuarioActivo.rol === 'admin' 
+          ? '<span style="background: #f59e0b; padding: 4px 8px; border-radius: 4px; font-size: 0.8em; margin-right: 10px;">👑 ADMIN</span>' 
+          : '';
+        
         botonesDiv.innerHTML = `
-          <span class="usuario-saludo">Hola, ${usuarioActivo.usuario}</span>
+          ${badgeAdmin}
+          <span class="usuario-saludo" style="color:white; margin-right:10px;">Hola, ${usuarioActivo.usuario}</span>
           <button class="btn-borde" onclick="cerrarSesion()">Cerrar sesión</button>
         `;
+        
+        // Agregar enlace al dashboard según rol
+        const enlaceDashboard = document.createElement('li');
+        if (usuarioActivo.rol === 'admin') {
+          enlaceDashboard.innerHTML = '<a href="html/admin/panel-admin.html" style="color: #fbbf24;">👑 Panel Admin</a>';
+        } else {
+          enlaceDashboard.innerHTML = '<a href="html/usuario/dashboard-usuario.html">📦 Mi Catálogo</a>';
+        }
+        enlacesNav.appendChild(enlaceDashboard);
+
+        // ===== CONTENIDO DIFERENCIADO SEGÚN ROL =====
+        if (usuarioActivo.rol === 'admin') {
+          // Vista para ADMIN
+          const stats = gestorProductos.obtenerEstadisticas();
+          
+          contenidoBienvenida.innerHTML = `
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 12px; color: white; margin-bottom: 20px;">
+              <h3 style="margin-bottom: 10px;">👑 Bienvenido, Administrador</h3>
+              <p style="margin-bottom: 15px;">Tienes acceso completo al sistema de gestión de productos.</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+              <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                <strong style="color: #1e40af;">Total Productos:</strong>
+                <div style="font-size: 1.5em; color: #3b82f6; font-weight: bold;">${stats.total}</div>
+              </div>
+              <div style="background: #fef2f2; padding: 15px; border-radius: 8px; border-left: 4px solid #ef4444;">
+                <strong style="color: #991b1b;">Stock Bajo:</strong>
+                <div style="font-size: 1.5em; color: #ef4444; font-weight: bold;">${stats.stockBajo}</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn-claro" onclick="location.href='html/admin/panel-admin.html'" style="background: #3b82f6; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                🛠️ Ir al Panel de Administración
+              </button>
+              <button class="btn-claro" onclick="location.href='html/admin/registrar-producto.html'" style="background: #10b981; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                ➕ Registrar Producto
+              </button>
+            </div>
+          `;
+
+          tituloFunciones.textContent = 'Funciones de Administración';
+          tarjetasFunciones.innerHTML = `
+            <div class="tarjeta" style="border-left: 4px solid #3b82f6;">
+              <h3>🛠️ Gestión Completa de Productos</h3>
+              <p>Registra, consulta, actualiza o elimina productos. Control total del inventario desde un solo lugar.</p>
+              <a href="html/admin/panel-admin.html" style="color: #3b82f6; font-weight: bold; margin-top: 10px; display: inline-block;">Ver Panel →</a>
+            </div>
+            <div class="tarjeta" style="border-left: 4px solid #10b981;">
+              <h3>📊 Estadísticas en Tiempo Real</h3>
+              <p>Visualiza estadísticas detalladas: total de productos, stock bajo, categorías y valor del inventario.</p>
+              <a href="html/admin/panel-admin.html" style="color: #10b981; font-weight: bold; margin-top: 10px; display: inline-block;">Ver Estadísticas →</a>
+            </div>
+            <div class="tarjeta" style="border-left: 4px solid #f59e0b;">
+              <h3>🔍 Búsqueda y Filtros Avanzados</h3>
+              <p>Encuentra productos rápidamente con búsqueda por nombre, categoría, ID o estado de stock.</p>
+              <a href="html/admin/consultar-producto.html" style="color: #f59e0b; font-weight: bold; margin-top: 10px; display: inline-block;">Buscar Productos →</a>
+            </div>
+          `;
+        } else {
+          // Vista para USUARIO
+          const productos = gestorProductos.obtenerTodos();
+          const productosDisponibles = productos.filter(p => p.stock > 0).length;
+          const categorias = [...new Set(productos.map(p => p.categoria))].length;
+          
+          contenidoBienvenida.innerHTML = `
+            <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 20px; border-radius: 12px; color: white; margin-bottom: 20px;">
+              <h3 style="margin-bottom: 10px;">👋 ¡Bienvenido, ${usuarioActivo.usuario}!</h3>
+              <p style="margin-bottom: 15px;">Explora nuestro catálogo completo de productos de ferretería.</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+              <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                <strong style="color: #1e40af;">Productos Disponibles:</strong>
+                <div style="font-size: 1.5em; color: #3b82f6; font-weight: bold;">${productosDisponibles}</div>
+              </div>
+              <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; border-left: 4px solid #10b981;">
+                <strong style="color: #166534;">Categorías:</strong>
+                <div style="font-size: 1.5em; color: #10b981; font-weight: bold;">${categorias}</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn-claro" onclick="location.href='html/usuario/dashboard-usuario.html'" style="background: #3b82f6; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                📦 Ver Catálogo Completo
+              </button>
+              <button class="btn-claro" onclick="location.href='html/usuario/explora.html'" style="background: #10b981; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                🔍 Explorar Productos
+              </button>
+            </div>
+          `;
+
+          tituloFunciones.textContent = 'Explora Nuestros Productos';
+          tarjetasFunciones.innerHTML = `
+            <div class="tarjeta" style="border-left: 4px solid #3b82f6;">
+              <h3>📦 Catálogo Completo</h3>
+              <p>Explora todos nuestros productos disponibles con información detallada, precios y disponibilidad en stock.</p>
+              <a href="html/usuario/dashboard-usuario.html" style="color: #3b82f6; font-weight: bold; margin-top: 10px; display: inline-block;">Ver Catálogo →</a>
+            </div>
+            <div class="tarjeta" style="border-left: 4px solid #10b981;">
+              <h3>🔍 Búsqueda Avanzada</h3>
+              <p>Encuentra productos rápidamente usando filtros por categoría, nombre o estado de disponibilidad.</p>
+              <a href="html/usuario/dashboard-usuario.html" style="color: #10b981; font-weight: bold; margin-top: 10px; display: inline-block;">Buscar Productos →</a>
+            </div>
+            <div class="tarjeta" style="border-left: 4px solid #f59e0b;">
+              <h3>ℹ️ Información Detallada</h3>
+              <p>Accede a información completa de cada producto: precios, stock, categorías y fechas de registro.</p>
+              <a href="html/usuario/dashboard-usuario.html" style="color: #f59e0b; font-weight: bold; margin-top: 10px; display: inline-block;">Ver Detalles →</a>
+            </div>
+          `;
+        }
       }
     });
-
-    function cerrarSesion() {
-      localStorage.removeItem("usuarioActivo");
-      location.reload();
-    }
   </script>
 </body>
 </html>
