@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compra Exitosa | FerreterIA</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="shortcut icon" href="../../img/FAVICON.ico" type="image/x-icon">
+  <style>
+    .success-container {
+      max-width: 600px;
+      margin: 100px auto;
+      padding: 40px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .success-icon {
+      font-size: 5em;
+      margin-bottom: 20px;
+    }
+
+    .success-title {
+      font-size: 2em;
+      color: #10b981;
+      margin-bottom: 15px;
+    }
+
+    .success-message {
+      font-size: 1.2em;
+      color: #1f2937; 
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin: 10px;
+      transition: background 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #d97706;
+      padding: 15px 30px;
+      border: 2px solid #d97706;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin: 10px;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== BARRA DE NAVEGACIÓN ===== -->
+  <header class="barra-navegacion">
+    <div class="contenedor">
+      <h1 class="logo">FerreterIA</h1>
+      <nav class="menu">
+        <ul class="enlaces">
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="tienda.html">Tienda</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+          <li><a href="../comunes/acerca-de-nosotros.html">Acerca de</a></li>
+        </ul>
+      </nav>
+
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='../iniciar-sesion.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='registro.html'">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SECCIÓN PRINCIPAL ===== -->
+  <section class="seccion-principal" style="margin-top: 80px;">
+    <div class="success-container">
+      <div class="success-icon">✅</div>
+      <h1 class="success-title">¡Compra Realizada Exitosamente!</h1>
+      <p class="success-message">
+        Gracias por tu compra. Hemos recibido tu pedido y te contactaremos pronto para confirmar los detalles de entrega.
+      </p>
+      <div>
+        <a href="tienda.html" class="btn-primary">Continuar Comprando</a>
+        <a href="../../inicio.html" class="btn-secondary">Volver al Inicio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie-pagina">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="tienda.html">Tienda</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li>Catálogo de productos</li>
+          <li>Compras en línea</li>
+          <li>Gestión de carrito</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/productos.js"></script>
+  <script src="../../js/cart.js"></script>
+  <script src="../../js/reviews.js"></script>
+  <script src="../../js/email.js"></script>
+  <script src="../../js/usuario.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Verificar autenticación primero
+      if (!protegerRutaUsuario()) {
+        return; // Redirige al login si no hay sesión
+      }
+      
+      inicializarVistaUsuario();
+      
+      // Mostrar información sobre el correo enviado
+      const emailEnviado = sessionStorage.getItem('emailEnviado');
+      const emailMensaje = sessionStorage.getItem('emailMensaje');
+      const emailError = sessionStorage.getItem('emailError');
+      const emailSimulado = sessionStorage.getItem('emailSimulado');
+      
+      if (emailEnviado === 'true') {
+        // Mostrar mensaje de correo enviado
+        const successMessage = document.querySelector('.success-message');
+        if (successMessage && emailSimulado !== 'true') {
+          successMessage.innerHTML += '<br><br><strong style="color: #10b981;">📧 Se ha enviado un correo de confirmación a tu dirección de email.</strong>';
+        } else if (successMessage && emailSimulado === 'true') {
+          successMessage.innerHTML += '<br><br><em style="color: #f59e0b;">📧 Modo desarrollo: El correo se simularía en producción.</em>';
+        }
+      } else if (emailEnviado === 'false' && emailError) {
+        // Mostrar advertencia si no se pudo enviar el correo
+        const successMessage = document.querySelector('.success-message');
+        if (successMessage) {
+          successMessage.innerHTML += '<br><br><em style="color: #f59e0b;">⚠️ Nota: No se pudo enviar el correo de confirmación, pero tu compra fue procesada exitosamente.</em>';
+        }
+      }
+      
+      // Limpiar sessionStorage después de mostrar el mensaje
+      sessionStorage.removeItem('emailEnviado');
+      sessionStorage.removeItem('emailMensaje');
+      sessionStorage.removeItem('emailError');
+      sessionStorage.removeItem('emailSimulado');
+    });
+  </script>
+</body>
+</html>
+

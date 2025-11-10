@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Carrito de compras de FerreterIA. Revisa tus productos seleccionados y finaliza tu compra.">
+  <meta name="keywords" content="carrito, compras, productos, ferretería">
+  <meta name="author" content="FerreterIA">
+  <meta property="og:title" content="Carrito de Compras | FerreterIA">
+  <meta property="og:type" content="website">
+  <title>Carrito de Compras | FerreterIA</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="shortcut icon" href="../../img/FAVICON.ico" type="image/x-icon">
+  <style>
+    .carrito-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .carrito-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .carrito-header h1 {
+      font-size: 2.5em;
+      color: #2d3748;
+      margin-bottom: 10px;
+    }
+
+    .carrito-content {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 30px;
+    }
+
+    .carrito-items {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .carrito-item {
+      display: grid;
+      grid-template-columns: 120px 1fr auto;
+      gap: 20px;
+      padding: 20px;
+      border-bottom: 1px solid #e2e8f0;
+      align-items: center;
+    }
+
+    .carrito-item:last-child {
+      border-bottom: none;
+    }
+
+    .carrito-item-imagen {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #f7fafc;
+    }
+
+    .carrito-item-info {
+      flex: 1;
+    }
+
+    .carrito-item-nombre {
+      font-size: 1.3em; 
+      font-weight: 700; 
+      color: #000000; 
+      margin-bottom: 5px;
+      line-height: 1.4;
+    }
+
+    .carrito-item-categoria {
+      color: #111827;
+      font-size: 0.95em; 
+      margin-bottom: 10px;
+      font-weight: 600; 
+    }
+
+    .carrito-item-precio {
+      font-size: 1.4em; 
+      font-weight: 700; 
+      color: #d97706;
+      letter-spacing: 0.01em;
+    }
+
+    .carrito-item-cantidad {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .cantidad-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-cantidad {
+      width: 35px;
+      height: 35px;
+      border: 2px solid #e2e8f0;
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1.2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .btn-cantidad:hover {
+      background: #f7fafc;
+      border-color: #d97706;
+    }
+
+    .cantidad-input {
+      width: 60px;
+      text-align: center;
+      padding: 8px;
+      border: 2px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+
+    .carrito-item-subtotal {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #2d3748;
+      text-align: right;
+      min-width: 120px;
+    }
+
+    .btn-eliminar {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9em;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+
+    .btn-eliminar:hover {
+      background: #dc2626;
+    }
+
+    .carrito-resumen {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+
+    .resumen-titulo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #2d3748;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .resumen-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      color: #1f2937; 
+    }
+
+    .resumen-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #2d3748;
+      padding-top: 15px;
+      border-top: 2px solid #e2e8f0;
+      margin-top: 15px;
+    }
+
+    .btn-checkout {
+      width: 100%;
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    .btn-checkout:hover {
+      background: #059669;
+    }
+
+    .btn-checkout:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .btn-continuar-comprando {
+      width: 100%;
+      background: white;
+      color: #d97706;
+      border: 2px solid #d97706;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .btn-continuar-comprando:hover {
+      background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
+      color: white;
+    }
+
+    .carrito-vacio {
+      text-align: center;
+      padding: 60px 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .carrito-vacio h2 {
+      font-size: 2em;
+      color: #2d3748;
+      margin-bottom: 15px;
+    }
+
+    .carrito-vacio p {
+      color: #374151; 
+      font-size: 1.1em;
+      margin-bottom: 30px;
+    }
+
+    .contador-carrito {
+      background: #ef4444;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75em;
+      font-weight: bold;
+      margin-left: 5px;
+    }
+
+    @media (max-width: 968px) {
+      .carrito-content {
+        grid-template-columns: 1fr;
+      }
+
+      .carrito-resumen {
+        position: static;
+      }
+
+      .carrito-item {
+        grid-template-columns: 100px 1fr;
+      }
+
+      .carrito-item-cantidad {
+        grid-column: 1 / -1;
+        margin-top: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== BARRA DE NAVEGACIÓN ===== -->
+  <header class="barra-navegacion">
+    <div class="contenedor">
+      <h1 class="logo">FerreterIA</h1>
+      <nav class="menu">
+        <ul class="enlaces">
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="tienda.html">Tienda</a></li>
+          <li><a href="carrito.html">Carrito <span class="contador-carrito" style="display:none;">0</span></a></li>
+          <li><a href="../comunes/acerca-de-nosotros.html">Acerca de</a></li>
+        </ul>
+      </nav>
+
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='../iniciar-sesion.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='registro.html'">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SECCIÓN PRINCIPAL ===== -->
+  <section class="seccion-principal" style="margin-top: 80px;">
+    <div class="carrito-container">
+      <div class="carrito-header">
+        <h1>🛒 Carrito de Compras</h1>
+      </div>
+
+      <div id="carrito-contenido">
+        <!-- Contenido del carrito se cargará aquí -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie-pagina">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="tienda.html">Tienda</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li>Catálogo de productos</li>
+          <li>Compras en línea</li>
+          <li>Gestión de carrito</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/productos.js"></script>
+  <script src="../../js/cart.js"></script>
+  <script src="../../js/reviews.js"></script>
+  <script src="../../js/ui-improvements.js"></script>
+  <!-- Cargar lógica específica de usuario -->
+          <script src="../../js/usuario.js"></script>
+          <script>
+            // Inicializar la vista de usuario cuando se carga la página
+            document.addEventListener("DOMContentLoaded", () => {
+              // Verificar autenticación primero
+              if (!protegerRutaUsuario()) {
+                return; // Redirige al login si no hay sesión
+              }
+              
+              // Inicializar vista de usuario (autenticación, navegación, contador de carrito)
+              inicializarVistaUsuario();
+              
+              // Cargar el carrito de compras (también verifica autenticación internamente)
+              cargarCarrito();
+            });
+          </script>
+</body>
+</html>
+

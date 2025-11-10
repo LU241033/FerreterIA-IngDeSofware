@@ -14,20 +14,17 @@
 </head>
 
 <body>
-  <!-- ======= HEADER ======= -->
   <header class="barra-navegacion">
     <div class="contenedor">
       <div class="logo">FerreterIA</div>
       <ul class="enlaces">
-        <li><a href="../../Index.html">Inicio</a></li>
-        <li><a href="../usuario/explora.html">Explora</a></li>
-        <li><a href="#">Compras</a></li>
-        <li><a href="#">Perfil</a></li>
-        <li><a href="panel-admin.html">Gestión Productos</a></li>
+        <li><a href="../../inicio.html">Inicio</a></li>
+        <li><a href="../usuario/tienda.html">Tienda</a></li>
+        <li><a href="panel-admin.html">Panel Admin</a></li>
       </ul>
 
       <div class="botones" id="botonesAuth">
-        <button class="btn-borde" onclick="location.href='../Login.html'">Iniciar sesión</button>
+        <button class="btn-borde" onclick="location.href='../iniciar-sesion.html'">Iniciar sesión</button>
         <button class="btn-principal" onclick="location.href='../usuario/registro.html'">Registrarse</button>
       </div>
     </div>
@@ -74,6 +71,26 @@
             <input type="number" id="nuevo-stock" min="0" placeholder="Ej. 15" required>
             <span class="icono-input">📦</span>
           </div>
+
+          <div class="grupo-formulario">
+            <label for="nueva-imagen">URL de la imagen:</label>
+            <input type="text" id="nueva-imagen" placeholder="Ej. /img/producto.jpg">
+            <span class="icono-input">🖼️</span>
+            <small style="color: #666; display: block; margin-top: 5px;">Si no se proporciona, se usará una imagen por defecto</small>
+          </div>
+
+          <div class="grupo-formulario">
+            <label for="nueva-descripcion">Descripción:</label>
+            <textarea id="nueva-descripcion" rows="4" placeholder="Describe el producto"></textarea>
+            <span class="icono-input">📝</span>
+          </div>
+
+          <div class="grupo-formulario">
+            <label for="nueva-calificacion-inicial">Calificación inicial (1-5 estrellas):</label>
+            <input type="number" id="nueva-calificacion-inicial" min="1" max="5" step="0.1" placeholder="Ej: 4.5 (opcional)" />
+            <span class="icono-input">⭐</span>
+            <small style="color: #666; display: block; margin-top: 5px;">Calificación inicial del producto (opcional, entre 1 y 5). Las opiniones de usuarios tienen prioridad.</small>
+          </div>
           
           <button type="submit" class="boton-formulario boton-principal">Actualizar Producto</button>
           <button type="button" class="boton-formulario boton-volver" onclick="location.href='panel-admin.html'">
@@ -95,8 +112,8 @@
       <div>
         <h4>Enlaces rápidos</h4>
         <ul>
-          <li><a href="/html/index.html">Inicio</a></li>
-          <li><a href="/html/usuario/explora.html">Explora</a></li>
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="../usuario/tienda.html">Tienda</a></li>
           <li><a href="/html/comunes/acerca-de-nosotros.html">Acerca de</a></li>
         </ul>
       </div>
@@ -118,99 +135,23 @@
     <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- Scripts -->
+
   <script src="../../js/utils.js"></script>
   <script src="../../js/productos.js"></script>
+  <script src="../../js/reviews.js"></script>
+  <!-- Cargar lógica específica de administrador -->
+  <script src="../../js/admin.js"></script>
   <script>
-    // Verificar autenticación de admin
+    // Inicializar la vista de administrador cuando se carga la página
     document.addEventListener("DOMContentLoaded", () => {
-      if (!protegerRutaAdmin()) return;
-      actualizarBotonesAuth();
-
-      // Obtener ID de la URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const idProducto = urlParams.get('id');
-
-      if (!idProducto) {
-        mostrarMensaje('No se especificó un ID de producto', 'error');
-        setTimeout(() => {
-          window.location.href = 'panel-admin.html';
-        }, 2000);
-        return;
-      }
-
-      // Cargar producto
-      const producto = gestorProductos.obtenerPorId(idProducto);
+      // Inicializar vista de admin (verificación de permisos, navegación)
+      inicializarVistaAdmin();
       
-      if (!producto) {
-        mostrarMensaje('Producto no encontrado', 'error');
-        setTimeout(() => {
-          window.location.href = 'panel-admin.html';
-        }, 2000);
-        return;
-      }
-
-      // Llenar formulario con datos del producto
-      document.getElementById('id-producto').value = producto.id;
-      document.getElementById('nuevo-nombre').value = producto.nombre;
-      document.getElementById('nueva-categoria').value = producto.categoria;
-      document.getElementById('nuevo-precio').value = producto.precio;
-      document.getElementById('nuevo-stock').value = producto.stock;
-
-      // Manejar envío del formulario
-      const form = document.getElementById("formActualizarProducto");
-      const mensajeDiv = document.getElementById("mensaje-formulario");
-
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const datosActualizados = {
-          nombre: document.getElementById("nuevo-nombre").value.trim(),
-          categoria: document.getElementById("nueva-categoria").value.trim(),
-          precio: document.getElementById("nuevo-precio").value,
-          stock: document.getElementById("nuevo-stock").value
-        };
-
-        // Validar
-        const validacion = validarProducto({
-          nombre: datosActualizados.nombre,
-          categoria: datosActualizados.categoria,
-          precio: datosActualizados.precio,
-          stock: datosActualizados.stock
-        });
-
-        if (!validacion.valido) {
-          mostrarMensajeEnFormulario(validacion.errores.join(", "), "error");
-          return;
-        }
-
-        try {
-          const productoActualizado = gestorProductos.actualizar(idProducto, datosActualizados);
-          mostrarMensajeEnFormulario(`✅ Producto "${productoActualizado.nombre}" actualizado exitosamente`, "success");
-          
-          // Redirigir después de 2 segundos
-          setTimeout(() => {
-            window.location.href = "panel-admin.html";
-          }, 2000);
-        } catch (error) {
-          mostrarMensajeEnFormulario(`❌ Error: ${error.message}`, "error");
-        }
-      });
-
-      function mostrarMensajeEnFormulario(mensaje, tipo) {
-        mensajeDiv.textContent = mensaje;
-        mensajeDiv.style.display = "block";
-        mensajeDiv.style.backgroundColor = tipo === "success" ? "#10b981" : "#ef4444";
-        mensajeDiv.style.color = "white";
-        mensajeDiv.style.padding = "12px";
-        mensajeDiv.style.borderRadius = "8px";
-        mensajeDiv.style.marginBottom = "15px";
-        
-        setTimeout(() => {
-          mensajeDiv.style.display = "none";
-        }, 5000);
-      }
+      // Inicializar el formulario de actualización de productos
+      inicializarFormularioActualizacion();
     });
   </script>
 </body>
 </html>
+
+

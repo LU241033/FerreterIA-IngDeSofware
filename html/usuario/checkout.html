@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Finaliza tu compra en FerreterIA. Completa tu información de contacto y dirección de envío.">
+  <meta name="keywords" content="checkout, finalizar compra, pago, envío, ferretería">
+  <meta name="author" content="FerreterIA">
+  <meta property="og:title" content="Finalizar Compra | FerreterIA">
+  <meta property="og:type" content="website">
+  <title>Finalizar Compra | FerreterIA</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="shortcut icon" href="../../img/FAVICON.ico" type="image/x-icon">
+  <style>
+    .checkout-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .checkout-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .checkout-header h1 {
+      font-size: 2.5em;
+      color: #2d3748;
+      margin-bottom: 10px;
+    }
+
+    .checkout-content {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 30px;
+    }
+
+    .checkout-form {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .form-section {
+      margin-bottom: 30px;
+    }
+
+    .form-section h3 {
+      font-size: 1.4em;
+      color: #000000; 
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e2e8f0;
+      font-weight: 700; /* Peso fuerte */
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #111827; 
+      font-weight: 600;
+      font-size: 1.05em; 
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #d97706;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .checkout-resumen {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+
+    .resumen-titulo {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #2d3748;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .resumen-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #f7fafc;
+    }
+
+    .resumen-item-producto {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .resumen-item-imagen {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      background: #f7fafc;
+    }
+
+    .resumen-item-info {
+      flex: 1;
+    }
+
+    .resumen-item-nombre {
+      font-weight: bold;
+      color: #2d3748;
+      margin-bottom: 5px;
+    }
+
+    .resumen-item-details {
+      font-size: 0.9em;
+      color: #374151; 
+    }
+
+    .resumen-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #2d3748;
+      padding-top: 15px;
+      border-top: 2px solid #e2e8f0;
+      margin-top: 15px;
+    }
+
+    .btn-finalizar {
+      width: 100%;
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    .btn-finalizar:hover {
+      background: #059669;
+    }
+
+    .btn-finalizar:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .btn-volver {
+      width: 100%;
+      background: white;
+      color: #d97706;
+      border: 2px solid #d97706;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .btn-volver:hover {
+      background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
+      color: white;
+    }
+
+    .checkout-vacio {
+      text-align: center;
+      padding: 60px 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .checkout-vacio h2 {
+      font-size: 2em;
+      color: #2d3748;
+      margin-bottom: 15px;
+    }
+
+    .mensaje-error {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 1px solid #fecaca;
+    }
+
+    @media (max-width: 968px) {
+      .checkout-content {
+        grid-template-columns: 1fr;
+      }
+
+      .checkout-resumen {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== BARRA DE NAVEGACIÓN ===== -->
+  <header class="barra-navegacion">
+    <div class="contenedor">
+      <h1 class="logo">FerreterIA</h1>
+      <nav class="menu">
+        <ul class="enlaces">
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="tienda.html">Tienda</a></li>
+          <li><a href="carrito.html">Carrito <span class="contador-carrito" style="display:none;">0</span></a></li>
+          <li><a href="../comunes/acerca-de-nosotros.html">Acerca de</a></li>
+        </ul>
+      </nav>
+
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='../iniciar-sesion.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='registro.html'">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SECCIÓN PRINCIPAL ===== -->
+  <section class="seccion-principal" style="margin-top: 80px;">
+    <div class="checkout-container">
+      <div class="checkout-header">
+        <h1>✅ Finalizar Compra</h1>
+      </div>
+
+      <div id="checkout-contenido">
+        <!-- Contenido del checkout se cargará aquí -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie-pagina">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="tienda.html">Tienda</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li>Catálogo de productos</li>
+          <li>Compras en línea</li>
+          <li>Gestión de carrito</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/productos.js"></script>
+  <script src="../../js/cart.js"></script>
+  <script src="../../js/reviews.js"></script>
+  <script src="../../js/ui-improvements.js"></script>
+  <script src="../../js/email.js"></script>
+  <!-- Cargar lógica específica de usuario -->
+          <script src="../../js/usuario.js"></script>
+          <script>
+            // Inicializar la vista de usuario cuando se carga la página
+            document.addEventListener("DOMContentLoaded", () => {
+              // Verificar autenticación primero
+              if (!protegerRutaUsuario()) {
+                return; // Redirige al login si no hay sesión
+              }
+              
+              // Inicializar vista de usuario (autenticación, navegación, contador de carrito)
+              inicializarVistaUsuario();
+              
+              // Cargar el formulario de checkout (también verifica autenticación internamente)
+              cargarCheckout();
+            });
+          </script>
+</body>
+</html>
+

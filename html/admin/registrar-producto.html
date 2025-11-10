@@ -4,10 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <!-- 🔧 Ruta corregida: el archivo CSS está en la carpeta css -->
   <link rel="stylesheet" href="../../css/registrar-producto.css" />
   
-  <!-- 🔧 También se mantiene el estilo común (acerca.css) -->
   <link rel="stylesheet" href="../../css/acerca.css" />
   
   <link rel="shortcut icon" href="../../Img/Logo.png" type="image/x-icon" />
@@ -15,26 +13,22 @@
 </head>
 
 <body>
-  <!-- 🔹 Encabezado -->
   <header class="barra-navegacion">
     <div class="contenedor">
       <div class="logo">FerreterIA</div>
       <ul class="enlaces">
-        <li><a href="../../Index.html">Inicio</a></li>
-        <li><a href="../usuario/explora.html">Explora</a></li>
-        <li><a href="#">Compras</a></li>
-        <li><a href="#">Perfil</a></li>
-        <li><a href="panel-admin.html">Gestión Productos</a></li>
+        <li><a href="../../inicio.html">Inicio</a></li>
+        <li><a href="../usuario/tienda.html">Tienda</a></li>
+        <li><a href="panel-admin.html">Panel Admin</a></li>
       </ul>
 
       <div class="botones" id="botonesAuth">
-        <button class="btn-borde" onclick="location.href='../Login.html'">Iniciar sesión</button>
+        <button class="btn-borde" onclick="location.href='../iniciar-sesion.html'">Iniciar sesión</button>
         <button class="btn-principal" onclick="location.href='../usuario/registro.html'">Registrarse</button>
       </div>
     </div>
   </header>
 
-  <!-- 🔹 Sección principal -->
   <section class="seccion-principal">
     <div class="contenido-principal">
       <div class="encabezado-formulario">
@@ -70,6 +64,26 @@
             <span class="icono-input">📦</span>
           </div>
 
+          <div class="grupo-formulario">
+            <label for="imagen">URL de la imagen:</label>
+            <input type="text" id="imagen" placeholder="Ej. /img/producto.jpg (opcional)" />
+            <span class="icono-input">🖼️</span>
+            <small style="color: #666; display: block; margin-top: 5px;">Si no se proporciona, se usará una imagen por defecto</small>
+          </div>
+
+          <div class="grupo-formulario">
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" rows="4" placeholder="Describe el producto (opcional)"></textarea>
+            <span class="icono-input">📝</span>
+          </div>
+
+          <div class="grupo-formulario">
+            <label for="calificacion-inicial">Calificación inicial (1-5 estrellas):</label>
+            <input type="number" id="calificacion-inicial" min="1" max="5" step="0.1" placeholder="Ej: 4.5 (opcional)" />
+            <span class="icono-input">⭐</span>
+            <small style="color: #666; display: block; margin-top: 5px;">Calificación inicial del producto (opcional, entre 1 y 5)</small>
+          </div>
+
           <button type="submit" class="boton-formulario boton-principal">Registrar Producto</button>
           <button type="button" class="boton-formulario boton-volver" onclick="location.href='panel-admin.html'">
             ← Volver a Gestión
@@ -79,7 +93,6 @@
     </div>
   </section>
 
-  <!-- 🔹 Pie de página -->
   <footer class="pie-pagina">
     <div class="contenedor-pie">
       <div>
@@ -90,8 +103,8 @@
       <div>
         <h4>Enlaces rápidos</h4>
         <ul>
-          <li><a href="../index.html">Inicio</a></li>
-          <li><a href="../usuario/explora.html">Servicios</a></li>
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="../usuario/tienda.html">Tienda</a></li>
           <li><a href="../acerca-de-nosotros.html">Acerca de</a></li>
         </ul>
       </div>
@@ -114,64 +127,19 @@
     <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- Scripts -->
   <script src="../../js/utils.js"></script>
   <script src="../../js/productos.js"></script>
+  <script src="../../js/reviews.js"></script>
+  <!-- Cargar lógica específica de administrador -->
+  <script src="../../js/admin.js"></script>
   <script>
-    // Verificar autenticación de admin
+    // Inicializar la vista de administrador cuando se carga la página
     document.addEventListener("DOMContentLoaded", () => {
-      if (!protegerRutaAdmin()) return;
-      actualizarBotonesAuth();
-
-      const form = document.getElementById("formRegistrarProducto");
-      const mensajeDiv = document.getElementById("mensaje-formulario");
-
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const datos = {
-          nombre: document.getElementById("nombre").value.trim(),
-          categoria: document.getElementById("categoria").value.trim(),
-          precio: document.getElementById("precio").value,
-          stock: document.getElementById("stock").value
-        };
-
-        // Validar
-        const validacion = validarProducto(datos);
-        if (!validacion.valido) {
-          mostrarMensajeEnFormulario(validacion.errores.join(", "), "error");
-          return;
-        }
-
-        try {
-          const nuevoProducto = gestorProductos.crear(datos);
-          mostrarMensajeEnFormulario(`✅ Producto "${nuevoProducto.nombre}" registrado exitosamente (ID: #${nuevoProducto.id})`, "success");
-          
-          // Limpiar formulario
-          form.reset();
-          
-          // Redirigir después de 2 segundos
-          setTimeout(() => {
-            window.location.href = "panel-admin.html";
-          }, 2000);
-        } catch (error) {
-          mostrarMensajeEnFormulario(`❌ Error: ${error.message}`, "error");
-        }
-      });
-
-      function mostrarMensajeEnFormulario(mensaje, tipo) {
-        mensajeDiv.textContent = mensaje;
-        mensajeDiv.style.display = "block";
-        mensajeDiv.style.backgroundColor = tipo === "success" ? "#10b981" : "#ef4444";
-        mensajeDiv.style.color = "white";
-        mensajeDiv.style.padding = "12px";
-        mensajeDiv.style.borderRadius = "8px";
-        mensajeDiv.style.marginBottom = "15px";
-        
-        setTimeout(() => {
-          mensajeDiv.style.display = "none";
-        }, 5000);
-      }
+      // Inicializar vista de admin (verificación de permisos, navegación)
+      inicializarVistaAdmin();
+      
+      // Inicializar el formulario de registro de productos
+      inicializarFormularioRegistro();
     });
   </script>
 </body>

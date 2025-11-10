@@ -6,15 +6,19 @@
 }
 
 body {
-  background-color: #e8f0ff;;
+  background-color: #fef3c7; 
   font-family: Arial, Helvetica, sans-serif;
-  color: #333;
-  line-height: 1.6;
+  color: #111827; 
+  line-height: 1.7; 
+  font-weight: 500;
+  font-size: 16px; 
+  -webkit-font-smoothing: antialiased; 
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ===== BARRA DE NAVEGACIÓN ===== */
 .barra-navegacion {
-  background-color: #003366;
+  background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
   color: white;
   padding: 15px 0;
   position: fixed;
@@ -69,7 +73,7 @@ body {
 
 .btn-principal {
   background: white;
-  color: #003366;
+  color: #d97706;
   border: none;
 }
 
@@ -91,12 +95,12 @@ body {
     }
 
     .tarjeta-login h2 {
-      color: #0a347c;
+      color: #d97706;
       margin-bottom: 10px;
     }
 
     .tarjeta-login p {
-      color: #333;
+      color: #1f2937; 
       font-size: 0.95rem;
       margin-bottom: 20px;
     }
@@ -112,7 +116,7 @@ body {
     label {
       font-weight: 600;
       font-size: 0.9rem;
-      color: #333;
+      color: #1f2937; 
     }
 
     input {
@@ -124,7 +128,7 @@ body {
 
     .btn-principal {
       background-color: #ffffff;
-      color:#003366;
+      color:#d97706;
       border: none;
       padding: 12px;
       border-radius: 6px;
@@ -132,7 +136,7 @@ body {
       transition: 0.3s;
     }
     .btn-principal-ingresar{
-    background-color:#003366;
+    background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
       color:#fdfdfd;
       border: none;
       padding: 12px;
@@ -152,7 +156,7 @@ body {
     }
 
     .texto-secundario a {
-      color: #0a347c;
+      color: #d97706;
       text-decoration: none;
       font-weight: 600;
     }
@@ -162,7 +166,7 @@ body {
     }
 
     .tarjeta-info h3 {
-      color: #0a347c;
+      color: #d97706;
       margin-bottom: 15px;
     }
 

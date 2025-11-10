@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Detalle del producto en FerreterIA. Ver especificaciones, precios, calificaciones y opiniones de usuarios.">
+  <meta name="keywords" content="producto, ferretería, detalles, opiniones, calificaciones">
+  <meta name="author" content="FerreterIA">
+  <meta property="og:title" content="Detalle de Producto | FerreterIA">
+  <meta property="og:type" content="product">
+  <title>Detalle de Producto | FerreterIA</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/explora.css">
+  <link rel="shortcut icon" href="../../img/FAVICON.ico" type="image/x-icon">
+  <style>
+    .detalle-producto {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .detalle-header {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .detalle-imagen {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 12px;
+      background: #f7fafc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .detalle-info h1 {
+      color: #000000; 
+      margin-bottom: 15px;
+      font-size: 2.2em; 
+      font-weight: 800; 
+      letter-spacing: -0.02em;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .detalle-calificacion {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      font-size: 1.2em;
+    }
+
+    .detalle-calificacion span {
+      margin-left: 10px;
+    }
+    
+    .detalle-info .categoria {
+      color: #111827;
+      font-size: 1.15em;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    
+    .detalle-info .precio {
+      font-size: 2.8em; 
+      font-weight: 800; 
+      color: #d97706;
+      margin: 20px 0;
+      letter-spacing: 0.01em;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .detalle-descripcion {
+      color: #111827; 
+      font-size: 1.15em; 
+      line-height: 1.8;
+      margin-top: 20px;
+      padding: 20px;
+      background: #f7fafc;
+      font-weight: 500;
+      border-radius: 8px;
+    }
+    
+    .botones-accion {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .boton-volver {
+      background: #718096;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    
+    .boton-volver:hover {
+      background: #4a5568;
+    }
+
+    .boton-agregar-carrito {
+      background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s;
+      font-size: 1em;
+    }
+
+    .boton-agregar-carrito:hover {
+      background: #2563eb;
+    }
+
+    .boton-agregar-carrito:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    /* Sección de Opiniones */
+    .seccion-opiniones {
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 2px solid #e2e8f0;
+    }
+
+    .seccion-opiniones h2 {
+      color: #2d3748;
+      margin-bottom: 30px;
+      font-size: 1.8em;
+    }
+
+    .opiniones-lista {
+      margin-bottom: 40px;
+    }
+
+    .opinion-item {
+      background: #f7fafc;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border-left: 4px solid #d97706;
+    }
+
+    .opinion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .opinion-usuario {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .opinion-usuario strong {
+      color: #2d3748;
+      font-size: 1.1em;
+    }
+
+    .opinion-fecha {
+      color: #374151; 
+      font-size: 0.9em;
+    }
+
+    .opinion-estrellas {
+      font-size: 1.2em;
+    }
+
+    .opinion-comentario {
+      color: #1f2937; 
+      line-height: 1.6;
+      font-size: 1em;
+    }
+
+    /* Formulario de Opinión */
+    .formulario-opinion {
+      background: #f7fafc;
+      padding: 30px;
+      border-radius: 12px;
+      margin-top: 30px;
+    }
+
+    .formulario-opinion h3 {
+      color: #2d3748;
+      margin-bottom: 20px;
+      font-size: 1.5em;
+    }
+
+    .formulario-opinion .form-group {
+      margin-bottom: 20px;
+    }
+
+    .formulario-opinion label {
+      display: block;
+      margin-bottom: 8px;
+      color: #1f2937; 
+      font-weight: 500;
+    }
+
+    .formulario-opinion input[type="text"],
+    .formulario-opinion textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border-color 0.3s;
+      font-family: inherit;
+    }
+
+    .formulario-opinion input:focus,
+    .formulario-opinion textarea:focus {
+      outline: none;
+      border-color: #d97706;
+    }
+
+    .formulario-opinion textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .selector-estrellas {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .selector-estrellas .estrella {
+      cursor: pointer;
+      font-size: 2em;
+      transition: transform 0.2s;
+    }
+
+    .selector-estrellas .estrella:hover {
+      transform: scale(1.2);
+    }
+
+    .btn-enviar-opinion {
+      background: #10b981;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-enviar-opinion:hover {
+      background: #059669;
+    }
+    
+    .producto-no-encontrado {
+      text-align: center;
+      padding: 60px 20px;
+      color: #374151; 
+    }
+
+    @media (max-width: 968px) {
+      .detalle-header {
+        grid-template-columns: 1fr;
+      }
+
+      .detalle-imagen {
+        height: 300px;
+      }
+
+      .opinion-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== BARRA DE NAVEGACIÓN ===== -->
+  <header class="barra-navegacion">
+    <div class="contenedor">
+      <h1 class="logo">FerreterIA</h1>
+      <nav class="menu">
+        <ul class="enlaces">
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="tienda.html">Tienda</a></li>
+          <li><a href="carrito.html">Carrito <span class="contador-carrito" style="display:none;">0</span></a></li>
+          <li><a href="../comunes/acerca-de-nosotros.html">Acerca de</a></li>
+        </ul>
+      </nav>
+
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='../iniciar-sesion.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='registro.html'">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SECCIÓN PRINCIPAL ===== -->
+  <section class="seccion-principal" style="margin-top: 80px;">
+    <div class="contenido-principal">
+      <div id="producto-contenido">
+        <!-- El contenido del producto se cargará aquí dinámicamente -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie-pagina">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="tienda.html">Tienda</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li>Catálogo de productos</li>
+          <li>Compras en línea</li>
+          <li>Opiniones de clientes</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/productos.js"></script>
+  <script src="../../js/cart.js"></script>
+  <script src="../../js/reviews.js"></script>
+  <script src="../../js/ui-improvements.js"></script>
+  <!-- Cargar lógica específica de usuario -->
+  <script src="../../js/usuario.js"></script>
+  <script>
+    // Inicializar la vista de usuario cuando se carga la página
+    document.addEventListener("DOMContentLoaded", () => {
+      // Inicializar vista de usuario (autenticación, navegación, contador de carrito)
+      inicializarVistaUsuario();
+      
+      // Cargar el detalle del producto con opiniones
+      cargarDetalleProducto();
+    });
+  </script>
+</body>
+</html>
+
