@@ -1,6 +1,6 @@
-# 📁 Estructura del Proyecto FerreterIA
+#  Estructura del Proyecto FerreterIA
 
-## 🎯 Organización General
+## Organización General
 
 Este proyecto está organizado en dos vistas principales:
 - **Vista de Usuario (Shop)**: Para comprar productos
@@ -63,7 +63,7 @@ FerreterIA-IngDeSofware/
 
 ---
 
-## 🔗 Rutas y Navegación
+##  Rutas y Navegación
 
 ### **Rutas Principales**
 
