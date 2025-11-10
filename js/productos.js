@@ -75,9 +75,18 @@ class GestorProductos {
       categoria: producto.categoria.trim(),
       precio: parseFloat(producto.precio),
       stock: parseInt(producto.stock),
+      imagen: producto.imagen || '/img/desconocido.jpg', // Imagen por defecto
+      descripcion: producto.descripcion || '',
+      calificacionInicial: producto.calificacionInicial ? parseFloat(producto.calificacionInicial) : null, // Calificación inicial opcional (1-5)
       fechaCreacion: new Date().toISOString(),
       fechaActualizacion: new Date().toISOString()
     };
+    
+    // Si se proporciona una calificación inicial, crear una opinión automática
+    if (nuevoProducto.calificacionInicial && nuevoProducto.calificacionInicial >= 1 && nuevoProducto.calificacionInicial <= 5) {
+      // Esto se hará después de crear el producto, usando el gestor de opiniones
+      // Se ejecutará fuera de esta función para evitar dependencias circulares
+    }
 
     productos.push(nuevoProducto);
     
@@ -133,6 +142,17 @@ class GestorProductos {
     }
     if (datosActualizados.stock !== undefined) {
       productoActualizado.stock = parseInt(datosActualizados.stock);
+    }
+    if (datosActualizados.imagen !== undefined) {
+      productoActualizado.imagen = datosActualizados.imagen.trim() || '/img/desconocido.jpg';
+    }
+    if (datosActualizados.descripcion !== undefined) {
+      productoActualizado.descripcion = datosActualizados.descripcion.trim();
+    }
+    if (datosActualizados.calificacionInicial !== undefined) {
+      productoActualizado.calificacionInicial = datosActualizados.calificacionInicial 
+        ? parseFloat(datosActualizados.calificacionInicial) 
+        : null;
     }
 
     productos[indice] = productoActualizado;

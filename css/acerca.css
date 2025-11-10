@@ -1,4 +1,4 @@
-/* ===== REINICIO GENERAL ===== */
+/* inicio general */
 * {
   margin: 0;
   padding: 0;
@@ -7,13 +7,17 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  color: #333;
-  line-height: 1.6;
+  color: #111827; /* Negro suave para máximo contraste y legibilidad */
+  line-height: 1.7; /* Mayor espaciado para mejor lectura */
+  font-weight: 500; /* Peso medio para mejor legibilidad */
+  font-size: 16px; /* Tamaño base mínimo para legibilidad */
+  -webkit-font-smoothing: antialiased; /* Suavizado de fuentes */
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== BARRA DE NAVEGACIÓN ===== */
+/* Barra de navegación*/
 .barra-navegacion {
-  background-color: #003366;
+  background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
   color: white;
   padding: 15px 0;
   position: fixed;
@@ -68,10 +72,10 @@ body {
 
 .btn-principal {
   background: white;
-  color: #003366;
+  color: #d97706;
   border: none;
 }
-/* ===== IMAGEN PRINCIPAL ===== */
+/* Imagen principal*/
 .imagen {
   flex: 1;
   display: flex;
@@ -85,9 +89,9 @@ body {
   object-fit: cover;
 }
 
-/* ===== SECCIÓN PRINCIPAL ===== */
+/* Sección principal */
 .seccion-principal {
-  background-color: #003366;
+  background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
   color: white;
   padding: 100px 0;
   margin-top: 80px;
@@ -122,7 +126,7 @@ body {
 
 .btn-claro {
   background: white;
-  color: #003366;
+  color: #d97706;
   border: none;
   padding: 10px 25px;
   border-radius: 8px;
@@ -140,7 +144,7 @@ body {
   border-radius: 10px;
 }
 
-/* ===== HISTORIA ===== */
+/* Historia */
 .historia {
   text-align: center;
   padding: 60px 20px;
@@ -148,13 +152,13 @@ body {
 }
 
 .historia h2 {
-  color: #003366;
+  color: #d97706;
   margin-bottom: 20px;
 }
 
-/* ===== MISIÓN Y VISIÓN ===== */
+/* Misión y Visión */
 .mision-vision {
-  background: #003366;
+  background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
   text-align: center;
   padding: 60px 20px;
   display: flex;
@@ -172,11 +176,11 @@ body {
 }
 
 .tarjeta h3 {
-  color: #003366;
+  color: #d97706;
   margin-bottom: 10px;
 }
 
-/* ===== EQUIPO ===== */
+/* Equipo */
 .equipo {
   background-color: #e8f0ff;;
   text-align: center;
@@ -202,7 +206,7 @@ body {
   margin: 5px 0;
 }
 
-/* ===== PIE DE PÁGINA ===== */
+/* Pie de página */
 .pie-pagina {
   background: #111;
   color: white;
@@ -233,7 +237,7 @@ body {
   cursor: pointer;
   font-weight: bold;
 }
-/* ===== Estilo del área de experiencias en el registro ===== */
+/* Estilo del área de experiencias en el registro */
 .registro-experiencias {
   flex: 1;
   padding: 2rem;
@@ -282,7 +286,7 @@ body {
   font-style: italic;
 }
 
-/* ===== PIE DE PÁGINA ===== */
+/* Pie de página */
 .pie-pagina {
   background: #111;
   color: white;

@@ -61,7 +61,7 @@
       display: block;
       margin-bottom: 0.6rem;
       font-weight: 600;
-      color: #4a5568;
+      color: #1f2937; 
       font-size: 0.95rem;
     }
     
@@ -125,7 +125,7 @@
 
     .boton-volver {
       background-color: #e2e8f0;
-      color: #4a5568;
+      color: #1f2937; 
       margin-top: 1rem;
     }
     
@@ -164,7 +164,7 @@
     
     .enlaces a {
       text-decoration: none;
-      color: #4a5568;
+      color: #1f2937; 
       font-weight: 500;
       transition: color 0.3s;
     }

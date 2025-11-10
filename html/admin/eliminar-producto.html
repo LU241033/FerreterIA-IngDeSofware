@@ -5,29 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eliminar Producto | FerreterIA</title>
 
-  <!-- Favicon -->
   <link rel="shortcut icon" href="../../Img/Logo.png" type="image/x-icon">
 
-  <!-- CSS principal y específico -->
   <link rel="stylesheet" href="../../css/acerca.css">
   <link rel="stylesheet" href="../../css/eliminar-producto.css">
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="barra-navegacion">
     <div class="contenedor">
       <div class="logo">FerreterIA</div>
       <ul class="enlaces">
-        <li><a href="../../index.html">Inicio</a></li>
-        <li><a href="../usuario/explora.html">Explora</a></li>
-        <li><a href="#">Compras</a></li>
-        <li><a href="#">Perfil</a></li>
-        <li><a href="panel-admin.html">Gestión Productos</a></li>
+        <li><a href="../../inicio.html">Inicio</a></li>
+        <li><a href="../usuario/tienda.html">Tienda</a></li>
+        <li><a href="panel-admin.html">Panel Admin</a></li>
       </ul>
       <div class="botones" id="botonesAuth">
-        <button class="btn-borde" onclick="location.href='../../login.html'">Iniciar sesión</button>
-        <button class="btn-principal" onclick="location.href='../../registro.html'">Registrarse</button>
+        <button class="btn-borde" onclick="location.href='../iniciar-sesion.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='../usuario/registro.html'">Registrarse</button>
       </div>
     </div>
   </header>
@@ -56,7 +51,7 @@
             <label for="buscar-producto">ID del producto:</label>
             <input type="text" id="buscar-producto" placeholder="Ej. 001" required>
             <span class="icono-input">🔍</span>
-            <button type="button" class="boton-buscar" onclick="buscarProductoParaEliminar()" style="margin-top: 10px; padding: 8px 16px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer;">
+            <button type="button" class="boton-buscar" onclick="buscarProductoParaEliminar()" style="margin-top: 10px; padding: 8px 16px; background: linear-gradient(135deg, #d97706 0%, #ea580c 100%); color: white; border: none; border-radius: 6px; cursor: pointer;">
               Buscar Producto
             </button>
           </div>
@@ -70,7 +65,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer class="pie-pagina">
     <div class="contenedor-pie">
       <div>
@@ -81,8 +75,8 @@
       <div>
         <h4>Enlaces rápidos</h4>
         <ul>
-          <li><a href="../../index.html">Inicio</a></li>
-          <li><a href="../usuario/explora.html">Servicios</a></li>
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="../usuario/tienda.html">Tienda</a></li>
           <li><a href="../comunes/acerca-de-nosotros.html">Acerca de</a></li>
         </ul>
       </div>
@@ -105,67 +99,42 @@
     <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- Scripts -->
   <script src="../../js/utils.js"></script>
   <script src="../../js/productos.js"></script>
+  <!-- Cargar lógica específica de administrador -->
+  <script src="../../js/admin.js"></script>
   <script>
+    // Variable global para almacenar el producto seleccionado
     let productoSeleccionado = null;
 
-    // Verificar autenticación de admin
+    // Inicializar la vista de administrador cuando se carga la página
     document.addEventListener("DOMContentLoaded", () => {
-      if (!protegerRutaAdmin()) return;
-      actualizarBotonesAuth();
+      // Inicializar vista de admin (verificación de permisos, navegación)
+      inicializarVistaAdmin();
 
-      // Obtener ID de la URL si existe
+      // Obtener ID de la URL si existe (cuando se viene desde panel-admin.html)
       const urlParams = new URLSearchParams(window.location.search);
       const idProducto = urlParams.get('id');
       
       if (idProducto) {
+        // Si hay un ID en la URL, buscar el producto automáticamente
         document.getElementById('buscar-producto').value = idProducto;
         buscarProductoParaEliminar();
       }
 
-      // Manejar envío del formulario
+      // Configurar el formulario de eliminación
       const form = document.getElementById("formEliminarProducto");
-      const mensajeDiv = document.getElementById("mensaje-formulario");
-
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        if (!productoSeleccionado) {
-          mostrarMensajeEnFormulario('Primero debes buscar un producto', 'error');
-          return;
-        }
-
-        // Confirmación adicional
-        const confirmacion = confirm(
-          `¿Estás seguro de eliminar el producto "${productoSeleccionado.nombre}" (ID: #${productoSeleccionado.id})?\n\nEsta acción no se puede deshacer.`
-        );
-
-        if (!confirmacion) {
-          return;
-        }
-
-        try {
-          gestorProductos.eliminar(productoSeleccionado.id);
-          mostrarMensajeEnFormulario(`✅ Producto "${productoSeleccionado.nombre}" eliminado exitosamente`, "success");
-          
-          // Limpiar formulario
-          form.reset();
-          productoSeleccionado = null;
-          document.getElementById('producto-info').style.display = 'none';
-          document.getElementById('btnEliminar').disabled = true;
-          
-          // Redirigir después de 2 segundos
-          setTimeout(() => {
-            window.location.href = "panel-admin.html";
-          }, 2000);
-        } catch (error) {
-          mostrarMensajeEnFormulario(`❌ Error: ${error.message}`, "error");
-        }
-      });
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          eliminarProductoConfirmado();
+        });
+      }
     });
 
+    /**
+     * Buscar un producto para eliminar
+     */
     function buscarProductoParaEliminar() {
       const idBuscar = document.getElementById('buscar-producto').value.trim();
       
@@ -177,14 +146,17 @@
       const producto = gestorProductos.obtenerPorId(idBuscar);
       
       if (!producto) {
-        mostrarMensajeEnFormulario('Producto no encontrado', 'error');
+        mostrarMensaje('Producto no encontrado', 'error');
         document.getElementById('producto-info').style.display = 'none';
         document.getElementById('btnEliminar').disabled = true;
         productoSeleccionado = null;
         return;
       }
 
+      // Almacenar el producto seleccionado
       productoSeleccionado = producto;
+      
+      // Mostrar información del producto
       const estadoStock = gestorProductos.obtenerEstadoStock(producto.stock);
       const precioFormateado = gestorProductos.formatearPrecio(producto.precio);
 
@@ -197,23 +169,50 @@
         <p><strong>Estado:</strong> <span class="estado-stock ${estadoStock.clase}">${estadoStock.texto}</span></p>
       `;
 
+      // Mostrar la información y habilitar el botón de eliminar
       document.getElementById('producto-info').style.display = 'block';
       document.getElementById('btnEliminar').disabled = false;
     }
 
-    function mostrarMensajeEnFormulario(mensaje, tipo) {
-      const mensajeDiv = document.getElementById("mensaje-formulario");
-      mensajeDiv.textContent = mensaje;
-      mensajeDiv.style.display = "block";
-      mensajeDiv.style.backgroundColor = tipo === "success" ? "#10b981" : "#ef4444";
-      mensajeDiv.style.color = "white";
-      mensajeDiv.style.padding = "12px";
-      mensajeDiv.style.borderRadius = "8px";
-      mensajeDiv.style.marginBottom = "15px";
-      
-      setTimeout(() => {
-        mensajeDiv.style.display = "none";
-      }, 5000);
+    /**
+     * Eliminar el producto después de confirmación
+     */
+    function eliminarProductoConfirmado() {
+      if (!productoSeleccionado) {
+        mostrarMensaje('Primero debes buscar un producto', 'error');
+        return;
+      }
+
+      // Confirmación adicional
+      const confirmacion = confirm(
+        `¿Estás seguro de eliminar el producto "${productoSeleccionado.nombre}" (ID: #${productoSeleccionado.id})?\n\nEsta acción no se puede deshacer.`
+      );
+
+      if (!confirmacion) {
+        return;
+      }
+
+      try {
+        // Eliminar el producto
+        gestorProductos.eliminar(productoSeleccionado.id);
+        
+        // Mostrar mensaje de éxito
+        mostrarMensaje(`✅ Producto "${productoSeleccionado.nombre}" eliminado exitosamente`, 'success');
+        
+        // Limpiar formulario
+        const form = document.getElementById("formEliminarProducto");
+        form.reset();
+        productoSeleccionado = null;
+        document.getElementById('producto-info').style.display = 'none';
+        document.getElementById('btnEliminar').disabled = true;
+        
+        // Redirigir al panel de administración después de 2 segundos
+        setTimeout(() => {
+          window.location.href = "panel-admin.html";
+        }, 2000);
+      } catch (error) {
+        mostrarMensaje(`❌ Error: ${error.message}`, 'error');
+      }
     }
   </script>
 </body>

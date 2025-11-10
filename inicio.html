@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FerreterIA - Tu socio de confianza para soluciones de ferretería. Sistema de gestión de productos, tienda en línea y administración de inventario.">
+  <meta name="keywords" content="ferretería, gestión de inventario, tienda en línea, herramientas, materiales de construcción">
+  <meta name="author" content="FerreterIA">
+  <meta property="og:title" content="FerreterIA - Sistema de Gestión de Ferretería">
+  <meta property="og:description" content="Tu socio de confianza para soluciones de ferretería">
+  <meta property="og:type" content="website">
   <title>Inicio | FerreterIA</title>
   <link rel="stylesheet" href="../css/style.css">
   <link rel="shortcut icon" href="/img/FAVICON.ico" type="image/x-icon">
@@ -15,16 +21,15 @@
       <h1 class="logo">FerreterIA</h1>
       <nav class="menu">
         <ul class="enlaces">
-          <li><a href="./index.html">Inicio</a></li>
-          <li><a href="/html/usuario/explora.html">Explorar</a></li>
-         
-          <li><a href="/html/comunes/acerca-de-nosotros.html">Acerca de nosotros</a></li>
+          <li><a href="./inicio.html">Inicio</a></li>
+          <li><a href="html/usuario/carrito.html">Carrito <span class="contador-carrito" style="display:none;">0</span></a></li>
+          <li><a href="html/comunes/acerca-de-nosotros.html">Acerca de nosotros</a></li>
         </ul>
       </nav>
 
       <!-- 🔹 Botones dinámicos según sesión -->
       <div class="botones" id="botonesAuth">
-  <button class="btn-borde" onclick="location.href='html/Login.html'">Iniciar sesión</button>
+  <button class="btn-borde" onclick="location.href='html/iniciar-sesion.html'">Iniciar sesión</button>
   <button class="btn-principal" onclick="location.href='html/usuario/registro.html'">Registrarse</button>
 </div>
 
@@ -82,9 +87,9 @@
       <div>
         <h4>Enlaces rápidos</h4>
         <ul>
-          <li><a href="/Index.html">Inicio</a></li>
+          <li><a href="/inicio.html">Inicio</a></li>
           <li><a href="/html/comunes/acerca-de-nosotros.html">Acerca de</a></li>
-          <li><a href="/html/usuario/explora.html">Explorar</a></li>
+          <li><a href="/html/usuario/carrito.html">Carrito</a></li>
         </ul>
       </div>
       <div>
@@ -106,8 +111,47 @@
   <!-- 🔹 SCRIPT DE CONTROL DE SESIÓN -->
   <script src="js/utils.js"></script>
   <script src="js/productos.js"></script>
+  <script src="js/cart.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      // Actualizar contador de carrito
+      // Solo actualizar contador si hay sesión activa
+      const usuario = verificarAutenticacion();
+      if (usuario) {
+        gestorCarrito.actualizarContadorCarrito();
+      } else {
+        // Ocultar contador si no hay sesión
+        const contadores = document.querySelectorAll('.contador-carrito');
+        contadores.forEach(contador => {
+          contador.style.display = 'none';
+        });
+      }
+      
+      // Proteger enlaces del carrito - solo funcionan con sesión activa de USUARIO (NO administrador)
+      const enlacesCarrito = document.querySelectorAll('a[href*="carrito.html"]');
+      enlacesCarrito.forEach(enlace => {
+        enlace.addEventListener('click', (e) => {
+          const usuario = verificarAutenticacion();
+          if (!usuario) {
+            e.preventDefault();
+            mostrarMensaje('⚠️ Debes iniciar sesión para acceder al carrito', 'warning');
+            setTimeout(() => {
+              window.location.href = 'html/iniciar-sesion.html';
+            }, 1500);
+            return false;
+          }
+          // Los administradores NO pueden acceder al carrito
+          if (usuario.rol === 'admin') {
+            e.preventDefault();
+            mostrarMensaje('⚠️ Los administradores no pueden realizar compras. Solo pueden gestionar productos.', 'warning');
+            setTimeout(() => {
+              window.location.href = 'html/admin/panel-admin.html';
+            }, 2000);
+            return false;
+          }
+        });
+      });
+      
       const usuarioActivo = verificarAutenticacion();
       const botonesDiv = document.getElementById("botonesAuth");
       const enlacesNav = document.querySelector('.enlaces');
@@ -132,9 +176,33 @@
         if (usuarioActivo.rol === 'admin') {
           enlaceDashboard.innerHTML = '<a href="html/admin/panel-admin.html" style="color: #fbbf24;">👑 Panel Admin</a>';
         } else {
-          enlaceDashboard.innerHTML = '<a href="html/usuario/dashboard-usuario.html">📦 Mi Catálogo</a>';
+          enlaceDashboard.innerHTML = '<a href="html/usuario/tienda.html">🛒 Tienda</a>';
         }
         enlacesNav.appendChild(enlaceDashboard);
+
+        // ===== OCULTAR ENLACES AL CARRITO PARA ADMINISTRADORES =====
+        // Los administradores no pueden realizar compras, solo gestionar productos
+        if (usuarioActivo.rol === 'admin') {
+          // Ocultar todos los enlaces al carrito en la navegación
+          const enlacesCarritoNav = document.querySelectorAll('a[href*="carrito.html"], a[href*="Carrito"]');
+          enlacesCarritoNav.forEach(enlace => {
+            const liPadre = enlace.closest('li');
+            if (liPadre) {
+              liPadre.style.display = 'none';
+            } else {
+              enlace.style.display = 'none';
+            }
+          });
+          
+          // Ocultar botones y enlaces al carrito en el contenido
+          const botonesCarrito = document.querySelectorAll('button[onclick*="carrito"], a[href*="carrito"]');
+          botonesCarrito.forEach(boton => {
+            // Solo ocultar si no es un enlace de navegación ya oculto
+            if (!boton.closest('nav') || !boton.closest('ul.enlaces')) {
+              boton.style.display = 'none';
+            }
+          });
+        }
 
         // ===== CONTENIDO DIFERENCIADO SEGÚN ROL =====
         if (usuarioActivo.rol === 'admin') {
@@ -147,9 +215,9 @@
               <p style="margin-bottom: 15px;">Tienes acceso completo al sistema de gestión de productos.</p>
             </div>
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
-              <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+              <div style="background: #fef3c7; padding: 15px; border-radius: 8px; border-left: 4px solid #d97706;">
                 <strong style="color: #1e40af;">Total Productos:</strong>
-                <div style="font-size: 1.5em; color: #3b82f6; font-weight: bold;">${stats.total}</div>
+                <div style="font-size: 1.5em; color: #d97706; font-weight: bold;">${stats.total}</div>
               </div>
               <div style="background: #fef2f2; padding: 15px; border-radius: 8px; border-left: 4px solid #ef4444;">
                 <strong style="color: #991b1b;">Stock Bajo:</strong>
@@ -157,7 +225,7 @@
               </div>
             </div>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-              <button class="btn-claro" onclick="location.href='html/admin/panel-admin.html'" style="background: #3b82f6; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+              <button class="btn-claro" onclick="location.href='html/admin/panel-admin.html'" style="background: linear-gradient(135deg, #d97706 0%, #ea580c 100%); color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
                 🛠️ Ir al Panel de Administración
               </button>
               <button class="btn-claro" onclick="location.href='html/admin/registrar-producto.html'" style="background: #10b981; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
@@ -168,10 +236,10 @@
 
           tituloFunciones.textContent = 'Funciones de Administración';
           tarjetasFunciones.innerHTML = `
-            <div class="tarjeta" style="border-left: 4px solid #3b82f6;">
+            <div class="tarjeta" style="border-left: 4px solid #d97706;">
               <h3>🛠️ Gestión Completa de Productos</h3>
               <p>Registra, consulta, actualiza o elimina productos. Control total del inventario desde un solo lugar.</p>
-              <a href="html/admin/panel-admin.html" style="color: #3b82f6; font-weight: bold; margin-top: 10px; display: inline-block;">Ver Panel →</a>
+              <a href="html/admin/panel-admin.html" style="color: #d97706; font-weight: bold; margin-top: 10px; display: inline-block;">Ver Panel →</a>
             </div>
             <div class="tarjeta" style="border-left: 4px solid #10b981;">
               <h3>📊 Estadísticas en Tiempo Real</h3>
@@ -196,9 +264,9 @@
               <p style="margin-bottom: 15px;">Explora nuestro catálogo completo de productos de ferretería.</p>
             </div>
             <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
-              <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+              <div style="background: #fef3c7; padding: 15px; border-radius: 8px; border-left: 4px solid #d97706;">
                 <strong style="color: #1e40af;">Productos Disponibles:</strong>
-                <div style="font-size: 1.5em; color: #3b82f6; font-weight: bold;">${productosDisponibles}</div>
+                <div style="font-size: 1.5em; color: #d97706; font-weight: bold;">${productosDisponibles}</div>
               </div>
               <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; border-left: 4px solid #10b981;">
                 <strong style="color: #166534;">Categorías:</strong>
@@ -206,31 +274,31 @@
               </div>
             </div>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-              <button class="btn-claro" onclick="location.href='html/usuario/dashboard-usuario.html'" style="background: #3b82f6; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
-                📦 Ver Catálogo Completo
+              <button class="btn-claro" onclick="location.href='html/usuario/tienda.html'" style="background: linear-gradient(135deg, #d97706 0%, #ea580c 100%); color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                🛒 Ir a la Tienda
               </button>
-              <button class="btn-claro" onclick="location.href='html/usuario/explora.html'" style="background: #10b981; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
-                🔍 Explorar Productos
+              <button class="btn-claro" onclick="location.href='html/usuario/carrito.html'" style="background: #10b981; color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">
+                🛒 Ver Carrito
               </button>
             </div>
           `;
 
           tituloFunciones.textContent = 'Explora Nuestros Productos';
           tarjetasFunciones.innerHTML = `
-            <div class="tarjeta" style="border-left: 4px solid #3b82f6;">
-              <h3>📦 Catálogo Completo</h3>
-              <p>Explora todos nuestros productos disponibles con información detallada, precios y disponibilidad en stock.</p>
-              <a href="html/usuario/dashboard-usuario.html" style="color: #3b82f6; font-weight: bold; margin-top: 10px; display: inline-block;">Ver Catálogo →</a>
+            <div class="tarjeta" style="border-left: 4px solid #d97706;">
+              <h3>🛒 Tienda en Línea</h3>
+              <p>Explora todos nuestros productos disponibles con imágenes, precios y disponibilidad en stock. Agrega productos a tu carrito.</p>
+              <a href="html/usuario/tienda.html" style="color: #d97706; font-weight: bold; margin-top: 10px; display: inline-block;">Ir a la Tienda →</a>
             </div>
             <div class="tarjeta" style="border-left: 4px solid #10b981;">
-              <h3>🔍 Búsqueda Avanzada</h3>
-              <p>Encuentra productos rápidamente usando filtros por categoría, nombre o estado de disponibilidad.</p>
-              <a href="html/usuario/dashboard-usuario.html" style="color: #10b981; font-weight: bold; margin-top: 10px; display: inline-block;">Buscar Productos →</a>
+              <h3>🛒 Carrito de Compras</h3>
+              <p>Gestiona tus productos seleccionados, actualiza cantidades y procede al checkout cuando estés listo.</p>
+              <a href="html/usuario/carrito.html" style="color: #10b981; font-weight: bold; margin-top: 10px; display: inline-block;">Ver Carrito →</a>
             </div>
             <div class="tarjeta" style="border-left: 4px solid #f59e0b;">
-              <h3>ℹ️ Información Detallada</h3>
-              <p>Accede a información completa de cada producto: precios, stock, categorías y fechas de registro.</p>
-              <a href="html/usuario/dashboard-usuario.html" style="color: #f59e0b; font-weight: bold; margin-top: 10px; display: inline-block;">Ver Detalles →</a>
+              <h3>✅ Compra Segura</h3>
+              <p>Finaliza tu compra de forma segura con nuestro proceso de checkout simplificado y métodos de pago flexibles.</p>
+              <a href="html/usuario/tienda.html" style="color: #f59e0b; font-weight: bold; margin-top: 10px; display: inline-block;">Comprar Ahora →</a>
             </div>
           `;
         }

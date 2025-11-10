@@ -85,10 +85,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       // Si no se encuentra en localStorage, intentar con admins.json
+      let usuarioDesdeJSON = false;
       if (!usuarioEncontrado && typeof verificarLoginConAdmins !== 'undefined') {
         const adminDesdeJSON = await verificarLoginConAdmins(email, password);
         if (adminDesdeJSON) {
-          // Crear usuario desde el JSON
+          // Usuario encontrado en JSON y contraseña verificada
+          usuarioDesdeJSON = true;
+          // Crear usuario desde el JSON con contraseña hasheada
           usuarioEncontrado = {
             nombres: adminDesdeJSON.nombres,
             apellidos: adminDesdeJSON.apellidos,
@@ -114,7 +117,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const passwordHash = hashPassword(password);
       let passwordValida = false;
       
-      if (usuarioEncontrado.password === passwordHash) {
+      // Si el usuario viene del JSON, ya se verificó la contraseña en verificarLoginConAdmins
+      if (usuarioDesdeJSON) {
+        passwordValida = true; // Ya se verificó en verificarLoginConAdmins
+      } else if (usuarioEncontrado.password === passwordHash) {
         // Contraseña correcta (hash)
         passwordValida = true;
       } else if (usuarioEncontrado.password === password) {
@@ -160,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (usuario.rol === "admin") {
           window.location.href = "/html/admin/panel-admin.html";
         } else {
-          window.location.href = "/html/usuario/dashboard-usuario.html";
+          window.location.href = "/html/usuario/tienda.html";
         }
       }, 1200);
     } catch (error) {

@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
         mostrarMensaje("✅ Cuenta creada exitosamente. Redirigiendo al inicio de sesión...", "success");
         
         setTimeout(() => {
-          window.location.href = "/html/Login.html";
+          window.location.href = "/html/iniciar-sesion.html";
         }, 1500);
       } catch (error) {
         console.error('Error al guardar usuario:', error);

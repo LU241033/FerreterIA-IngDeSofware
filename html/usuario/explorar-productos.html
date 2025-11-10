@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explora Servicios | FerreterIA</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/explora.css">
+ 
+  <link rel="shortcut icon" href="../../img/FAVICON.ico" type="image/x-icon">
+</head>
+<body>
+
+  <!-- ===== BARRA DE NAVEGACIÓN ===== -->
+   <header class="barra-navegacion">
+    <div class="contenedor">
+      <h1 class="logo">FerreterIA</h1>
+      <nav class="menu">
+        <ul class="enlaces">
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="tienda.html">Tienda</a></li>
+          <li><a href="carrito.html">Carrito <span class="contador-carrito" style="display:none;">0</span></a></li>
+          <li><a href="../comunes/acerca-de-nosotros.html">Acerca de nosotros</a></li>
+        </ul>
+      </nav>
+
+      <!-- Botones dinámicos según sesión -->
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='../iniciar-sesion.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='./registro.html'">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SECCIÓN PRINCIPAL ===== -->
+  <section class="seccion-principal">
+    <div class="contenido-principal">
+
+      <div class="encabezado-explora">
+        <h2>Explora Nuestro Catálogo 🛠️</h2>
+        <p>Descubre todos nuestros productos de ferretería disponibles. Busca, filtra y encuentra lo que necesitas.</p>
+      </div>
+
+      <!-- ====== BARRA DE BÚSQUEDA / FILTROS ====== -->
+      <div class="busqueda-tienda">
+        <div class="grupo-busqueda">
+          <span class="icono-busqueda">🔎</span>
+          <input id="busqueda-texto" type="text" placeholder="Buscar por nombre o ID..." aria-label="Buscar producto">
+        </div>
+        <select id="filtro-categoria" aria-label="Filtrar por categoría">
+          <option value="">Todas las categorías</option>
+        </select>
+      </div>
+
+      <!-- ====== GRID DE PRODUCTOS ====== -->
+      <div id="grid-productos" class="grid-productos"></div>
+
+      <!-- ====== ESTADO: SIN RESULTADOS ====== -->
+      <div id="sin-resultados" class="sin-resultados" style="display:none;">
+        <div class="icono">🔍</div>
+        <h3>No se encontraron productos</h3>
+        <p>Intenta con otro término de búsqueda o selecciona otra categoría.</p>
+      </div>
+
+      <!-- ====== SECCIÓN DE SERVICIOS (se mantiene) ====== -->
+      <div class="panel-servicios">
+
+        <!-- ====== GRID DE SERVICIOS ====== -->
+        <div class="grid-servicios">
+
+          <!-- 🔹 Gestión Completa -->
+          <div class="tarjeta-servicio">
+            <div class="icono-servicio">🛠️</div>
+            <h3>Gestión Completa de Productos</h3>
+            <p>Control centralizado de todo tu inventario con visualización en tiempo real y análisis avanzados.</p>
+            <ul class="beneficios-servicio">
+              <li>Vista panorámica de todos los productos</li>
+              <li>Estadísticas de inventario en tiempo real</li>
+              <li>Alertas automáticas de stock bajo</li>
+              <li>Gestión múltiple de categorías</li>
+            </ul>
+            <a href="registro.html" class="boton-servicio boton-principal">Gestionar Productos</a>
+          </div>
+
+          <!-- 🔹 Registro -->
+          <div class="tarjeta-servicio">
+            <div class="icono-servicio">📝</div>
+            <h3>Registro de Productos</h3>
+            <p>Agrega nuevos productos a tu inventario de forma rápida, sencilla y organizada.</p>
+            <ul class="beneficios-servicio">
+              <li>Formularios intuitivos y rápidos</li>
+              <li>Validación automática de datos</li>
+              <li>Categorización inteligente</li>
+              <li>Confirmación instantánea</li>
+            </ul>
+            <a href="registro.html" class="boton-servicio boton-principal">Registrar Producto</a>
+          </div>
+
+          <!--  Consulta -->
+          <div class="tarjeta-servicio">
+            <div class="icono-servicio">🔍</div>
+            <h3>Consulta de Productos</h3>
+            <p>Encuentra cualquier producto en segundos con nuestro sistema de búsqueda avanzado.</p>
+            <ul class="beneficios-servicio">
+              <li>Búsqueda por múltiples criterios</li>
+              <li>Resultados instantáneos</li>
+              <li>Información detallada completa</li>
+              <li>Historial de consultas</li>
+            </ul>
+            <a href="registro.html" class="boton-servicio boton-principal">Consultar Producto</a>
+          </div>
+
+          <!--  Actualización -->
+          <div class="tarjeta-servicio">
+            <div class="icono-servicio">⚡</div>
+            <h3>Actualización de Productos</h3>
+            <p>Modifica información de productos existentes manteniendo la integridad de tus datos.</p>
+            <ul class="beneficios-servicio">
+              <li>Actualizaciones en tiempo real</li>
+              <li>Campos editables selectivos</li>
+              <li>Historial de cambios</li>
+              <li>Confirmación de modificaciones</li>
+            </ul>
+            <a href="registro.html" class="boton-servicio boton-principal">Actualizar Producto</a>
+          </div>
+
+          <!-- 🔹 Eliminación -->
+          <div class="tarjeta-servicio">
+            <div class="icono-servicio">🗑️</div>
+            <h3>Eliminación Segura</h3>
+            <p>Remueve productos de tu inventario con medidas de seguridad y confirmaciones.</p>
+            <ul class="beneficios-servicio">
+              <li>Confirmaciones múltiples</li>
+              <li>Prevención de eliminaciones accidentales</li>
+              <li>Registro de productos eliminados</li>
+              <li>Protección de datos críticos</li>
+            </ul>
+            <a href="registro.html" class="boton-servicio boton-principal">Eliminar Producto</a>
+          </div>
+
+          <!-- 🔹 Reportes -->
+          <div class="tarjeta-servicio">
+            <div class="icono-servicio">📊</div>
+            <h3>Reportes y Análisis</h3>
+            <p>Genera reportes detallados y análisis de tu inventario para tomar mejores decisiones.</p>
+            <ul class="beneficios-servicio">
+              <li>Reportes personalizables</li>
+              <li>Gráficos y estadísticas</li>
+              <li>Tendencias de inventario</li>
+              <li>Exportación de datos</li>
+            </ul>
+            <a href="#" class="boton-servicio boton-principal">Ver Reportes</a>
+          </div>
+
+        </div>
+
+        <!-- ====== VENTAJAS ====== -->
+        <div class="seccion-ventajas">
+          <h3>¿Por Qué Elegir FerreterIA?</h3>
+
+          <div class="grid-ventajas">
+            <div class="ventaja">
+              <span class="icono">🚀</span>
+              <h4>Eficiencia Comprobada</h4>
+              <p>Reduce el tiempo de gestión en un 70% con nuestras herramientas </p>
+            </div>
+            <div class="ventaja">
+              <span class="icono">🛡️</span>
+              <h4>Seguridad Total</h4>
+              <p>Tus datos protegidos con encriptación de última generación y backups automáticos.</p>
+            </div>
+            <div class="ventaja">
+              <span class="icono">💡</span>
+              <h4>Análisis Inteligente</h4>
+              <p>Sugerencias y predicciones de stock basadas en análisis de datos históricos.</p>
+            </div>
+            <div class="ventaja">
+              <span class="icono">📱</span>
+              <h4>Acceso Multiplataforma</h4>
+              <p>Gestiona tu inventario desde cualquier dispositivo, en cualquier momento.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie-pagina">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="../comunes/acerca-de-nosotros.html">Acerca de</a></li>
+          <li><a href="tienda.html">Tienda</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li>Gestión de productos</li>
+          <li>Reportes</li>
+          <li>Control de inventario</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+  <!--  SCRIPTS -->
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/productos.js"></script>
+  <script src="../../js/cart.js"></script>
+  <script src="../../js/reviews.js"></script>
+  <script src="../../js/ui-improvements.js"></script>
+  <script src="../../js/usuario.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Verificar si el usuario es administrador
+      const usuario = verificarAutenticacion();
+      
+      // Si es administrador, ocultar enlaces al carrito
+      if (usuario && usuario.rol === 'admin') {
+        // Ocultar todos los enlaces al carrito en la navegación
+        const enlacesCarritoNav = document.querySelectorAll('a[href*="carrito.html"], a[href*="Carrito"]');
+        enlacesCarritoNav.forEach(enlace => {
+          const liPadre = enlace.closest('li');
+          if (liPadre) {
+            liPadre.style.display = 'none';
+          } else {
+            enlace.style.display = 'none';
+          }
+        });
+      } else {
+        // Solo inicializar vista de usuario si NO es administrador
+        inicializarVistaUsuario();
+      }
+      
+      actualizarBotonesAuth();
+
+      const inputBusqueda = document.getElementById('busqueda-texto');
+      const selectCategoria = document.getElementById('filtro-categoria');
+      const grid = document.getElementById('grid-productos');
+      const sinResultados = document.getElementById('sin-resultados');
+
+      function obtenerCategorias() {
+        const productos = gestorProductos.obtenerTodos();
+        return [...new Set(productos.map(p => p.categoria))].filter(Boolean).sort();
+      }
+
+      function poblarCategorias() {
+        const cats = obtenerCategorias();
+        cats.forEach(cat => {
+          const opt = document.createElement('option');
+          opt.value = cat;
+          opt.textContent = cat;
+          selectCategoria.appendChild(opt);
+        });
+      }
+
+      function renderProductos(lista) {
+        grid.innerHTML = '';
+        if (!lista || lista.length === 0) {
+          grid.style.display = 'none';
+          sinResultados.style.display = 'block';
+          return;
+        }
+        sinResultados.style.display = 'none';
+        grid.style.display = 'grid';
+
+        // Verificar si el usuario es administrador
+        const usuario = verificarAutenticacion();
+        const esAdministrador = usuario && usuario.rol === 'admin';
+
+        lista.forEach(producto => {
+          const estado = gestorProductos.obtenerEstadoStock(producto.stock);
+          const precio = gestorProductos.formatearPrecio(producto.precio);
+
+          // Generar HTML del botón según el estado de sesión y rol
+          let botonHTML = '';
+          if (esAdministrador) {
+            botonHTML = `<button class="btn-agregar" type="button" disabled style="opacity: 0.6; cursor: not-allowed;">👨‍💼 Solo Gestión</button>`;
+          } else if (!usuario) {
+            botonHTML = `<button class="btn-agregar" type="button" onclick="mostrarMensaje('⚠️ Debes iniciar sesión para agregar productos al carrito', 'warning'); setTimeout(() => { window.location.href = '../iniciar-sesion.html'; }, 1500);">🔒 Inicia Sesión</button>`;
+          } else if (producto.stock === 0) {
+            botonHTML = `<button class="btn-agregar" type="button" disabled>Sin Stock</button>`;
+          } else {
+            botonHTML = `<button class="btn-agregar" type="button" onclick="agregarProductoAlCarrito('${producto.id}');">🛒 Añadir</button>`;
+          }
+
+          const card = document.createElement('div');
+          card.className = 'card-producto';
+          const imagen = producto.imagen || '/img/desconocido.jpg';
+          card.innerHTML = `
+            <div class="card-contenido">
+              <a href="producto.html?id=${producto.id}" style="text-decoration: none; color: inherit;">
+                <img src="${imagen}" alt="${sanitizarTexto(producto.nombre)}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;" loading="lazy" onerror="this.src='/img/desconocido.jpg'">
+                <div class="card-encabezado">
+                  <span class="badge-estado ${estado.clase}">${estado.texto}</span>
+                  <span class="id-producto">#${producto.id}</span>
+                </div>
+                <h4 class="nombre">${sanitizarTexto(producto.nombre)}</h4>
+                <p class="categoria">${sanitizarTexto(producto.categoria)}</p>
+              </a>
+              <div class="card-pie">
+                <span class="precio">${precio}</span>
+                ${botonHTML}
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      function aplicarFiltros() {
+        const texto = (inputBusqueda.value || '').toLowerCase().trim();
+        const categoria = (selectCategoria.value || '').toLowerCase().trim();
+        const productos = gestorProductos.obtenerTodos();
+
+        const filtrados = productos.filter(p => {
+          const coincideTexto = !texto || p.id.toLowerCase().includes(texto) || p.nombre.toLowerCase().includes(texto);
+          const coincideCategoria = !categoria || (p.categoria && p.categoria.toLowerCase() === categoria);
+          return coincideTexto && coincideCategoria;
+        });
+
+        renderProductos(filtrados);
+      }
+
+      // Inicialización
+      poblarCategorias();
+      renderProductos(gestorProductos.obtenerTodos());
+
+      // Eventos
+      inputBusqueda.addEventListener('input', aplicarFiltros);
+      inputBusqueda.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          aplicarFiltros();
+        }
+      });
+      selectCategoria.addEventListener('change', aplicarFiltros);
+    });
+
+    // La función agregarProductoAlCarrito ya está definida en usuario.js
+    // y tiene todas las protecciones de sesión y verificación de administrador
+  </script>
+
+</body>
+</html>

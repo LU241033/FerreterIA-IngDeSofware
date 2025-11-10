@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explora nuestro catálogo completo de productos de ferretería. Encuentra herramientas, materiales y suministros con precios competitivos y entrega rápida.">
+  <meta name="keywords" content="ferretería, herramientas, materiales de construcción, tienda en línea, productos de ferretería">
+  <meta name="author" content="FerreterIA">
+  <meta property="og:title" content="Tienda FerreterIA - Catálogo de Productos">
+  <meta property="og:description" content="Explora nuestro catálogo completo de productos de ferretería">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="">
+  <title>Tienda | FerreterIA</title>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link rel="stylesheet" href="../../css/explora.css">
+  <link rel="shortcut icon" href="../../img/FAVICON.ico" type="image/x-icon">
+  <style>
+    .tienda-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .tienda-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .tienda-header h1 {
+      font-size: 2.5em;
+      color: #000000; 
+      margin-bottom: 10px;
+      font-weight: 800; 
+      letter-spacing: -0.02em;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .tienda-header p {
+      font-size: 1.15em; 
+      color: #111827; 
+      font-weight: 500;
+      line-height: 1.8; /* Mayor espaciado */
+    }
+
+    .filtros-tienda {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filtros-tienda input,
+    .filtros-tienda select {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border-color 0.3s;
+    }
+
+    .filtros-tienda input:focus,
+    .filtros-tienda select:focus {
+      outline: none;
+      border-color: #d97706;
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+    }
+
+    .grid-productos-tienda {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .card-producto-tienda {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-producto-tienda:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+
+    .card-producto-imagen {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #f7fafc;
+    }
+
+    .card-producto-contenido {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-producto-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+
+    .badge-estado {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75em;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .badge-estado.stock-alto {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .badge-estado.stock-medio {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge-estado.stock-bajo {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .card-producto-nombre {
+      font-size: 1.25em; 
+      font-weight: 700; 
+      color: #000000; 
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .card-producto-categoria {
+      color: #111827; 
+      font-size: 0.95em; 
+      margin-bottom: 12px;
+      font-weight: 600; 
+    }
+
+    .card-producto-descripcion {
+      color: #111827; 
+      font-size: 0.95em;
+      margin-bottom: 15px;
+      font-weight: 500; 
+      line-height: 1.6; 
+      flex: 1;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-producto-precio {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #d97706;
+      margin-bottom: 15px;
+    }
+
+    .card-producto-acciones {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-agregar-carrito {
+      flex: 1;
+      background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-agregar-carrito:hover {
+      background: #2563eb;
+    }
+
+    .btn-agregar-carrito:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .btn-ver-detalle {
+      background: white;
+      color: #d97706;
+      border: 2px solid #d97706;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .btn-ver-detalle:hover {
+      background: linear-gradient(135deg, #d97706 0%, #ea580c 100%);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(217, 119, 6, 0.3);
+    }
+
+    .sin-productos {
+      text-align: center;
+      padding: 60px 20px;
+      color: #374151;
+    }
+
+    .sin-productos h3 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .contador-carrito {
+      background: #ef4444;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75em;
+      font-weight: bold;
+      margin-left: 5px;
+    }
+
+    .card-producto-calificacion {
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .card-producto-calificacion span {
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+  <header class="barra-navegacion" role="banner">
+    <div class="contenedor">
+      <h1 class="logo">FerreterIA</h1>
+      <nav class="menu">
+        <ul class="enlaces">
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="carrito.html">Carrito <span class="contador-carrito" style="display:none;">0</span></a></li>
+          <li><a href="../comunes/acerca-de-nosotros.html">Acerca de</a></li>
+        </ul>
+      </nav>
+
+      <div class="botones" id="botonesAuth">
+        <button class="btn-borde" onclick="location.href='../iniciar-sesion.html'">Iniciar sesión</button>
+        <button class="btn-principal" onclick="location.href='registro.html'">Registrarse</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== SECCIÓN PRINCIPAL ===== -->
+  <main id="main-content" role="main">
+  <section class="seccion-principal" style="margin-top: 80px;">
+    <div class="tienda-container">
+      <div class="tienda-header">
+        <h1>🛠️ Tienda FerreterIA</h1>
+        <p>Explora nuestro catálogo completo de productos de ferretería</p>
+      </div>
+
+      <!-- Filtros -->
+      <div class="filtros-tienda" role="search" aria-label="Filtros de búsqueda de productos">
+        <label for="busqueda-texto" class="sr-only">Buscar productos</label>
+        <input 
+          type="text" 
+          id="busqueda-texto" 
+          placeholder="🔍 Buscar por nombre o categoría..." 
+          aria-label="Buscar productos por nombre o categoría"
+          autocomplete="off" />
+        <label for="filtro-categoria" class="sr-only">Filtrar por categoría</label>
+        <select id="filtro-categoria" aria-label="Filtrar productos por categoría">
+          <option value="">Todas las categorías</option>
+        </select>
+        <label for="filtro-stock" class="sr-only">Filtrar por disponibilidad</label>
+        <select id="filtro-stock" aria-label="Filtrar productos por disponibilidad de stock">
+          <option value="">Todos los productos</option>
+          <option value="disponible">Solo disponibles</option>
+          <option value="bajo">Stock bajo</option>
+        </select>
+      </div>
+
+      <!-- Grid de productos -->
+      <div id="grid-productos" class="grid-productos-tienda" role="region" aria-label="Lista de productos"></div>
+
+      <!-- Contenedor de paginación -->
+      <div id="paginacion-contenedor" role="navigation" aria-label="Paginación de productos"></div>
+
+      <!-- Sin resultados -->
+      <div id="sin-resultados" class="sin-productos" style="display:none;" role="status" aria-live="polite">
+        <h3>🔍 No se encontraron productos</h3>
+        <p>Intenta ajustar tus filtros de búsqueda</p>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <footer class="pie-pagina" role="contentinfo">
+    <div class="contenedor-pie">
+      <div>
+        <h4>FerreterIA</h4>
+        <p>Tu socio de confianza para soluciones seguras y eficientes.</p>
+      </div>
+      <div>
+        <h4>Enlaces rápidos</h4>
+        <ul>
+          <li><a href="../../inicio.html">Inicio</a></li>
+          <li><a href="tienda.html">Tienda</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li>Catálogo de productos</li>
+          <li>Compras en línea</li>
+          <li>Gestión de carrito</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contáctanos</h4>
+        <p>Email: info@ferreteria.com<br>Tel: 312-XXX-XXXX</p>
+      </div>
+    </div>
+    <p class="copy">&copy; 2025 FerreterIA. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/productos.js"></script>
+  <script src="../../js/cart.js"></script>
+  <script src="../../js/reviews.js"></script>
+  <script src="../../js/ui-improvements.js"></script>
+  <!-- Cargar lógica específica de usuario -->
+          <script src="../../js/usuario.js"></script>
+          <script>
+            // Inicializar la vista de usuario cuando se carga la página
+            document.addEventListener("DOMContentLoaded", () => {
+              // Verificar si el usuario es administrador
+              const usuario = verificarAutenticacion();
+              
+              // Si es administrador, ocultar enlaces al carrito
+              if (usuario && usuario.rol === 'admin') {
+                // Ocultar todos los enlaces al carrito en la navegación
+                const enlacesCarritoNav = document.querySelectorAll('a[href*="carrito.html"], a[href*="Carrito"]');
+                enlacesCarritoNav.forEach(enlace => {
+                  const liPadre = enlace.closest('li');
+                  if (liPadre) {
+                    liPadre.style.display = 'none';
+                  } else {
+                    enlace.style.display = 'none';
+                  }
+                });
+              } else {
+                // Solo inicializar vista de usuario si NO es administrador
+                inicializarVistaUsuario();
+                
+                // Proteger enlaces del carrito - solo funcionan con sesión activa de USUARIO (NO administrador)
+                const enlacesCarrito = document.querySelectorAll('a[href*="carrito.html"]');
+                enlacesCarrito.forEach(enlace => {
+                  enlace.addEventListener('click', (e) => {
+                    const usuario = verificarAutenticacion();
+                    if (!usuario) {
+                      e.preventDefault();
+                      mostrarMensaje('⚠️ Debes iniciar sesión para acceder al carrito', 'warning');
+                      setTimeout(() => {
+                        window.location.href = '../iniciar-sesion.html';
+                      }, 1500);
+                      return false;
+                    }
+                    // Los administradores NO pueden acceder al carrito
+                    if (usuario.rol === 'admin') {
+                      e.preventDefault();
+                      mostrarMensaje('⚠️ Los administradores no pueden realizar compras. Solo pueden gestionar productos.', 'warning');
+                      setTimeout(() => {
+                        window.location.href = '../admin/panel-admin.html';
+                      }, 2000);
+                      return false;
+                    }
+                  });
+                });
+              }
+              
+              // Cargar productos en la tienda
+              cargarProductosTienda();
+              
+              // Inicializar filtros de búsqueda
+              inicializarFiltrosTienda();
+            });
+          </script>
+</body>
+</html>
+
